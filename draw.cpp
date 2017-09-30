@@ -2,6 +2,8 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
+using namespace std;
+
 void drawWireCube(double x,double y,double z,double size)
 {
 	size/=2;

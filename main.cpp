@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <stdio.h>
+#include <cmath>
 #include "physics.h"
 #include "draw.h"
 #include "player.h"
@@ -71,53 +72,6 @@ void keyPress_callback(unsigned char key, int x, int y)
 {
   if(key==27) exit(0);
   keyState[(int)key]=1;
-
-  if(keyState['w'])
-  {
-    cam.dir={0,0,-1,0}; // olha pra frente
-    cam.spd=1; // anda pra frente
-    /*gluLookAt(cam.spd*cam.dir.x, cam.spd*cam.dir.y, cam.spd*cam.dir.z,
-        0, 0, -2,
-        0, 1, 0);*/
-  }
-  if(keyState['s'])
-  {
-    cam.dir={0,0,-1,0}; // olha pra frente
-    cam.spd=1; // anda pra trás
-    /*gluLookAt(0, 0, 1,
-        0, 0, -2,
-        0, 1, 0);*/
-  }
-  if(keyState['a'])
-  {
-    cam.dir={-1,0,0,0};
-    cam.spd=0;
-    /*gluLookAt(0, 0, 0,
-        -2, 0, 0,
-        0, 1, 0);*/
-  }
-  if(keyState['d'])
-  {
-    cam.dir={1,0,0,0};
-    cam.spd=0;
-    /*gluLookAt(0, 0, 0,
-        2, 0, 0,
-        0, 1, 0);*/
-  }
-  if(keyState['+'])
-  {
-    cam.dir={0,0,-1,0};
-    gluLookAt(0, 0, -1,
-        0, 0, -2,
-        0, 2, 0);
-  }
-
-  gluLookAt(0,0,0,
-            cam.dir.x,cam.dir.y,cam.dir.z,
-            0,1,0);
-
-  //if(keyState['w'] || keyState['s'] || keyState['a'] || keyState['d'])
-  
 }
 
 void keyRelease_callback(unsigned char key, int x, int y)

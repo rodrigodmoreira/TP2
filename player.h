@@ -18,7 +18,7 @@ class Camera
 
 	Camera()
 	{
-		this->spd=1;
+		this->spd=.1;
 		this->eye={0,0,0,1}; // Posição no mundo
 		this->dir={0,0,-1,0}; // Começa olhando pra frente
 		this->up={0,1,0,0};

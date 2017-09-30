@@ -1,6 +1,8 @@
 #include <math.h>
 #include "gaav.h"
 
+using namespace std;
+
 /// multiplica um Vetor por um escalar
 /// este é um exemplo entregue pronto pra você ;)
 Vetor multiplicaPorEscalar(Vetor v, double alpha)
