@@ -1,4 +1,4 @@
-#include <math.h>
+#include <cmath>
 #include "gaav.h"
 
 using namespace std;
@@ -131,5 +131,12 @@ Ponto combinacaoAfim2Pontos(Ponto p, Ponto q, double alpha)
     //TODO: implementar
     Vetor v = diferencaEntrePontos(p,q);
     Ponto resultado = somaPontoComVetor(q,multiplicaPorEscalar(v,(1-alpha)));
+    return resultado;
+}
+
+Vetor converterVetorRotacionadoXZ(Vetor v, double theta)
+{
+    theta *= M_PI/180;
+    Vetor resultado = {(v.x*cos(theta) - v.z*sin(theta)), v.y, (v.x*sin(theta) + v.z*cos(theta)),0};
     return resultado;
 }

@@ -68,6 +68,7 @@ double produtoEscalar(Vetor v, Vetor u);
 Vetor produtoVetorial(Vetor v, Vetor u);
 double anguloEntreVetores(Vetor v, Vetor u);
 Ponto combinacaoAfim2Pontos(Ponto p, Ponto q, double alpha);
+Vetor converterVetorRotacionadoXZ(Vetor v, double theta);
 // reservate names
 
 #endif // GAAV_H
