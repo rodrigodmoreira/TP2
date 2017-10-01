@@ -13,7 +13,7 @@ void drawWireCube(double x,double y,double z,double size)
         //glutWireCube (size);
 	    glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 
-        glBegin(GL_TRIANGLE_STRIP);
+        glBegin(GL_TRIANGLE_FAN);
         	glVertex3d(-size,0,size);
         	glVertex3d(size,0,size);
         	glVertex3d(size,0,-size);

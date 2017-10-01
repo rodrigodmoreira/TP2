@@ -30,7 +30,7 @@ void draw_callback()
   glColor4f(0,0,1,1);
   drawPlane(0,-20,0,100);
 
-  glColor4f(1,0,0,1);
+  glColor4f(1,1,0,1);//(1,0,0,1);
   drawWireCube(0,-20,-50,10);
 
   glColor4f(1,0.5,0.5,1);
