@@ -11,9 +11,48 @@ void drawWireCube(double x,double y,double z,double size)
 	
 	    glTranslatef (x, y+size, z);
         //glutWireCube (size);
-	    glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+	    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 
         glBegin(GL_TRIANGLE_FAN);
+
+                glVertex3d(-size/2,-size/2,-size/2);
+                glVertex3d(-size/2,size/2,-size/2);
+                glVertex3d(size/2,size/2,-size/2);
+                glVertex3d(size/2,-size/2,-size/2);
+                glVertex3d(-size/2,-size/2,-size/2);
+
+                glVertex3d(-size/2,-size/2,size/2);
+                glVertex3d(-size/2,size/2,size/2);
+                glVertex3d(size/2,size/2,size/2);
+                glVertex3d(size/2,-size/2,size/2);
+                glVertex3d(-size/2,-size/2,size/2);
+
+                glVertex3d(-size/2,-size/2,-size/2);
+                glVertex3d(-size/2,-size/2,+size/2);
+                glVertex3d(-size/2,size/2,size/2);
+                glVertex3d(-size/2,size/2,-size/2);
+                glVertex3d(-size/2,-size/2,-size/2);
+
+                glVertex3d(size/2,-size/2,-size/2);
+                glVertex3d(size/2,-size/2,+size/2);
+                glVertex3d(size/2,size/2,size/2);
+                glVertex3d(size/2,size/2,-size/2);
+                glVertex3d(size/2,-size/2,-size/2);
+
+                glVertex3d(-size/2,-size/2,-size/2);
+                glVertex3d(-size/2,-size/2,size/2);
+                glVertex3d(size/2,-size/2,size/2);
+                glVertex3d(size/2,-size/2,-size/2);
+                glVertex3d(-size/2,-size/2,-size/2);
+
+                glVertex3d(-size/2,size/2,-size/2);
+                glVertex3d(-size/2,size/2,size/2);
+                glVertex3d(size/2,size/2,size/2);
+                glVertex3d(size/2,size/2,-size/2);
+                glVertex3d(-size/2,size/2,-size/2);
+
+
+                /*
         	glVertex3d(-size,0,size);
         	glVertex3d(size,0,size);
         	glVertex3d(size,0,-size);
@@ -22,6 +61,7 @@ void drawWireCube(double x,double y,double z,double size)
         	glVertex3d(size,size*2,-size);
         	glVertex3d(size,size*2,size);
         	glVertex3d(-size,size*2,size);
+                */
         glEnd();
 
 	    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
