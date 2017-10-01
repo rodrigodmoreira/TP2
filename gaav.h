@@ -31,6 +31,7 @@ class Vetor
 				printf("GAAV error(vetor)\n");	
 		}
 };
+
 class Ponto
 {
 	public:

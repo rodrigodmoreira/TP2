@@ -15,42 +15,48 @@ void drawWireCube(double x,double y,double z,double size)
 
         glBegin(GL_TRIANGLE_FAN);
 
+                glColor3f(  0,  0, 1.0 );
                 glVertex3d(-size/2,-size/2,-size/2);
                 glVertex3d(-size/2,size/2,-size/2);
                 glVertex3d(size/2,size/2,-size/2);
                 glVertex3d(size/2,-size/2,-size/2);
-                glVertex3d(-size/2,-size/2,-size/2);
+                //glVertex3d(-size/2,-size/2,-size/2);
 
+                glColor3f(   0,  0, 1.0 );
                 glVertex3d(-size/2,-size/2,size/2);
                 glVertex3d(-size/2,size/2,size/2);
                 glVertex3d(size/2,size/2,size/2);
                 glVertex3d(size/2,-size/2,size/2);
-                glVertex3d(-size/2,-size/2,size/2);
+                //glVertex3d(-size/2,-size/2,size/2);
 
+                glColor3f(   0,  1.0, 0 );
                 glVertex3d(-size/2,-size/2,-size/2);
                 glVertex3d(-size/2,-size/2,+size/2);
                 glVertex3d(-size/2,size/2,size/2);
                 glVertex3d(-size/2,size/2,-size/2);
-                glVertex3d(-size/2,-size/2,-size/2);
+                //glVertex3d(-size/2,-size/2,-size/2);
 
+                glColor3f(   0,  1.0, 0 );
                 glVertex3d(size/2,-size/2,-size/2);
                 glVertex3d(size/2,-size/2,+size/2);
                 glVertex3d(size/2,size/2,size/2);
                 glVertex3d(size/2,size/2,-size/2);
-                glVertex3d(size/2,-size/2,-size/2);
+                //glVertex3d(size/2,-size/2,-size/2);
 
+                glColor3f(   1.0,  0, 0 );
                 glVertex3d(-size/2,-size/2,-size/2);
                 glVertex3d(-size/2,-size/2,size/2);
                 glVertex3d(size/2,-size/2,size/2);
                 glVertex3d(size/2,-size/2,-size/2);
-                glVertex3d(-size/2,-size/2,-size/2);
+                //glVertex3d(-size/2,-size/2,-size/2);
 
+                glColor3f(   1.0,  0, 0 );
                 glVertex3d(-size/2,size/2,-size/2);
                 glVertex3d(-size/2,size/2,size/2);
                 glVertex3d(size/2,size/2,size/2);
                 glVertex3d(size/2,size/2,-size/2);
-                glVertex3d(-size/2,size/2,-size/2);
-
+                //glVertex3d(-size/2,size/2,-size/2);
+                
 
                 /*
         	glVertex3d(-size,0,size);
