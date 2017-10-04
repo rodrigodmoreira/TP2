@@ -81,7 +81,6 @@ void reshape_callback(int w, int h)
 	//glOrtho(0, w, 0, h, -1.0, 1.0);
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 }
 
 void keyPress_callback(unsigned char key, int x, int y)
@@ -98,7 +97,9 @@ void keyRelease_callback(unsigned char key, int x, int y)
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB);
+	//glutInitContextVersion(1,1);
+	//glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
+	glutInitDisplayMode (GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize (1366, 768);
 	glutInitWindowPosition (0, 0);
 	glutCreateWindow ("TP2");
