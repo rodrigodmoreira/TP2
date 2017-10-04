@@ -12,18 +12,14 @@ class Camera
 	public:
 
 		double spd;
-		double theta;
+		double degree;
 		Ponto eye;
-		Vetor dir;
-		Vetor up;
 
 	Camera()
 	{
 		this->spd=.1;
-		this->theta=0;
+		this->degree=0;
 		this->eye={0,0,0,1}; // Posição no mundo
-		this->dir={0,0,-1,0}; // Começa olhando pra frente
-		this->up={0,1,0,0};
 	}
 };
 // reservate names
