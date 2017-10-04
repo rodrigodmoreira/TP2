@@ -6,6 +6,7 @@
 #include "physics.h"
 #include "draw.h"
 #include "player.h"
+#include "objloader.h"
 
 #define FPS 60
 
@@ -13,6 +14,7 @@ using namespace std;
 
 int keyState[300];
 Camera cam;
+GLMmodel* city;
 
 template <typename T> int sgn(T val) {
     return (T(0) < val) - (val < T(0));
@@ -24,7 +26,9 @@ void init()
 	//glShadeModel (GL_FLAT);
 
 	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_GREATER);
+	glDepthFunc(GL_LESS);
+
+	city = glmReadOBJ("models/home/bg4_obj.obj");
 }
 
 void draw_callback()
@@ -33,6 +37,10 @@ void draw_callback()
 
 	glPushMatrix();
 		gluLookAt(cam.eye.x,cam.eye.y+(sin(cam.bob*M_PI/180)/80),cam.eye.z,cam.eye.x+sin(cam.degree*M_PI/180),0,cam.eye.z+cos(cam.degree*M_PI/180),0,1,0);
+
+		glColor4f(0.5,0.5,0.5,1);
+		//glmScale(city,2);
+		glmDraw(city,GL_FLAT);
 
 		glColor4f(0,0,1,1);
 		drawPlane(0,-5,0,100);
