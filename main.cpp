@@ -29,6 +29,7 @@ void init()
 	glDepthFunc(GL_LESS);
 
 	city = glmReadOBJ("models/home/bg4_obj.obj");
+	glmScale(city, 3);
 }
 
 void draw_callback()
@@ -39,8 +40,7 @@ void draw_callback()
 		gluLookAt(cam.eye.x,cam.eye.y+(sin(cam.bob*M_PI/180)/80),cam.eye.z,cam.eye.x+sin(cam.degree*M_PI/180),0,cam.eye.z+cos(cam.degree*M_PI/180),0,1,0);
 
 		glColor4f(0.5,0.5,0.5,1);
-		//glmScale(city,2);
-		glmDraw(city,GL_FLAT);
+		drawModel(0,-3,0,city,GL_FLAT);
 
 		glColor4f(0,0,1,1);
 		drawPlane(0,-5,0,100);

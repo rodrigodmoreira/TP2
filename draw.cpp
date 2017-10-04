@@ -1,8 +1,17 @@
 #include <SOIL/SOIL.h>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
+#include "objloader.h"
 
 using namespace std;
+
+void drawModel(double x,double y, double z, GLMmodel* model, GLuint shading)
+{
+        glPushMatrix();
+                glTranslatef(x,y,z);
+                glmDraw(model,shading);
+        glPopMatrix();
+}
 
 void drawWireCube(double x,double y,double z,double size)
 {
