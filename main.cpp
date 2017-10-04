@@ -32,7 +32,7 @@ void draw_callback()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glPushMatrix();
-		gluLookAt(cam.eye.x,cam.eye.y,cam.eye.z,cam.eye.x+sin(cam.degree*M_PI/180),0,cam.eye.z+cos(cam.degree*M_PI/180),0,1,0);
+		gluLookAt(cam.eye.x,cam.eye.y+(sin(cam.bob*M_PI/180)/80),cam.eye.z,cam.eye.x+sin(cam.degree*M_PI/180),0,cam.eye.z+cos(cam.degree*M_PI/180),0,1,0);
 
 		glColor4f(0,0,1,1);
 		drawPlane(0,-5,0,100);

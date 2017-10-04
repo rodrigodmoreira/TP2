@@ -39,6 +39,11 @@ void calculatePhysics(int* keyState,Camera &cam)
 		cam.eye.z-=1*cos((cam.degree+90)*M_PI/180);
 	}
 
+	if(!(keyState['w']||keyState['s']||keyState['a']||keyState['d']||keyState['q']||keyState['e']))
+		cam.bob=0;
+	else
+		cam.bob+=10;
+
 
 	if(keyState['r'])
 	{
