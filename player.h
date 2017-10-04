@@ -18,7 +18,7 @@ class Camera
 
 	Camera()
 	{
-		this->spd=.1;
+		this->spd=1;
 		this->degree=0;
 		this->bob=0;
 		this->eye={0,0,0,1}; // Posição no mundo

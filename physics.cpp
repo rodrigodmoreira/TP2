@@ -9,16 +9,23 @@
 using namespace std;
 
 void calculatePhysics(int* keyState,Camera &cam)
-{	
+{
+	// Setar velocidade -> correr/andar
+	if(keyState[' '])
+		cam.spd=2;
+	else
+		cam.spd=1;
+	
+	// Movimentação
 	if(keyState['w'])
 	{
-		cam.eye.x+=1*sin(cam.degree*M_PI/180);
-		cam.eye.z+=1*cos(cam.degree*M_PI/180);
+		cam.eye.x+=cam.spd*sin(cam.degree*M_PI/180);
+		cam.eye.z+=cam.spd*cos(cam.degree*M_PI/180);
 	}
 	if(keyState['s'])
 	{
-		cam.eye.x-=1*sin(cam.degree*M_PI/180);
-		cam.eye.z-=1*cos(cam.degree*M_PI/180);
+		cam.eye.x-=cam.spd*sin(cam.degree*M_PI/180);
+		cam.eye.z-=cam.spd*cos(cam.degree*M_PI/180);
 	}
 	if(keyState['a'])
 	{
@@ -30,23 +37,18 @@ void calculatePhysics(int* keyState,Camera &cam)
 	}
 	if(keyState['q'])
 	{
-		cam.eye.x+=1*sin((cam.degree+90)*M_PI/180);
-		cam.eye.z+=1*cos((cam.degree+90)*M_PI/180);
+		cam.eye.x+=cam.spd*sin((cam.degree+90)*M_PI/180);
+		cam.eye.z+=cam.spd*cos((cam.degree+90)*M_PI/180);
 	}
 	if(keyState['e'])
 	{
-		cam.eye.x-=1*sin((cam.degree+90)*M_PI/180);
-		cam.eye.z-=1*cos((cam.degree+90)*M_PI/180);
+		cam.eye.x-=cam.spd*sin((cam.degree+90)*M_PI/180);
+		cam.eye.z-=cam.spd*cos((cam.degree+90)*M_PI/180);
 	}
 
+	// Realiza movimentação da cabeça
 	if(!(keyState['w']||keyState['s']||keyState['a']||keyState['d']||keyState['q']||keyState['e']))
-		cam.bob=0;
+		cam.bob+=2;
 	else
 		cam.bob+=10;
-
-
-	if(keyState['r'])
-	{
-		glLoadIdentity();
-	}  
 }
