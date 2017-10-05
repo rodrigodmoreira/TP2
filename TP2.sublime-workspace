@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"C_",
+				"C_KB"
+			],
+			[
+				"C",
+				"C_MOUSE"
+			],
+			[
+				"mous",
+				"mousesense"
+			],
+			[
 				"GL_L",
 				"GL_LIGHTING"
 			],
@@ -502,23 +514,38 @@
 			[
 				"lo",
 				"localx"
-			],
-			[
-				"p1",
-				"p1Sword"
-			],
-			[
-				"GAME",
-				"GAME_0"
-			],
-			[
-				"Gl",
-				"GLuint"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "main.cpp",
+			"settings":
+			{
+				"buffer_size": 4042,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "physics.cpp",
+			"settings":
+			{
+				"buffer_size": 1442,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "player.h",
+			"settings":
+			{
+				"buffer_size": 579,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -556,28 +583,30 @@
 	},
 	"expanded_folders":
 	[
+		"/home/rodrigo/Área de Trabalho/CG/TP2"
 	],
 	"file_history":
 	[
+		"/home/rodrigo/Área de Trabalho/CG/TP2/models/test/The_City.mtl",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/objloader.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/tutor/materials.h",
+		"/home/rodrigo/Área de Trabalho/CG/tutor/Makefile",
+		"/home/rodrigo/Área de Trabalho/CG/tutor/fog.c",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/draw.h",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/draw.cpp",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/objloader.h",
-		"/home/rodrigo/Área de Trabalho/CG/TP2/objloader.cpp",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/physics.cpp",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/player.h",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/main.cpp",
-		"/home/rodrigo/Área de Trabalho/CG/TP2/models/test/The_City.mtl",
 		"/home/rodrigo/Área de Trabalho/CG/cefet-cg-exemplos-opengl-master/luz-e-material-marte/main.cpp",
 		"/home/rodrigo/Downloads/music/nmusic/Varens - Head First.mp3",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/player.cpp",
 		"/home/rodrigo/Área de Trabalho/CG/cefet-cg-exemplos-opengl-master/discos/main.c",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/models/test/The City.obj",
-		"/home/rodrigo/Área de Trabalho/CG/tutor/fog.c",
 		"/home/rodrigo/Área de Trabalho/CG/tutor/glm.c",
 		"/home/rodrigo/Área de Trabalho/CG/tutor/glm.h",
 		"/home/rodrigo/Área de Trabalho/CG/tutor/lightmaterial.c",
 		"/home/rodrigo/Área de Trabalho/CG/tutor/lightposition.c",
-		"/home/rodrigo/Área de Trabalho/CG/tutor/materials.h",
 		"/home/rodrigo/Área de Trabalho/CG/tutor/projection.c",
 		"/home/rodrigo/Área de Trabalho/CG/tutor/sgi.c",
 		"/home/rodrigo/Área de Trabalho/CG/tutor/sgi.h",
@@ -685,12 +714,11 @@
 		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/physics.cpp",
 		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/player.h",
 		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/player.cpp",
-		"/home/rodrigo/Área de Trabalho/CG/TP1/out.txt",
-		"/home/rodrigo/Área de Trabalho/gdb"
+		"/home/rodrigo/Área de Trabalho/CG/TP1/out.txt"
 	],
 	"find":
 	{
-		"height": 52.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -704,6 +732,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"drawMode",
 			"MTL",
 			"NAME",
 			"theta",
@@ -830,8 +859,7 @@
 			"pframe",
 			"pstate",
 			"pgroundy",
-			"pvy",
-			"pvx"
+			"pvy"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -907,8 +935,96 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "main.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4042,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								237,
+								237
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2250.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "physics.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1442,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1265,
+								1265
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 495.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "player.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 579,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								266,
+								266
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],

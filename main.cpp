@@ -10,12 +10,15 @@
 
 #define FPS 60
 
+enum CAM_MODE { C_KB=0,C_MOUSE};
+
 using namespace std;
 
 int keyState[300];
 Camera cam;
 GLMmodel* city;
 bool light = true;
+int width,height;
 
 template <typename T> int sgn(T val) {
     return (T(0) < val) - (val < T(0));
@@ -24,6 +27,8 @@ template <typename T> int sgn(T val) {
 void init()
 {
 	glClearColor (1.0, 1.0, 1.0, 1.0);
+
+	glutSetCursor(GLUT_CURSOR_NONE);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
@@ -72,7 +77,9 @@ void draw_callback()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glPushMatrix();
-		gluLookAt(cam.eye.x,cam.eye.y+(sin(cam.bob*M_PI/180)/80),cam.eye.z,cam.eye.x+sin(cam.degree*M_PI/180),0,cam.eye.z+cos(cam.degree*M_PI/180),0,1,0);
+		gluLookAt(cam.eye.x+(cos((cam.bob/2)*M_PI/180)/50),cam.eye.y+(sin(cam.bob*M_PI/180)/80),cam.eye.z,
+					cam.eye.x+sin(cam.degree*M_PI/180),cam.eye.y+sin(cam.vdegree*M_PI/180),cam.eye.z+cos(cam.degree*M_PI/180),
+					0,1,0);
 
 		//materialGenerico();
 
@@ -111,6 +118,9 @@ void reshape_callback(int w, int h)
 {
 	glViewport (0, 0, (GLsizei) w, (GLsizei) h);
 
+	width=w;
+	height=h;
+
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity ();
 
@@ -134,6 +144,11 @@ void keyPress_callback(unsigned char key, int x, int y)
 		glEnable(GL_LIGHTING);
 		light=true;
 	}
+
+	if(key=='m' && cam.mode==C_MOUSE)
+		cam.mode=C_KB;
+	else if(key=='m')
+		cam.mode=C_MOUSE;
 	
 	keyState[(int)key]=1;
 }
@@ -141,6 +156,30 @@ void keyPress_callback(unsigned char key, int x, int y)
 void keyRelease_callback(unsigned char key, int x, int y)
 {
 	keyState[(int)key]=0;
+}
+
+void passivemouse_callback(int x, int y)
+{
+	y=-y+768;
+
+	if(cam.mode==C_MOUSE)
+	{	
+		if(x>cam.mlast.x)
+			cam.degree-=cam.mousesense;
+		else if(x<cam.mlast.x)
+			cam.degree+=cam.mousesense;
+
+		if(y>cam.mlast.y)
+			cam.vdegree+=cam.mousesense;
+		else if(y<cam.mlast.y)
+			cam.vdegree-=cam.mousesense;
+	}
+
+	cam.mlast.x=x;
+	cam.mlast.y=y;
+
+	if(x>=width-5 || x<=1 || y>=height || y<=0)
+		glutWarpPointer(1366.0/2,768/2);
 }
 
 int main(int argc, char** argv)
@@ -159,6 +198,7 @@ int main(int argc, char** argv)
 	glutReshapeFunc(reshape_callback);
 	glutKeyboardFunc(keyPress_callback);
 	glutKeyboardUpFunc(keyRelease_callback);
+	glutPassiveMotionFunc(passivemouse_callback);
 	glutTimerFunc(0,update_callback,0);
 
 	glutMainLoop();

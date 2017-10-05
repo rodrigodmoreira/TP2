@@ -6,44 +6,44 @@
 
 #include "player.h"
 
+enum CAM_MODE { C_KB=0,C_MOUSE};
+
 using namespace std;
 
 void calculatePhysics(int* keyState,Camera &cam)
 {
 	// Setar velocidade -> correr/andar
 	if(keyState[' '])
+	{
 		cam.spd=2;
+		cam.bob+=5;
+	}
 	else
 		cam.spd=1;
 	
 	// Movimentação
 	if(keyState['w'])
-	{
-		cam.eye.x+=cam.spd*sin(cam.degree*M_PI/180);
-		cam.eye.z+=cam.spd*cos(cam.degree*M_PI/180);
-	}
+		cam.walkFoward();
 	if(keyState['s'])
+		cam.walkBackward();
+
+	if(cam.mode == C_KB)
 	{
-		cam.eye.x-=cam.spd*sin(cam.degree*M_PI/180);
-		cam.eye.z-=cam.spd*cos(cam.degree*M_PI/180);
+		if(keyState['a'])
+			cam.degree+=2;
+		if(keyState['d'])
+			cam.degree-=2;
+		if(keyState['q'])
+			cam.walkSideL();
+		if(keyState['e'])
+			cam.walkSideR();
 	}
-	if(keyState['a'])
+	else if(cam.mode == C_MOUSE)
 	{
-		cam.degree+=2;
-	}
-	if(keyState['d'])
-	{
-		cam.degree-=2;
-	}
-	if(keyState['q'])
-	{
-		cam.eye.x+=cam.spd*sin((cam.degree+90)*M_PI/180);
-		cam.eye.z+=cam.spd*cos((cam.degree+90)*M_PI/180);
-	}
-	if(keyState['e'])
-	{
-		cam.eye.x-=cam.spd*sin((cam.degree+90)*M_PI/180);
-		cam.eye.z-=cam.spd*cos((cam.degree+90)*M_PI/180);
+		if(keyState['a'])
+			cam.walkSideL();
+		if(keyState['d'])
+			cam.walkSideR();
 	}
 
 	// Realiza movimentação da cabeça
