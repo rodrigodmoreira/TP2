@@ -15,6 +15,7 @@ using namespace std;
 int keyState[300];
 Camera cam;
 GLMmodel* city;
+bool light = true;
 
 template <typename T> int sgn(T val) {
     return (T(0) < val) - (val < T(0));
@@ -23,13 +24,47 @@ template <typename T> int sgn(T val) {
 void init()
 {
 	glClearColor (1.0, 1.0, 1.0, 1.0);
-	//glShadeModel (GL_FLAT);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
-	city = glmReadOBJ("models/home/bg4_obj.obj");
-	glmScale(city, 3);
+	// Sun
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+
+		GLfloat a[] = {94.0/255,80.0/255,152.0/255,1};
+		glLightfv(GL_LIGHT0,GL_AMBIENT,a);
+
+		GLfloat b[] = {255/255,255/255,255/255,1};
+		glLightfv(GL_LIGHT0,GL_DIFFUSE,b);
+
+		GLfloat c[4] = {125/255,125/255,125/255,1};
+		glLightfv(GL_LIGHT0,GL_SPECULAR,c);
+
+		GLfloat d[4] = {300,300,300,1};
+		glLightfv(GL_LIGHT0,GL_POSITION,d);
+
+		GLfloat e[4] = {5,5,5,1};
+		glLightfv(GL_LIGHT0,GL_CONSTANT_ATTENUATION,e);
+
+	city = glmReadOBJ("models/test/The City.obj");
+	glmFacetNormals(city);
+	glmVertexNormals(city, 90.0);
+	glmScale(city, 1);
+}
+
+void materialGenerico()
+{
+	GLfloat a[] = {47.0/255,40.0/255,76.0/255,1};
+	glMaterialfv(GL_FRONT_AND_BACK,GL_AMBIENT,a);
+	GLfloat b[] = {255/255,255/255,255/255,1};
+	glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,b);
+	GLfloat c[4] = {125/255,125/255,125/255,1};
+	glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,c);
+	GLfloat d[4] = {5/255,5/255,5/255,1};
+	glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,d);
+	GLfloat e[4] = {1/255,1/255,1/255,1};
+	glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,e);
 }
 
 void draw_callback()
@@ -39,8 +74,10 @@ void draw_callback()
 	glPushMatrix();
 		gluLookAt(cam.eye.x,cam.eye.y+(sin(cam.bob*M_PI/180)/80),cam.eye.z,cam.eye.x+sin(cam.degree*M_PI/180),0,cam.eye.z+cos(cam.degree*M_PI/180),0,1,0);
 
+		//materialGenerico();
+
 		glColor4f(0.5,0.5,0.5,1);
-		drawModel(0,-3,0,city,GL_FLAT);
+		drawModel(0,-50,0,city,GL_SMOOTH | GLM_MATERIAL);
 
 		glColor4f(0,0,1,1);
 		drawPlane(0,-5,0,100);
@@ -77,7 +114,7 @@ void reshape_callback(int w, int h)
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity ();
 
-	gluPerspective(90.0, (GLfloat) w/(GLfloat) h, 1.0, 1000.0);
+	gluPerspective(90.0, (GLfloat) w/(GLfloat) h, 1.0, 10000.0);
 	//glOrtho(0, w, 0, h, -1.0, 1.0);
 
 	glMatrixMode(GL_MODELVIEW);
@@ -86,6 +123,18 @@ void reshape_callback(int w, int h)
 void keyPress_callback(unsigned char key, int x, int y)
 {
 	if(key==27) exit(0);
+
+	if(key=='l' && light)
+	{
+		glDisable(GL_LIGHTING);
+		light=false;
+	}
+	else if(key=='l')
+	{
+		glEnable(GL_LIGHTING);
+		light=true;
+	}
+	
 	keyState[(int)key]=1;
 }
 

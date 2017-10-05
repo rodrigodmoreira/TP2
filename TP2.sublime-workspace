@@ -1,0 +1,997 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"GL_L",
+				"GL_LIGHTING"
+			],
+			[
+				"ke",
+				"key"
+			],
+			[
+				"gl",
+				"glLoadIdentity"
+			],
+			[
+				"li",
+				"link\tTag"
+			],
+			[
+				"padd",
+				"padding-top"
+			],
+			[
+				"pad",
+				"padding-top"
+			],
+			[
+				"margin",
+				"margin-right"
+			],
+			[
+				"fo",
+				"font-size"
+			],
+			[
+				"margi",
+				"margin"
+			],
+			[
+				"marg",
+				"margin"
+			],
+			[
+				"text",
+				"text-indent"
+			],
+			[
+				"a",
+				"align-content"
+			],
+			[
+				"gri",
+				"grid-area"
+			],
+			[
+				"paddi",
+				"padding"
+			],
+			[
+				"text-",
+				"text-align"
+			],
+			[
+				"padding",
+				"padding-top"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"u",
+				"uppercase"
+			],
+			[
+				"in",
+				"input\tTag"
+			],
+			[
+				"Nom",
+				"nome"
+			],
+			[
+				"ac",
+				"action\tAttr"
+			],
+			[
+				"ls",
+				"list-style"
+			],
+			[
+				"font-s",
+				"font-size"
+			],
+			[
+				"co",
+				"color"
+			],
+			[
+				"inli",
+				"inline-block"
+			],
+			[
+				"al",
+				"alt\tAttr"
+			],
+			[
+				"head",
+				"header\tTag"
+			],
+			[
+				"angu",
+				"anguloCutuvelo"
+			],
+			[
+				"an",
+				"anguloOmbro"
+			],
+			[
+				"ang",
+				"anguloCutuvelo"
+			],
+			[
+				"mul",
+				"multiplicaPorEscalar"
+			],
+			[
+				"nor",
+				"normaDoVetor"
+			],
+			[
+				"no",
+				"normaDoVetor"
+			],
+			[
+				"WI",
+				"WIDTH"
+			],
+			[
+				"SOI",
+				"SOIL_FLAG_INVERT_Y"
+			],
+			[
+				"SOIL",
+				"SOIL_LOAD_AUTO"
+			],
+			[
+				"Mix_",
+				"Mix_Playing"
+			],
+			[
+				"en",
+				"endl"
+			],
+			[
+				"top",
+				"top_player_names"
+			],
+			[
+				"ma",
+				"max_colllectables"
+			],
+			[
+				"to",
+				"top_player_names"
+			],
+			[
+				"arquiv",
+				"arquivoN"
+			],
+			[
+				"top_player_",
+				"top_player_names"
+			],
+			[
+				"top_",
+				"top_player_names"
+			],
+			[
+				"wo",
+				"word_input"
+			],
+			[
+				"reset",
+				"reset_key"
+			],
+			[
+				"glut",
+				"glutKeyboardFunc"
+			],
+			[
+				"textureBac",
+				"textureBackButton"
+			],
+			[
+				"SOIL_l",
+				"SOIL_load_OGL_texture"
+			],
+			[
+				"textureB",
+				"textureBackButton"
+			],
+			[
+				"texture",
+				"textureHelp"
+			],
+			[
+				"HE",
+				"HEIGHT"
+			],
+			[
+				"CRED",
+				"CREDITS_MENU"
+			],
+			[
+				"HELP",
+				"HELP_MENU"
+			],
+			[
+				"CRE",
+				"CREDITS_MENU"
+			],
+			[
+				"glCol",
+				"glColor4f"
+			],
+			[
+				"Mix_P",
+				"Mix_PlayChannel"
+			],
+			[
+				"WIN",
+				"WIN_SOUND"
+			],
+			[
+				"CLI",
+				"CLICK_SOUND"
+			],
+			[
+				"firt",
+				"first_time_splash"
+			],
+			[
+				"AURA",
+				"AURA_SOUND"
+			],
+			[
+				"S",
+				"SLASH_SOUND"
+			],
+			[
+				"INT",
+				"INITWAR_SOUND"
+			],
+			[
+				"SL",
+				"SLASH_SOUND"
+			],
+			[
+				"spl",
+				"splash_alpha"
+			],
+			[
+				"spla",
+				"splash_accel"
+			],
+			[
+				"MixLoa",
+				"Mix_LoadWAV"
+			],
+			[
+				"splas",
+				"splash_vel"
+			],
+			[
+				"sp",
+				"splash_alpha"
+			],
+			[
+				"splash",
+				"splash_vel"
+			],
+			[
+				"HI",
+				"HIGHSCORE"
+			],
+			[
+				"or",
+				"frame_orientation"
+			],
+			[
+				"si",
+				"sizex"
+			],
+			[
+				"H",
+				"HEIGHT"
+			],
+			[
+				"W",
+				"WIDTH"
+			],
+			[
+				"size",
+				"sizey"
+			],
+			[
+				"po",
+				"points"
+			],
+			[
+				"pl",
+				"top_player_scores"
+			],
+			[
+				"slas",
+				"slash_sound"
+			],
+			[
+				"textureS",
+				"textureShadowblob"
+			],
+			[
+				"Ki",
+				"KITSUNE"
+			],
+			[
+				"map",
+				"map_border"
+			],
+			[
+				"obj",
+				"objArray"
+			],
+			[
+				"glC",
+				"glColor4f"
+			],
+			[
+				"SWOR",
+				"SWORD_KEY"
+			],
+			[
+				"SW",
+				"SWORD_KEY"
+			],
+			[
+				"sword",
+				"swordMode"
+			],
+			[
+				"SWO",
+				"SWORD_MOUSE"
+			],
+			[
+				"temp",
+				"temp_vy"
+			],
+			[
+				"portr",
+				"portrait"
+			],
+			[
+				"portra",
+				"portraitframe"
+			],
+			[
+				"fra",
+				"frame_orientation"
+			],
+			[
+				"fram",
+				"total_frames"
+			],
+			[
+				"menu",
+				"menuSelection"
+			],
+			[
+				"men",
+				"menuSelection"
+			],
+			[
+				"key",
+				"keyState"
+			],
+			[
+				"MAP",
+				"MAP_BORDERY"
+			],
+			[
+				"D",
+				"DEMON"
+			],
+			[
+				"frame",
+				"frame_delay"
+			],
+			[
+				"B",
+				"BACKWALK"
+			],
+			[
+				"BACK",
+				"BACKIDLE"
+			],
+			[
+				"texturePl",
+				"texturePlayerAnim"
+			],
+			[
+				"texturePla",
+				"texturePlayerAnim"
+			],
+			[
+				"o",
+				"objArray"
+			],
+			[
+				"draw",
+				"drawOverlay"
+			],
+			[
+				"QUI",
+				"QUITGREYED"
+			],
+			[
+				"QUIT",
+				"QUITBRIGHTYES"
+			],
+			[
+				"G",
+				"GAME_0"
+			],
+			[
+				"game",
+				"gameState"
+			],
+			[
+				"drawO",
+				"drawOverlay"
+			],
+			[
+				"true",
+				"truePlayer"
+			],
+			[
+				"SWORD",
+				"SWORD_MAX_SIZE"
+			],
+			[
+				"GA",
+				"GAME_0"
+			],
+			[
+				"rest",
+				"restartX"
+			],
+			[
+				"se",
+				"selector"
+			],
+			[
+				"RES",
+				"RESTARTGREYED"
+			],
+			[
+				"RE",
+				"RESTARTBRIGHT"
+			],
+			[
+				"res",
+				"restartY"
+			],
+			[
+				"textu",
+				"texturePlayer"
+			],
+			[
+				"REST",
+				"RESTARTGREYED"
+			],
+			[
+				"do",
+				"double"
+			],
+			[
+				"te",
+				"textures"
+			],
+			[
+				"loc",
+				"localy"
+			],
+			[
+				"lo",
+				"localx"
+			],
+			[
+				"p1",
+				"p1Sword"
+			],
+			[
+				"GAME",
+				"GAME_0"
+			],
+			[
+				"Gl",
+				"GLuint"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"Preferences: Key Bindings"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+	],
+	"file_history":
+	[
+		"/home/rodrigo/Área de Trabalho/CG/TP2/draw.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/draw.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/objloader.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/objloader.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/physics.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/player.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/main.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/models/test/The_City.mtl",
+		"/home/rodrigo/Área de Trabalho/CG/cefet-cg-exemplos-opengl-master/luz-e-material-marte/main.cpp",
+		"/home/rodrigo/Downloads/music/nmusic/Varens - Head First.mp3",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/player.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/cefet-cg-exemplos-opengl-master/discos/main.c",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/models/test/The City.obj",
+		"/home/rodrigo/Área de Trabalho/CG/tutor/fog.c",
+		"/home/rodrigo/Área de Trabalho/CG/tutor/glm.c",
+		"/home/rodrigo/Área de Trabalho/CG/tutor/glm.h",
+		"/home/rodrigo/Área de Trabalho/CG/tutor/lightmaterial.c",
+		"/home/rodrigo/Área de Trabalho/CG/tutor/lightposition.c",
+		"/home/rodrigo/Área de Trabalho/CG/tutor/materials.h",
+		"/home/rodrigo/Área de Trabalho/CG/tutor/projection.c",
+		"/home/rodrigo/Área de Trabalho/CG/tutor/sgi.c",
+		"/home/rodrigo/Área de Trabalho/CG/tutor/sgi.h",
+		"/home/rodrigo/Área de Trabalho/CG/tutor/texture.c",
+		"/home/rodrigo/Área de Trabalho/CG/tutor/transformation.c",
+		"/home/rodrigo/.cache/.fr-5OvRep/The City/readme The City.txt",
+		"/home/rodrigo/Área de Trabalho/html/reset.html",
+		"/home/rodrigo/Área de Trabalho/html/normalize.html",
+		"/home/rodrigo/Área de Trabalho/html/normalize.css",
+		"/home/rodrigo/Área de Trabalho/html/reset.css",
+		"/home/rodrigo/Área de Trabalho/html/primeiro.html",
+		"/home/rodrigo/Área de Trabalho/html/estilo-layout.css",
+		"/home/rodrigo/Área de Trabalho/html/primeiro-layout.html",
+		"/home/rodrigo/Área de Trabalho/html/link-img.html",
+		"/home/rodrigo/Área de Trabalho/html/tipografia.html",
+		"/home/rodrigo/Área de Trabalho/html/estilo-tipografia.css",
+		"/home/rodrigo/Área de Trabalho/html/formulario.html",
+		"/home/rodrigo/Área de Trabalho/html/estilo-formulario.css",
+		"/home/rodrigo/Área de Trabalho/html/estilo.css",
+		"/home/rodrigo/Área de Trabalho/html/primeiro-estilo.html",
+		"/home/rodrigo/Área de Trabalho/html/pages/pagina1.html",
+		"/home/rodrigo/Área de Trabalho/html/pages/pagina2.html",
+		"/home/rodrigo/Área de Trabalho/html/estrutura-html5.html",
+		"/home/rodrigo/Área de Trabalho/html/listas.html",
+		"/home/rodrigo/Área de Trabalho/html/seo.html",
+		"/home/rodrigo/Área de Trabalho/html/pagina2.html",
+		"/home/rodrigo/Área de Trabalho/html/pagina1.html",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/physics.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/gaav.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/gaav.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/draw.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/objects.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/player.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/physics.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/main.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/physics.h",
+		"/home/rodrigo/Área de Trabalho/tad-coordenadas-master/coordenadas.c",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/objects.h",
+		"/home/rodrigo/Área de Trabalho/CG/cefet-cg-exemplos-opengl-master/braco-robo/main.c",
+		"/home/rodrigo/Área de Trabalho/CG/cefet-cg-exemplos-opengl-master/tranformacao-rotacao/main.c",
+		"/home/rodrigo/Área de Trabalho/CG/cefet-cg-exemplos-opengl-master/carregador-obj/main.c",
+		"/home/rodrigo/Área de Trabalho/CG/cefet-cg-exemplos-opengl-master/ortho-vs-perspective/main.c",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/physics.c",
+		"/home/rodrigo/Área de Trabalho/CG/cefet-cg-exemplos-opengl-master/hello-modern/main.cpp",
+		"/media/rodrigo/94CECB88CECB60DA/Users/RoGu/Desktop/texto.txt",
+		"/home/rodrigo/Área de Trabalho/Lista_geometria.txt",
+		"/home/rodrigo/Área de Trabalho/ChatBot-Compet-Facebook-master/index.js",
+		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/mysite/settings.py",
+		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/polls/models.py",
+		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/polls/admin.py",
+		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/polls/views.py",
+		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/polls/templates/polls/index.html",
+		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/polls/urls.py",
+		"/home/rodrigo/Área de Trabalho/ChatBot-Compet-Facebook-master/README.md",
+		"/home/rodrigo/Área de Trabalho/django",
+		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/mysite/urls.py",
+		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/polls/migrations/urls.py",
+		"/home/rodrigo/Documentos/djangoProject/venv/simplemooc/simplemooc/settings.py",
+		"/home/rodrigo/Documentos/djangoProject/venv/simplemooc/simplemooc/urls.py",
+		"/home/rodrigo/Documentos/djangoProject/venv/simplemooc/simplemooc/core/views.py",
+		"/home/rodrigo/Área de Trabalho/tad-coordenadas-master/teste-coordenadas.c",
+		"/home/rodrigo/Área de Trabalho/tad-coordenadas-master/coordenadas.h",
+		"/home/rodrigo/.cache/.fr-4DNKyA/textos.txt",
+		"/home/rodrigo/Downloads/Diego/tp1/README.txt",
+		"/home/rodrigo/Downloads/cefet/Conta.java",
+		"/home/rodrigo/Downloads/cefet/ContaEspecial.java",
+		"/home/rodrigo/.cache/.fr-S2UrT3/COPYING.TXT",
+		"/home/rodrigo/Downloads/diálogo.txt",
+		"/home/rodrigo/Downloads/texto.txt",
+		"/home/rodrigo/Downloads/estrutura_e_arquivo.c",
+		"/home/rodrigo/Downloads/aula1.c",
+		"/home/rodrigo/Área de Trabalho/libsdl",
+		"/home/rodrigo/Área de Trabalho/MHworld.txt",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/README.txt",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/top_names.txt",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/top_score.txt",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/draw.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/player.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/KENSEI.io",
+		"/home/rodrigo/Área de Trabalho/KENSEI.io",
+		"/home/rodrigo/Área de Trabalho/CG/SDL_mixer 2.0/sdl.c",
+		"/home/rodrigo/Área de Trabalho/CG/SDL_mixer 2.0/21_sound_effects_and_music/21_sound_effects_and_music.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/main.sublime-project",
+		"/home/rodrigo/djangoproject/Django-1.11.4/src/shortener/models.py",
+		"/home/rodrigo/djangoproject/Django-1.11.4/src/shortener/admin.py",
+		"/home/rodrigo/djangoproject/Django-1.11.4/src/kirr/settings.py",
+		"/home/rodrigo/Área de Trabalho/SDL_mixer 2.0/sdl.c",
+		"/home/rodrigo/Área de Trabalho/sdl.c",
+		"/home/rodrigo/Downloads/ase/aseprite-1.2-beta6/build/CMakeFiles/feature_tests.cxx",
+		"/home/rodrigo/Downloads/ase/aseprite-1.2-beta6/build/CMakeCache.txt",
+		"/home/rodrigo/Downloads/hs_err_pid5719.log",
+		"/home/rodrigo/Downloads/ase/aseprite-1.1.13/data/docs/LICENSES.md",
+		"/home/rodrigo/Downloads/ase/aseprite-1.1.13/data/README.md",
+		"/home/rodrigo/Downloads/ase/aseprite-1.1.13/data/palettes/edg16.gpl",
+		"/home/rodrigo/Downloads/ase/aseprite-1.1.13/data/palettes/coolors01.gpl",
+		"/home/rodrigo/Downloads/ase/aseprite-1.1.13/data/palettes/cga.gpl",
+		"/home/rodrigo/Downloads/ase/aseprite-1.1.13/data/palettes/smile-basic.gpl",
+		"/home/rodrigo/.cache/.fr-EkoMI9/demos/README",
+		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/objects.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/objects.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/main.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/draw.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/draw.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/physics.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/physics.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/player.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/player.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/out.txt",
+		"/home/rodrigo/Área de Trabalho/gdb"
+	],
+	"find":
+	{
+		"height": 52.0
+	},
+	"find_in_files":
+	{
+		"height": 99.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"MTL",
+			"NAME",
+			"theta",
+			"degree",
+			"rotationCon",
+			"conve",
+			"ponto",
+			"escalar",
+			"vetor",
+			"diferen",
+			"somarCo",
+			"normaDo",
+			"escalar",
+			"ponto",
+			"vetor",
+			"cam->",
+			"cam.",
+			"this.",
+			"reshape",
+			"sfx[W",
+			"printf",
+			"word_input",
+			"word",
+			"word_inp",
+			"word",
+			"top_player_names[",
+			"Play",
+			"name",
+			"name =",
+			"save",
+			"arquivoP.",
+			"arquivo.",
+			"draw",
+			"SWORD_",
+			"atan",
+			"Points",
+			"Mix_PlayCha",
+			"Mix_PlayCh",
+			"highsc",
+			"mix_playch",
+			"mix_playmu",
+			"men",
+			"reset",
+			"first",
+			"alpha",
+			"draw",
+			"AUR",
+			"map_bordery",
+			"map_borderx",
+			"calcul",
+			"reset(",
+			"reset",
+			"objCount",
+			"sfx",
+			"slash",
+			"init",
+			"HIGH",
+			"Point",
+			"bless",
+			"p1.",
+			"vel_multiplier",
+			"vel_multipl",
+			"vel_multiplier",
+			"axis",
+			"fake",
+			"cout",
+			"printf",
+			"drawOnScreen",
+			"{\n",
+			"size",
+			"exit",
+			"init",
+			"myfil",
+			"printf",
+			"total_frame",
+			"frame_numer",
+			"objArray[x].",
+			"drawPlayer",
+			"atan",
+			"p1->",
+			"Woodplate",
+			"draw",
+			"Playerani",
+			"drawoverla",
+			"draw",
+			"MAP_BORD",
+			"p1.s",
+			"p1->siz",
+			"frame",
+			"quit",
+			"restart",
+			"RESTART",
+			"restart",
+			"input",
+			"map_border",
+			"cam.gui.",
+			"p1.gui",
+			"restart",
+			"gui",
+			"colided",
+			"gameSta",
+			"p1.sword.",
+			"p1->sword->",
+			"colided",
+			"yof",
+			"xof",
+			"pall",
+			"keySta",
+			"objArray[x].",
+			"MAP",
+			"objArray[x].",
+			"p1.",
+			"initOb",
+			"cam.",
+			"p1.",
+			"MAP",
+			"firstAnimation",
+			"K_K",
+			"yolo_activate",
+			"p1.frame",
+			"walk0",
+			"  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);\n",
+			"ptotal_frame",
+			"pframe",
+			"pstate",
+			"pgroundy",
+			"pvy",
+			"pvx"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"theta",
+			"Ponto",
+			"double",
+			"Vetor",
+			"double",
+			"Ponto",
+			"Vetor",
+			"cam.",
+			"cam->",
+			"this->",
+			"MAP_BORDERY",
+			"MAP_BORDERX",
+			"MAX_COLLECTABLES",
+			"p1->",
+			"vmult",
+			"drawWithinCamera",
+			"frame_number",
+			"objArray[x]->",
+			"drawOnScreen",
+			"p1.",
+			"pause",
+			"quit",
+			"QUIT",
+			"quit",
+			"QUIT",
+			"quit",
+			"200",
+			"cam.gui->",
+			"cam.gui",
+			"p1.sword->",
+			"p1.sword.",
+			"yof",
+			"xof",
+			"objArray[x]->",
+			"p1->",
+			"cam->",
+			"p1->",
+			"cb_transformFirst",
+			"K_DASH",
+			"y_mode",
+			"p1.ptotal_frame",
+			"p1.pframe",
+			"p1.pstate",
+			"p1.pgroundy",
+			"p1.pvy",
+			"p1.pvx",
+			"p1.pdir",
+			"p1.plast_x",
+			"p1.py",
+			"p1.px",
+			"pgroundy",
+			"GRAV",
+			"pvy",
+			"pvx",
+			"grafo[",
+			"push_back",
+			"aux",
+			"c"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 30.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "TP2.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 189.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
