@@ -1,0 +1,9 @@
+# Blender MTL File: 'None'
+# Material Count: 1
+
+newmtl Material.001
+Ns 50.000000	#Especularidade - Expoente
+Ka 0.000000 0.600000 1.000000	#Ambient e cor do material
+Kd 0.100000 0.400000 0.800000	#Difusão
+Ks 1.000000 1.000000 1.000000	#Especularidade - refletividade
+d 1.000000	#Dissolução(transparência)

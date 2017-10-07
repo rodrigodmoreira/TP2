@@ -16,9 +16,12 @@ using namespace std;
 
 int keyState[300];
 Camera cam;
-GLMmodel* city;
 bool light = true;
 int width,height;
+
+GLMmodel* city;
+GLMmodel* torre;
+GLMmodel* model;
 
 template <typename T> int sgn(T val) {
     return (T(0) < val) - (val < T(0));
@@ -26,36 +29,76 @@ template <typename T> int sgn(T val) {
 
 void init()
 {
-	glClearColor (1.0, 1.0, 1.0, 1.0);
+	glClearColor (0.4, 0.8, 1.0, 1.0);
 
 	glutSetCursor(GLUT_CURSOR_NONE);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// Fog
+		/*float cor[] = { .3f, .6f, 0.7 };
+
+		glFogi(GL_FOG_MODE, GL_LINEAR);        // Linear, exp. ou exp²
+		glFogfv(GL_FOG_COLOR, cor);         // Cor
+		glFogf(GL_FOG_DENSITY, 0.35f);      // Densidade
+		glHint(GL_FOG_HINT, GL_DONT_CARE);  // Não aplicar se não puder
+		glFogf(GL_FOG_START, 100.0f);         // Profundidade inicial
+		glFogf(GL_FOG_END, 500.0f);           // Profundidade final
+		glEnable(GL_FOG);                   // Liga GL_FOG
+*/
 	// Sun
 		glEnable(GL_LIGHTING);
 		glEnable(GL_LIGHT0);
+		{ // apenas para criar/limitar escopo de a/b/c/d/e (SIM, È POSSÍVEL, TBM N TO ACREDITANDO Q CHUTEI CERTO)
+			GLfloat a[] = {.1,.1,.1,1};
+			glLightfv(GL_LIGHT0,GL_AMBIENT,a);
 
-		GLfloat a[] = {94.0/255,80.0/255,152.0/255,1};
-		glLightfv(GL_LIGHT0,GL_AMBIENT,a);
+			GLfloat b[] = {.4,.6,.8,1};
+			glLightfv(GL_LIGHT0,GL_DIFFUSE,b);
 
-		GLfloat b[] = {255/255,255/255,255/255,1};
-		glLightfv(GL_LIGHT0,GL_DIFFUSE,b);
+			GLfloat c[] = {125/255,125/255,125/255,1};
+			glLightfv(GL_LIGHT0,GL_SPECULAR,c);
 
-		GLfloat c[4] = {125/255,125/255,125/255,1};
-		glLightfv(GL_LIGHT0,GL_SPECULAR,c);
+			GLfloat d[] = {300,300,300,1};
+			glLightfv(GL_LIGHT0,GL_POSITION,d);
 
-		GLfloat d[4] = {300,300,300,1};
-		glLightfv(GL_LIGHT0,GL_POSITION,d);
+			GLfloat e[] = {3,3,3,1};
+			glLightfv(GL_LIGHT0,GL_CONSTANT_ATTENUATION,e);
+		} // Isso pq n encontrei uma forma bacana de reaproveitar o mesmo vetor atribuindo valores direto igual a {x1,x2,x3,x4}
 
-		GLfloat e[4] = {5,5,5,1};
-		glLightfv(GL_LIGHT0,GL_CONSTANT_ATTENUATION,e);
+	/*	glEnable(GL_LIGHT1);
+		{ // apenas para criar/limitar escopo de a/b/c/d/e
+			GLfloat a[] = {10/255,10/255,10/255,1};
+			glLightfv(GL_LIGHT0,GL_AMBIENT,a);
+
+			GLfloat b[] = {255/255,255/255,255/255,1};
+			glLightfv(GL_LIGHT0,GL_DIFFUSE,b);
+
+			GLfloat c[] = {125/255,125/255,125/255,1};
+			glLightfv(GL_LIGHT0,GL_SPECULAR,c);
+
+			GLfloat d[] = {-300,-300,-300,0};
+			glLightfv(GL_LIGHT0,GL_POSITION,d);
+
+			GLfloat e[] = {1,1,1,1};
+			//glLightfv(GL_LIGHT0,GL_CONSTANT_ATTENUATION,e);
+		}*/
+
 
 	city = glmReadOBJ("models/test/The City.obj");
 	glmFacetNormals(city);
 	glmVertexNormals(city, 90.0);
 	glmScale(city, 1);
+
+	torre = glmReadOBJ("models/torre/torre.obj");
+	glmFacetNormals(torre);
+	glmVertexNormals(torre, 90.0);
+	glmScale(torre, 10);	
+
 }
 
 void materialGenerico()
@@ -83,8 +126,14 @@ void draw_callback()
 
 		//materialGenerico();
 
-		glColor4f(0.5,0.5,0.5,1);
-		drawModel(0,-50,0,city,GL_SMOOTH | GLM_MATERIAL);
+		glColor4f(1,0,0,1);
+		drawModel(0,-50,0,city,GLM_SMOOTH | GLM_MATERIAL);
+
+		glPushMatrix();
+			glRotatef(10,0,0,1);
+			glColor4f(1,1,1,0.1);
+			drawModel(0,-10,100,torre,GLM_SMOOTH | GLM_MATERIAL);
+		glPopMatrix();
 
 		glColor4f(0,0,1,1);
 		drawPlane(0,-5,0,100);
