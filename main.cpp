@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <stdio.h>
+#include <iostream>
 #include <cmath>
 #include "physics.h"
 #include "draw.h"
@@ -21,7 +22,7 @@ int width,height;
 
 GLMmodel* city;
 GLMmodel* torre;
-GLMmodel* model;
+GLMmodel* predio;
 
 template <typename T> int sgn(T val) {
     return (T(0) < val) - (val < T(0));
@@ -97,7 +98,12 @@ void init()
 	torre = glmReadOBJ("models/torre/torre.obj");
 	glmFacetNormals(torre);
 	glmVertexNormals(torre, 90.0);
-	glmScale(torre, 10);	
+	glmScale(torre, 10);
+
+	predio = glmReadOBJ("models/predio/predio.obj");
+	glmFacetNormals(predio);
+	glmVertexNormals(predio, 90.0);
+	glmScale(predio, 10);	
 
 }
 
@@ -127,16 +133,16 @@ void draw_callback()
 		//materialGenerico();
 
 		glColor4f(1,0,0,1);
-		drawModel(0,-50,0,city,GLM_SMOOTH | GLM_MATERIAL);
+		drawModel(0,-50,0,0,0,city,GLM_SMOOTH | GLM_MATERIAL);
+	
+		glColor4f(1,1,1,0.1);
+		drawModel(0,-10,100,0,10,torre,GLM_SMOOTH | GLM_MATERIAL);
 
-		glPushMatrix();
-			glRotatef(10,0,0,1);
-			glColor4f(1,1,1,0.1);
-			drawModel(0,-10,100,torre,GLM_SMOOTH | GLM_MATERIAL);
-		glPopMatrix();
+		glColor4f(1,1,0,1);
+		drawModel(0,-10,-500,180,0,predio,GLM_SMOOTH | GLM_MATERIAL);
 
 		glColor4f(0,0,1,1);
-		drawPlane(0,-5,0,100);
+		drawPlane(0,-10,750,1000);
 
 		glColor4f(1,1,0,1);//(1,0,0,1);
 		drawWireCube(0,0,-50,10);
@@ -212,22 +218,24 @@ void passivemouse_callback(int x, int y)
 	y=-y+768;
 
 	if(cam.mode==C_MOUSE)
-	{	
+	{
 		if(x>cam.mlast.x)
-			cam.degree-=cam.mousesense;
+			cam.degree-=1.5*cam.mousesense;
 		else if(x<cam.mlast.x)
-			cam.degree+=cam.mousesense;
+			cam.degree+=1.5*cam.mousesense;
 
-		if(y>cam.mlast.y)
+		if(y>cam.mlast.y && cam.vdegree<90)
 			cam.vdegree+=cam.mousesense;
-		else if(y<cam.mlast.y)
-			cam.vdegree-=cam.mousesense;
+		else if(y<cam.mlast.y && cam.vdegree>-90)
+			cam.vdegree-=cam.mousesense;	
 	}
+
+	cout << cam.vdegree << endl;
 
 	cam.mlast.x=x;
 	cam.mlast.y=y;
 
-	if(x>=width-5 || x<=1 || y>=height || y<=0)
+	if(x>=width-100 || x<=100 || y>=height-100 || y<=100)
 		glutWarpPointer(1366.0/2,768/2);
 }
 

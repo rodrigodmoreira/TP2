@@ -6,7 +6,7 @@
 /**************************/
 // your stuff goes here
 // function prototypes, etc.
-void drawModel(double x,double y, double z, GLMmodel* model, GLuint shading);
+void drawModel(double x,double y, double z,double degree, double sdegree, GLMmodel* model, GLuint shading);
 void drawWireCube(double x,double y,double z,double size);
 void drawPlane(double x,double y, double z, double size);
 // classes

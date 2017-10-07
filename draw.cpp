@@ -1,13 +1,16 @@
 #include <SOIL/SOIL.h>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
+#include <cmath>
 #include "objloader.h"
 
 using namespace std;
 
-void drawModel(double x,double y, double z, GLMmodel* model, GLuint shading)
+void drawModel(double x,double y, double z, double degree, double sdegree, GLMmodel* model, GLuint shading)
 {
         glPushMatrix();
+                glRotated(sdegree,0,0,1);
+                glRotated(degree,0,1,0);
                 glTranslatef(x,y,z);
                 glmDraw(model,shading);
         glPopMatrix();
