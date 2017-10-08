@@ -523,25 +523,26 @@
 			"file": "main.cpp",
 			"settings":
 			{
-				"buffer_size": 4849,
+				"buffer_size": 6038,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "models/torre/torre.mtl",
+			"file": "draw.h",
 			"settings":
 			{
-				"buffer_size": 223,
+				"buffer_size": 455,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "objloader.h",
+			"file": "draw.cpp",
 			"settings":
 			{
-				"buffer_size": 8738,
+				"buffer_size": 3294,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
@@ -606,8 +607,12 @@
 	],
 	"file_history":
 	[
-		"/home/rodrigo/Área de Trabalho/CG/TP1/main.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/test/The_City.mtl",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/torre/torre.mtl",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/objloader.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/objloader.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP1/main.cpp",
+		"/home/rodrigo/IdeaProjects/Atividade_7_-_Arquivo_de_texto/database.txt",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/torre/torre.obj",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/test/The City.obj",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/models/test/The_City.mtl",
@@ -729,11 +734,7 @@
 		"/home/rodrigo/.cache/.fr-EkoMI9/demos/README",
 		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/objects.cpp",
 		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/objects.h",
-		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/main.cpp",
-		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/draw.h",
-		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/draw.cpp",
-		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/physics.h",
-		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/physics.cpp"
+		"/home/rodrigo/Área de Trabalho/CG/TP1 (herança)/main.cpp"
 	],
 	"find":
 	{
@@ -963,15 +964,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4849,
+						"buffer_size": 6038,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1290,
-								1290
+								4694,
+								4694
 							]
 						],
 						"settings":
@@ -980,7 +981,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 611.0,
+						"translation.y": 2665.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -988,24 +989,24 @@
 				},
 				{
 					"buffer": 1,
-					"file": "models/torre/torre.mtl",
+					"file": "draw.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 223,
+						"buffer_size": 455,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								218,
-								217
+								256,
+								256
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/C++/C++.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1016,29 +1017,29 @@
 				},
 				{
 					"buffer": 2,
-					"file": "objloader.h",
+					"file": "draw.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8738,
+						"buffer_size": 3294,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								305,
+								305
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.sublime-syntax",
-							"tab_size": 2,
+							"tab_size": 8,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2982.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -1067,10 +1068,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 495.0,
+						"translation.y": 108.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1099,7 +1100,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]

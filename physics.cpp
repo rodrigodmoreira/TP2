@@ -12,6 +12,10 @@ using namespace std;
 
 void calculatePhysics(int* keyState,Camera &cam)
 {
+	if(keyState['+'])
+		cam.eye.y+=10;
+	if(keyState['-'])
+		cam.eye.y-=10;
 	// Setar velocidade -> correr/andar
 	if(keyState[' '])
 	{

@@ -11,7 +11,7 @@
 
 #define FPS 60
 
-enum CAM_MODE { C_KB=0,C_MOUSE};
+enum CAM_MODE {	C_KB=0,C_MOUSE};
 
 using namespace std;
 
@@ -40,6 +40,10 @@ void init()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	// Enable blending
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	// Fog
 		/*float cor[] = { .3f, .6f, 0.7 };
 
@@ -58,13 +62,13 @@ void init()
 			GLfloat a[] = {.1,.1,.1,1};
 			glLightfv(GL_LIGHT0,GL_AMBIENT,a);
 
-			GLfloat b[] = {.4,.6,.8,1};
+			GLfloat b[] = {.4,.4,.4,1};
 			glLightfv(GL_LIGHT0,GL_DIFFUSE,b);
 
-			GLfloat c[] = {125/255,125/255,125/255,1};
+			GLfloat c[] = {.1,.1,.1,1};
 			glLightfv(GL_LIGHT0,GL_SPECULAR,c);
 
-			GLfloat d[] = {300,300,300,1};
+			GLfloat d[] = {0.5,1,0.866,0};
 			glLightfv(GL_LIGHT0,GL_POSITION,d);
 
 			GLfloat e[] = {3,3,3,1};
