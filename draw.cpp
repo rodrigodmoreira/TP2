@@ -6,14 +6,49 @@
 
 using namespace std;
 
+void solMaterial()
+{
+        GLfloat a[] = {1,1,1,1};
+        glMaterialfv(GL_FRONT_AND_BACK,GL_AMBIENT,a);
+        GLfloat b[] = {1,1,1,1};
+        glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,b);
+        GLfloat c[4] = {1,1,1,1};
+        glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,c);
+        GLfloat d[4] = {.6,.6,.6,1};
+        glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,d);
+        GLfloat e[4] = {1,1,1,1};
+        glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,e);
+}
+
+void drawSun(double increment)
+{
+        glPushMatrix();
+
+                glRotatef(increment/60,0,0,1);
+                glRotatef(25,1,0,0);
+                glTranslatef(0,1000000,0);
+                glColor4f(1,1,0,1);
+                solMaterial();
+                glutSolidSphere(200000,10,10);
+                
+                {
+                        GLfloat d[4] = {0,0,0,1};
+                        glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,d);
+                }
+        glPopMatrix();
+}
+
 void drawModel(double x,double y, double z, double degree, double sdegree, GLMmodel* model, GLuint shading)
 {
         glPushMatrix();
+                glTranslatef(x,y,z);
                 glRotated(sdegree,0,0,1);
                 glRotated(degree,0,1,0);
-                glTranslatef(x,y,z);
                 glmDraw(model,shading);
+                // GLuint list = glmList(model,shading);
         glPopMatrix();
+
+        // glCallLists(1, GL_UNSIGNED_BYTE, &list);
 }
 
 void drawWireCube(double x,double y,double z,double size)
@@ -94,7 +129,10 @@ void drawPlane(double x,double y, double z, double size)
 	
 	    glTranslatef (x, y, z);
         
+        GLdouble a[] = {0,-1,0};
+        
         glBegin(GL_TRIANGLE_FAN);
+                glNormal3dv(a);
         	glVertex3d(-size,0,-size);
         	glVertex3d(size,0,-size);
         	glVertex3d(size,0,size);
@@ -102,4 +140,69 @@ void drawPlane(double x,double y, double z, double size)
         glEnd();
 	
 	glPopMatrix();
+}
+
+void drawSkybox(double x, double y, double z, double size, GLuint texture)
+{
+        size/=2;
+
+                glPushMatrix();
+                        glTranslated(x,y,z);
+
+                        glEnable(GL_COLOR_MATERIAL);
+                        glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+
+                        glEnable(GL_TEXTURE_2D);
+                        glBindTexture(GL_TEXTURE_2D, texture);
+
+                        /*// Remover interpolação entre pixels
+                                glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+                                glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);*/
+
+                        glBegin(GL_TRIANGLE_FAN);     //Frente
+                                glTexCoord2d(0, 0); glVertex3d(size,-size,size);
+                                glTexCoord2d(1, 0); glVertex3d(-size,-size,size);
+                                glTexCoord2d(1, 1); glVertex3d(-size,size,size);
+                                glTexCoord2d(0, 1); glVertex3d(size,size,size);
+                        glEnd();
+                        glBegin(GL_TRIANGLE_FAN);     //Trás
+                                glTexCoord2d(0, 0); glVertex3d(size,-size,-size);
+                                glTexCoord2d(1, 0); glVertex3d(-size,-size,-size);
+                                glTexCoord2d(1, 1); glVertex3d(-size,size,-size);
+                                glTexCoord2d(0, 1); glVertex3d(size,size,-size);
+                        glEnd();
+                        glBegin(GL_TRIANGLE_FAN);     //Lateral esquerda
+                                glTexCoord2d(0, 0); glVertex3d(size,-size,size);
+                                glTexCoord2d(1, 0); glVertex3d(size,-size,-size);
+                                glTexCoord2d(1, 1); glVertex3d(size,size,-size);
+                                glTexCoord2d(0, 1); glVertex3d(size,size,size);
+                        glEnd();
+                        glBegin(GL_TRIANGLE_FAN);     //Lateral direita
+                                glTexCoord2d(0, 0); glVertex3d(-size,-size,size);
+                                glTexCoord2d(1, 0); glVertex3d(-size,-size,-size);
+                                glTexCoord2d(1, 1); glVertex3d(-size,size,-size);
+                                glTexCoord2d(0, 1); glVertex3d(-size,size,size);
+                        glEnd();
+                        glBegin(GL_TRIANGLE_FAN);     //Topo
+                                glTexCoord2d(0, 0); glVertex3d(-size,-size,size);
+                                glTexCoord2d(1, 0); glVertex3d(size,-size,size);
+                                glTexCoord2d(1, 1); glVertex3d(size,-size,-size);
+                                glTexCoord2d(0, 1); glVertex3d(-size,-size,-size);
+                        glEnd();
+                        glBegin(GL_TRIANGLE_FAN);     //Fundo
+                                glTexCoord2d(0, 0); glVertex3d(-size,size,size);
+                                glTexCoord2d(1, 0); glVertex3d(size,size,size);
+                                glTexCoord2d(1, 1); glVertex3d(size,size,-size);
+                                glTexCoord2d(0, 1); glVertex3d(-size,size,-size);
+                        glEnd();
+                        glBegin(GL_TRIANGLE_FAN);
+                                glTexCoord2d(0, 0); glVertex3d(-size,-size,size);
+                                glTexCoord2d(1, 0); glVertex3d(size,-size,size);
+                                glTexCoord2d(1, 1); glVertex3d(-size,-size,-size);
+                                glTexCoord2d(0, 1); glVertex3d(-size,-size,-size);
+                        glEnd();
+
+                        glDisable(GL_TEXTURE_2D);
+                
+                glPopMatrix();
 }

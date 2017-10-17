@@ -1624,10 +1624,10 @@ glmDraw(GLMmodel* model, GLuint mode)
      "using only material mode.\n");
     mode &= ~GLM_COLOR;
   }
-  if (mode & GLM_COLOR)
+  /*if (mode & GLM_COLOR)
     glEnable(GL_COLOR_MATERIAL);
   else if (mode & GLM_MATERIAL)
-    glDisable(GL_COLOR_MATERIAL);
+    glDisable(GL_COLOR_MATERIAL);*/
 
   /* perhaps this loop should be unrolled into material, color, flat,
      smooth, etc. loops?  since most cpu's have good branch prediction
@@ -1702,6 +1702,8 @@ glmList(GLMmodel* model, GLuint mode)
   glNewList(list, GL_COMPILE);
   glmDraw(model, mode);
   glEndList();
+
+  //glCallLists(1, GL_UNSIGNED_BYTE, &list);
 
   return list;
 }
