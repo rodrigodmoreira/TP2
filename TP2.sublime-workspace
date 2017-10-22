@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"DEF",
+				"AS_DEFAULT"
+			],
+			[
+				"S",
+				"Source"
+			],
+			[
+				"Source",
+				"SourceVel"
+			],
+			[
+				"sour",
+				"SourcePos"
+			],
+			[
+				"al",
+				"al_source"
+			],
+			[
+				"Lis",
+				"ListenerOri"
+			],
+			[
+				"al_",
+				"al_buffer"
+			],
+			[
+				"groun",
+				"groundLimit"
+			],
+			[
+				"R",
+				"RHALLDOOR"
+			],
+			[
 				"gl",
 				"glPushMatrix"
 			],
@@ -184,10 +220,6 @@
 				"inline-block"
 			],
 			[
-				"al",
-				"alt\tAttr"
-			],
-			[
 				"head",
 				"header\tTag"
 			],
@@ -322,10 +354,6 @@
 			[
 				"AURA",
 				"AURA_SOUND"
-			],
-			[
-				"S",
-				"SLASH_SOUND"
 			],
 			[
 				"INT",
@@ -486,34 +514,6 @@
 			[
 				"texturePla",
 				"texturePlayerAnim"
-			],
-			[
-				"o",
-				"objArray"
-			],
-			[
-				"draw",
-				"drawOverlay"
-			],
-			[
-				"QUI",
-				"QUITGREYED"
-			],
-			[
-				"QUIT",
-				"QUITBRIGHTYES"
-			],
-			[
-				"G",
-				"GAME_0"
-			],
-			[
-				"game",
-				"gameState"
-			],
-			[
-				"drawO",
-				"drawOverlay"
 			]
 		]
 	},
@@ -523,43 +523,35 @@
 			"file": "main.cpp",
 			"settings":
 			{
-				"buffer_size": 12729,
+				"buffer_size": 17105,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/rodrigo/Área de Trabalho/pet",
+			"file": "/home/rodrigo/Área de Trabalho/teste/al.cpp",
 			"settings":
 			{
-				"buffer_size": 203,
+				"buffer_size": 4930,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/rodrigo/Área de Trabalho/coutinho.txt",
+			"file": "audio.h",
 			"settings":
 			{
-				"buffer_size": 16,
+				"buffer_size": 535,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
+				"line_ending": "Unix",
+				"name": "audio.h"
 			}
 		},
 		{
-			"file": "draw.h",
+			"file": "audio.cpp",
 			"settings":
 			{
-				"buffer_size": 563,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "draw.cpp",
-			"settings":
-			{
-				"buffer_size": 8190,
+				"buffer_size": 3142,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -568,7 +560,16 @@
 			"file": "physics.cpp",
 			"settings":
 			{
-				"buffer_size": 1786,
+				"buffer_size": 3532,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "physics.h",
+			"settings":
+			{
+				"buffer_size": 312,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -577,7 +578,7 @@
 			"file": "player.h",
 			"settings":
 			{
-				"buffer_size": 989,
+				"buffer_size": 1473,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -586,7 +587,7 @@
 			"file": "player.cpp",
 			"settings":
 			{
-				"buffer_size": 706,
+				"buffer_size": 1653,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -628,14 +629,27 @@
 	},
 	"expanded_folders":
 	[
-		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2",
-		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models",
-		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/city",
-		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/torre"
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2"
 	],
 	"file_history":
 	[
 		"/home/rodrigo/Área de Trabalho/CG/TP1/main.cpp",
+		"/home/rodrigo/Área de Trabalho/al.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/gaav.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/gaav.cpp",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/physics.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/draw.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/draw.cpp",
+		"/home/rodrigo/Área de Trabalho/pet",
+		"/home/rodrigo/Área de Trabalho/coutinho.txt",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/city/predioTESTE.mtl",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/city/predioTESTE.obj",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/city/walkway.mtl",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/predio/main_leaf.mtl",
+		"/home/rodrigo/.cache/.fr-n7mPeu/META-INF/MANIFEST.MF",
+		"/home/rodrigo/Área de Trabalho/hs_err_pid3602.log",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/predio/main_bot.obj",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/predio/main_body.obj",
 		"/media/rodrigo/Dados/V Escola de Inverno/rcodes/URI1610.cpp",
 		"/media/rodrigo/Dados/V Escola de Inverno/rcodes/teste.cpp",
 		"/media/rodrigo/Dados/V Escola de Inverno/rcodes/meucrivo.cpp",
@@ -667,11 +681,9 @@
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/objloader.cpp",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/objloader.h",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/city/cloud.mtl",
-		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/draw.cpp",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/torre/torre.mtl",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/predio/predio.mtl",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/test/The_City.mtl",
-		"/home/rodrigo/Área de Trabalho/coutinho.txt",
 		"/home/rodrigo/Área de Trabalho/CG/TP1/draw.cpp",
 		"/home/rodrigo/IdeaProjects/Atividade_7_-_Arquivo_de_texto/database.txt",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/torre/torre.obj",
@@ -748,25 +760,11 @@
 		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/polls/templates/polls/index.html",
 		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/polls/urls.py",
 		"/home/rodrigo/Área de Trabalho/ChatBot-Compet-Facebook-master/README.md",
-		"/home/rodrigo/Área de Trabalho/django",
-		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/mysite/urls.py",
-		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/polls/migrations/urls.py",
-		"/home/rodrigo/Documentos/djangoProject/venv/simplemooc/simplemooc/settings.py",
-		"/home/rodrigo/Documentos/djangoProject/venv/simplemooc/simplemooc/urls.py",
-		"/home/rodrigo/Documentos/djangoProject/venv/simplemooc/simplemooc/core/views.py",
-		"/home/rodrigo/Área de Trabalho/tad-coordenadas-master/teste-coordenadas.c",
-		"/home/rodrigo/Área de Trabalho/tad-coordenadas-master/coordenadas.h",
-		"/home/rodrigo/.cache/.fr-4DNKyA/textos.txt",
-		"/home/rodrigo/Downloads/Diego/tp1/README.txt",
-		"/home/rodrigo/Downloads/cefet/Conta.java",
-		"/home/rodrigo/Downloads/cefet/ContaEspecial.java",
-		"/home/rodrigo/.cache/.fr-S2UrT3/COPYING.TXT",
-		"/home/rodrigo/Downloads/diálogo.txt",
-		"/home/rodrigo/Downloads/texto.txt"
+		"/home/rodrigo/Área de Trabalho/django"
 	],
 	"find":
 	{
-		"height": 22.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -777,9 +775,17 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"incre",
+			"loop",
+			"double",
+			"sgn",
+			"error loa",
+			"kill",
+			"use",
+			"grav",
 			"str",
 			"s.",
 			"strin",
@@ -899,15 +905,7 @@
 			"restart",
 			"RESTART",
 			"restart",
-			"input",
-			"map_border",
-			"cam.gui.",
-			"p1.gui",
-			"restart",
-			"gui",
-			"colided",
-			"gameSta",
-			"p1.sword."
+			"input"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -915,6 +913,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"ALfloat",
 			"FAN",
 			"aura",
 			"auda",
@@ -997,7 +996,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -1006,15 +1005,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12729,
+						"buffer_size": 17105,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8191,
-								8254
+								10056,
+								10056
 							]
 						],
 						"settings":
@@ -1023,118 +1022,64 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3878.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/home/rodrigo/Área de Trabalho/pet",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 203,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								55,
-								55
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/home/rodrigo/Área de Trabalho/coutinho.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 16,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								16,
-								16
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1626.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "draw.h",
+					"buffer": 1,
+					"file": "/home/rodrigo/Área de Trabalho/teste/al.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 563,
+						"buffer_size": 4930,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								214,
-								214
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "draw.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8190,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								388,
-								388
+								2279,
+								2236
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.sublime-syntax",
-							"tab_size": 8,
+							"tab_size": 6,
 							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 604.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "audio.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 535,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								325,
+								325
+							]
+						],
+						"settings":
+						{
+							"auto_name": "audio.h",
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1144,20 +1089,60 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 3,
+					"file": "audio.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3142,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								283,
+								283
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 840.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
 					"file": "physics.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1786,
+						"buffer_size": 3532,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								504,
-								504
+								2770,
+								2770
+							],
+							[
+								2781,
+								2781
+							],
+							[
+								2936,
+								2936
+							],
+							[
+								2944,
+								2944
 							]
 						],
 						"settings":
@@ -1166,56 +1151,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1680.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "player.h",
+					"buffer": 5,
+					"file": "physics.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 989,
+						"buffer_size": 312,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								866,
-								866
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 8.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "player.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 706,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								181,
-								181
+								259,
+								259
 							]
 						],
 						"settings":
@@ -1226,7 +1182,64 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "player.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1473,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								319,
+								319
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 252.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "player.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1653,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								205,
+								205
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -1271,7 +1284,7 @@
 	"project": "TP2.sublime-project",
 	"replace":
 	{
-		"height": 40.0
+		"height": 69.0
 	},
 	"save_all_on_build": true,
 	"select_file":

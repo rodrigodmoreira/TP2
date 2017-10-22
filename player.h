@@ -15,21 +15,28 @@ class Camera
 		double spd;	// velocidade maxima
 		double hspd,vspd;	//  suavizar transição de movimento (parado->andando/ andando->parado)(acelarção e fricção)
 		double height;
-		double degree;
-		double vdegree;
-		double bob;
-		double mousesense;
-		bool running;
-		int mode;
+		double ground;	// altura do chão do jogador (para diferenciar térreo do andar do apartamento)
+		double degree;	// angulo horizontal de movimentação da cabeça
+		double vdegree;	// angulo vertical de movimentação da cabeça
+		double bob;	// angulo correspondente ao sacudir da cabeça
+		double mousesense;	// constante para movimento linear do mouse
+		bool running;	// is running
+		int mode;	// camera mode
 		Ponto eye;
+		Ponto maxlimit;
+		Ponto minlimit;
 		Ponto mlast; // mouse last position
 		std::string display_text;
+
+	void groundLimit(); // Configura borda no chão
+	void apLimit();	// configura borda no apartamento
 
 	Camera()
 	{
 		this->mode=0;
 		this->spd=1;
 		this->height=2;
+		this->ground=0;
 		this->vspd=0;
 		this->hspd=0;
 		this->degree=0;
@@ -40,6 +47,7 @@ class Camera
 		this->mlast={0,0,0,1};
 		this->mousesense=1.8;
 		this->display_text="";
+		this->groundLimit();
 	}
 
 	void walkFoward();

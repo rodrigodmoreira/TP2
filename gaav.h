@@ -30,6 +30,16 @@ class Vetor
 			if(this->w==1)
 				printf("GAAV error(vetor)\n");	
 		}
+
+		void set(double x,double y, double z, double w)
+		{
+			this->x=x;
+			this->y=y;
+			this->z=z;
+			this->w=w;
+			if(this->w==1)
+				printf("GAAV error(ponto)\n");	
+		}
 };
 
 class Ponto
@@ -47,6 +57,16 @@ class Ponto
 		}
 
 		Ponto(double x,double y, double z, double w)
+		{
+			this->x=x;
+			this->y=y;
+			this->z=z;
+			this->w=w;
+			if(this->w==0)
+				printf("GAAV error(ponto)\n");	
+		}
+
+		void set(double x,double y, double z, double w)
 		{
 			this->x=x;
 			this->y=y;

@@ -1,6 +1,9 @@
 #include <SOIL/SOIL.h>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
+#include <AL/al.h>
+#include <AL/alc.h>
+#include <AL/alut.h>
 #include <stdio.h>
 #include <iostream>
 #include <cmath>
@@ -9,6 +12,7 @@
 #include "draw.h"
 #include "player.h"
 #include "objloader.h"
+#include "audio.h"
 
 #define FPS 60
 
@@ -16,40 +20,117 @@ enum CAM_MODE {	C_KB=0,C_MOUSE};
 
 using namespace std;
 
-int keyState[300];
-Camera cam;
-bool light = true;
-int width,height;
+// ALthings
+	enum AUDIO_BUFFER {AB_DOOR_OPEN=0, AB_ELEVATOR_RING, AB_8BITRAVE};
+	enum AUDIO_SOURCE {AS_DEFAULT=0};
 
-GLMmodel* build01;
-GLMmodel* asphalt;
-GLMmodel* walkway;
-GLMmodel* torre;
-GLMmodel* aura;
-GLMmodel* main_body;
-GLMmodel* main_window;
-GLMmodel* main_insidewindow;
-GLMmodel* main_ring;
-GLMmodel* main_lateral;
-GLMmodel* main_hall_generic;
-GLMmodel* main_bot;
-GLMmodel* main_elevator;
-GLMmodel* main_groundlight;
-GLMmodel* main_leaf;
-GLMmodel* main_wood;
-GLMmodel* main_vase;
-GLMmodel* main_mesa;
-GLMmodel* main_tapete;
-GLMmodel* main_sofa;
-GLMmodel* ground;
-GLMmodel* cloud;
+	// Buffers to hold sound data.
+	ALuint al_buffer[100];
 
-double increment = 0;
+	// Sources are points of emitting sound.
+	ALuint al_source[100];
 
-GLuint skybox_texture;
+	// Position of the source sound.
+	ALfloat SourcePos[] = { 0.0, 0.0, 0.0 };
+	 
+	// Velocity of the source sound.
+	ALfloat SourceVel[] = { 0.0, 0.0, 0.0 };
+	 
+	// Position of the Listener.
+	ALfloat ListenerPos[] = { 0.0, 0.0, 0.0 };
+	 
+	// Velocity of the Listener.
+	ALfloat ListenerVel[] = { 0.0, 0.0, 0.0 };
+	 
+	// Orientation of the Listener. (first 3 elements are "at", second 3 are "up") (vulgo "target" e vetor para cima)
+	// Also note that these should be units of '1'.
+	ALfloat ListenerOri[] = { 0.0, 0.0, -1.0,  0.0, 1.0, 0.0 };
 
-template <typename T> int sgn(T val) {
-    return (T(0) < val) - (val < T(0));
+// Some globals
+	int keyState[300];
+	Camera cam;
+	bool light = true;
+	int width,height;
+
+// GLMmodels
+	GLMmodel* build01;
+	GLMmodel* asphalt;
+	GLMmodel* walkway;
+	GLMmodel* torre;
+	GLMmodel* aura;
+	GLMmodel* main_body;
+	GLMmodel* main_window;
+	GLMmodel* main_insidewindow;
+	GLMmodel* main_ring;
+	GLMmodel* main_lateral;
+	GLMmodel* main_hall_generic;
+	GLMmodel* main_bot;
+	GLMmodel* main_elevator;
+	GLMmodel* main_groundlight;
+	GLMmodel* main_leaf;
+	GLMmodel* main_wood;
+	GLMmodel* main_vase;
+	GLMmodel* main_mesa;
+	GLMmodel* main_tapete;
+	GLMmodel* main_sofa;
+	GLMmodel* main_hdoor;
+	GLMmodel* ground;
+	GLMmodel* cloud;
+	GLMmodel* poste;
+	GLMmodel* sLamp;
+	GLMmodel* plane;
+
+// Variavel "parametrica" correspondente ao tempo passado (utilizado pra fazer algumas coisas se moverem com o passar do tempo)
+	double increment = 0;
+
+// Posições de alguns objetos que se movem
+	enum POSICOES{RHALLDOOR=0,LHALLDOOR,PLANE};
+	Ponto p[100];
+
+// Extrator de sinal - Guardando aqui para futuras referencias(código lindão)
+	template <typename T> int sgn(T val) {
+	    return (T(0) < val) - (val < T(0));
+	}
+
+void initAL()
+{
+	// Initialize OpenAL and clear the error bit. 
+		alutInit(NULL, 0);
+		alGetError();
+		alDistanceModel(AL_LINEAR_DISTANCE_CLAMPED);
+
+	// Load .wav (16 bit-only)
+		if(loadALData(al_buffer[AB_8BITRAVE],"sounds/Panda Eyes - Fake Princess.wav") == AL_FALSE)
+		{
+			printf("buffer_fudeo\n");
+			exit(0);
+		}
+
+	// Bind audio to a source
+		if(bindALData(al_buffer[AB_8BITRAVE],al_source[AS_DEFAULT], SourcePos, SourceVel, AL_TRUE) == AL_FALSE)
+		{
+			printf("source_fudeo\n");
+			exit(0);
+		}
+
+	// Configure Listener initial values
+		setListenerValues(ListenerPos,ListenerVel,ListenerOri);
+
+	// Play audio on source
+		alSourcePlay(al_source[AS_DEFAULT]);
+
+	// Halt audio
+		// alSourcePause(Source);
+
+	// Stop audio
+		// alSourceStop(Source);
+}
+
+void initPos()
+{
+	p[RHALLDOOR].set(25,0,-1,1);
+	p[LHALLDOOR].set(0,0,0,1);
+	p[PLANE].set(-1000,5000,15000,1);
 }
 
 void init()
@@ -225,6 +306,11 @@ void init()
 		glmVertexNormals(main_sofa, 90.0);
 		glmScale(main_sofa, 10);
 
+		main_hdoor = glmReadOBJ("models/predio/main_rhdoor.obj");
+		glmFacetNormals(main_hdoor);
+		glmVertexNormals(main_hdoor, 90.0);
+		glmScale(main_hdoor, 10);
+
 		ground = glmReadOBJ("models/predio/ground.obj");
 		glmFacetNormals(ground);
 		glmVertexNormals(ground, 90.0);
@@ -234,6 +320,23 @@ void init()
 		glmFacetNormals(cloud);
 		glmVertexNormals(cloud, 90.0);
 		glmScale(cloud, 10);
+
+		poste = glmReadOBJ("models/city/poste.obj");
+		glmFacetNormals(poste);
+		glmVertexNormals(poste, 90.0);
+		glmScale(poste, 10);
+
+		sLamp = glmReadOBJ("models/city/streetLamp.obj");
+		glmFacetNormals(sLamp);
+		glmVertexNormals(sLamp, 90.0);
+		glmScale(sLamp, 10);
+
+		plane = glmReadOBJ("models/city/plane.obj");
+		glmFacetNormals(plane);
+		glmVertexNormals(plane, 90.0);
+		glmScale(plane, 40);
+
+		initPos();
 
 }
 
@@ -260,37 +363,42 @@ void emissive(double alpha)
 void draw_callback()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	//	Criar lista para guardar desenho
+	//	Resolve problema de objetos piscando na tela
+	GLuint lista = glGenLists(1);
+	glNewList(lista, GL_COMPILE);	// Abre nova lista para compilar (guardar)
 	
 	glPushMatrix();
-		gluLookAt(cam.eye.x+(cos((cam.bob/2)*M_PI/180)/50),cam.height+cam.eye.y+(sin(cam.bob*M_PI/180)/80),cam.eye.z,
-					cam.eye.x+sin(cam.degree*M_PI/180),cam.height+cam.eye.y+sin(cam.vdegree*M_PI/180),cam.eye.z+cos(cam.degree*M_PI/180),
+		gluLookAt(cam.eye.x+(cos((cam.bob/2)*M_PI/180)/50),cam.ground+cam.height+cam.eye.y+(sin(cam.bob*M_PI/180)/80),cam.eye.z,
+					cam.eye.x+sin(cam.degree*M_PI/180),cam.ground+cam.height+cam.eye.y+sin(cam.vdegree*M_PI/180),cam.eye.z+cos(cam.degree*M_PI/180),
 					0,1,0);
 
-		/*// Skybox
-			glColor4f(1,1,1,.5);
-			drawSkybox(cam.eye.x,cam.eye.y,cam.eye.z,20000,skybox_texture);*/
-
 		// Sun
-		drawSun(increment);
+			drawSun(1*increment);
 
 		// Clouds
-		glPushMatrix();
-			emissive(.6);
-				glRotatef(increment/60,0,1,0);
-				glTranslatef(0,50000,0);
-				glColor4f(1,1,1,.7);
-				glScalef(1000,1000,1000);
-				glmDraw(cloud,GLM_SMOOTH);
-			emissive(0);
-		glPopMatrix();
+			glPushMatrix();
+				emissive(.6);
+					glRotatef(increment/60,0,1,0);
+					glTranslatef(0,50000,0);
+					glColor4f(1,1,1,.7);
+					glScalef(1000,1000,1000);
+					glmDraw(cloud,GLM_SMOOTH);
+				emissive(0);
+			glPopMatrix();
 
 		// Cidade
-			glColor4f(.5,.5,.5,1);
+			glColor4f(1,1,1,1);
 			drawModel(0,-10,500,180,0,build01,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.1,.1,.1,1);
+			glColor4f(.3,.3,.3,1);
 			drawModel(0,-10,500,180,0,asphalt,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.2,.2,.2,1);
+			glColor4f(.4,.4,.4,1);
 			drawModel(0,-10,500,180,0,walkway,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(1,1,1,1);
+			drawModel(0,-10,500,180,0,poste,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(1,1,1,1);
+			drawModel(0+p[PLANE].x,-10+p[PLANE].y,500+p[PLANE].z,180,0,plane,GLM_FLAT | GLM_MATERIAL);
 
 		// Desenhar prédio
 			emissive(.2);
@@ -320,10 +428,15 @@ void draw_callback()
 			drawModel(0,-10,500,180,0,main_mesa,GLM_FLAT | GLM_MATERIAL);
 			glColor4f(.5,.5,.5,1);
 			drawModel(0,-10,500,180,0,main_tapete,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.8,.8,.8,1);
+			glColor4f(1,1,1,1);
 			drawModel(0,-10,500,180,0,main_sofa,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.1,.1,.1,1);
+			glColor4f(.95,.13,.19,1);
 			drawModel(0,-10,500,180,0,main_hall_generic,GLM_FLAT | GLM_MATERIAL);
+			emissive(.2);
+				glColor4f(.4,1,1,.5);
+				drawModel(0+(p[LHALLDOOR]).x,-10+(p[LHALLDOOR]).y,500+(p[LHALLDOOR]).z,180,0,main_hdoor,GLM_FLAT | GLM_MATERIAL);
+				drawModel(0+(p[RHALLDOOR]).x,-10+(p[RHALLDOOR]).y,500+(p[RHALLDOOR]).z,180,0,main_hdoor,GLM_FLAT | GLM_MATERIAL);
+			emissive(0);
 
 		// Montanhas
 			glColor4f(.2,.7,.1,1);
@@ -349,50 +462,68 @@ void draw_callback()
 		/*glColor4f(0,.5,1,.5);
 		drawModel(0,30,400,increment,10,torre,GLM_FLAT | GLM_MATERIAL);
 		glColor4f(0,.5,1,.1);
-		drawModel(0,30,400,increment,10,aura,GLM_FLAT | GLM_MATERIAL);*/
+		drawModel(0,30,400,increment,10,aura,GLM_FLAT | GLM_MATERIAL);*/// City
+		emissive(.4);
+			glColor4f(.95,.8,.4,.3);
+			drawModel(0,-10,500,180,0,sLamp,GLM_FLAT | GLM_MATERIAL);
 
 	glPopMatrix();
+
+
+	// Mudar Projeção
+		glMatrixMode (GL_PROJECTION);
+		glLoadIdentity ();
+
+		//gluPerspective(65.0, (GLfloat) w/(GLfloat) h, 1.0, 10000000.0);
+		glOrtho(0, width, 0, height, -1.0, 1.0);
+
+		glMatrixMode(GL_MODELVIEW);
 
 	drawText(GLUT_BITMAP_HELVETICA_18,"ELEVADOR (E)",0,0);
 	if(cam.display_text!="")
 		glutWireCube(10);
 
+	// Retornar
+		glMatrixMode (GL_PROJECTION);
+		glLoadIdentity ();
+
+		gluPerspective(65.0, (GLfloat) width/(GLfloat) height, 1.0, 10000000.0);
+		//glOrtho(0, w, 0, h, -1.0, 1.0);
+
+		glMatrixMode(GL_MODELVIEW);
+
+	glEndList();	// Fecha lista de desenho
+	glCallList(lista);	// Envia a lista pronta para ser desenhada
+	glDeleteLists(lista, 1);	// Deleta a lista usada
+	
 	glutSwapBuffers();
 }
 
 void update_callback(int)
 {
-	calculatePhysics(keyState,cam);
+	increment+=2;
+
+	calculatePhysics(keyState,cam,p,increment);
+
+	// Atualizar posição do ouvinte
+	{		
+		ALfloat lpos[] = {-cam.eye.x,-cam.eye.y,-cam.eye.z};
+		ALfloat lvel[] = {cam.spd*sin(cam.degree*M_PI/180)*cam.hspd,0,cam.spd*cos(cam.degree*M_PI/180)*cam.hspd};
+		ALfloat lori[] = {cam.eye.x+sin(cam.degree*M_PI/180),cam.ground+cam.height+cam.eye.y+sin(cam.vdegree*M_PI/180),cam.eye.z+cos(cam.degree*M_PI/180),
+							0,1,0}; // Mesma coisa do gluLookAt (target + vetor vertical)
+		//alSourcefv(al_source[AS_DEFAULT], AL_POSITION, lpos);
+		setListenerValues(lpos,lvel,lori);
+	}
 
 	if(keyState['i'])
 		increment+=20;
 
-	increment+=2;
-
-	// Sun/Moon
-	{
-		GLfloat a[] = {cos(.01*increment*M_PI/180)/10,cos(.01*increment*M_PI/180)/10,cos(.01*increment*M_PI/180)/10,1};
-		glLightfv(GL_LIGHT0,GL_AMBIENT,a);
-
-		GLfloat b[] = {.1+cos(.01*increment*M_PI/180)/5,.1+cos(.01*increment*M_PI/180)/5,.1+cos(.01*increment*M_PI/180)/5,1};
-		glLightfv(GL_LIGHT0,GL_DIFFUSE,b);
-
-		// 0.4, 0.8, 1.0, 1.0
-		double colorR = 0.2*cos(.01*increment*M_PI/180);
-		double colorG = 0.8*cos(.01*increment*M_PI/180);
-		double colorB = 1*cos(.01*increment*M_PI/180);
-		if(colorB <= .1)
-		{
-			colorR=0;
-			colorG=.05;
-			colorB=.1;
-		}
-		glClearColor(colorR, colorG, colorB, 1.0);
-	}
-
-	glutPostRedisplay();
-
 	glutTimerFunc(((double)1000)/FPS,update_callback,0); 
+}
+
+void idle_callback()	// MAX FPS BRO!!
+{
+	glutPostRedisplay();
 }
 
 void reshape_callback(int w, int h)
@@ -413,8 +544,10 @@ void reshape_callback(int w, int h)
 
 void keyPress_callback(unsigned char key, int x, int y)
 {
+	// ESC - Sair
 	if(key==27) exit(0);
 
+	// l - ON/OFF modelo de iluminação
 	if(key=='l' && light)
 	{
 		glDisable(GL_LIGHTING);
@@ -426,9 +559,15 @@ void keyPress_callback(unsigned char key, int x, int y)
 		light=true;
 	}
 
+	// Imprime posição da camera no terminal
 	if(key=='p')
+	{
 		cout << "X(" << cam.eye.x << ") | Z(" << cam.eye.z << ")" << endl;
+		cout << "Y(" << cam.eye.y << ")" << endl;
+		printf("Y(%lf) | ground(%lf) | som(%lf)\n",cam.eye.y,(double)cam.ground,(double)(cam.ground+cam.eye.y+cam.vspd));
+	}
 
+	// Modo da camera (MOUSE+KB || KB_ONLY->DOOOOM)
 	if(key=='m' && cam.mode==C_MOUSE)
 		cam.mode=C_KB;
 	else if(key=='m')
@@ -447,6 +586,7 @@ void keyRelease_callback(unsigned char key, int x, int y)
 
 void passivemouse_callback(int x, int y)
 {
+	// Inverte e translada origem do sistema pra baixo
 	y=-y+768;
 
 	if(cam.mode==C_MOUSE)
@@ -478,8 +618,10 @@ int main(int argc, char** argv)
 	glutInitWindowSize (1366, 768);
 	glutInitWindowPosition (0, 0);
 	glutCreateWindow ("TP2");
-	glutFullScreen();
+	// glutFullScreen();
+
 	init();
+	initAL();
 
 	glutDisplayFunc(draw_callback);
 	glutReshapeFunc(reshape_callback);
@@ -487,6 +629,7 @@ int main(int argc, char** argv)
 	glutKeyboardUpFunc(keyRelease_callback);
 	glutPassiveMotionFunc(passivemouse_callback);
 	glutTimerFunc(0,update_callback,0);
+	glutIdleFunc(idle_callback);
 
 	glutMainLoop();
 	return 0;

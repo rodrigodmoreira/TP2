@@ -6,7 +6,7 @@
 /**************************/
 // your stuff goes here
 // function prototypes, etc.
-void calculatePhysics(int* keyState,Camera &cam);
+void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment);
 // classes
 // reservate names
 
