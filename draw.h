@@ -9,8 +9,8 @@
 void drawSun(double increment);
 void drawModel(double x,double y, double z,double degree, double sdegree, GLMmodel* model, GLuint shading);
 void drawWireCube(double x,double y,double z,double size);
+void drawSolidCube(double x,double y,double z,double vdegree,double hdegree,double size);
 void drawPlane(double x,double y, double z, double size);
-void drawSkybox(double x, double y, double z, double size, GLuint texture);
 // classes
 // reservate names
 

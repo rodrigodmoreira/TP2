@@ -4,21 +4,21 @@
 #include <cmath>
 #include <iostream>
 #include <string>
-#include <random>
+#include <cstdlib> 
 
 #include "player.h"
 
 enum CAM_MODE { C_KB=0,C_MOUSE};
-enum POSICOES{RHALLDOOR=0,LHALLDOOR,PLANE};
+enum POSICOES{RHALLDOOR=0,LHALLDOOR,AIRPLANE,APELEVATOR};
 
 using namespace std;
 
 void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 {
 	// Checar se está perto da porta de entrada
-		if(cam.eye.x >= -25 && cam.eye.x <= 25 && cam.eye.z <= 505 && cam.eye.z >= 405 || keyState['c'])
+		if(cam.eye.x >= -25 && cam.eye.x <= 25 && cam.eye.z <= 505 && cam.eye.z >= 405)
 		{
-			if(p[RHALLDOOR].x<50)
+			if(p[RHALLDOOR].x<50)	// Enquanto não chegar ao limite, continua abrindo
 				p[RHALLDOOR].x++;
 
 			if(p[LHALLDOOR].x>-25)
@@ -26,26 +26,54 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 		}
 		else
 		{
-			if(p[RHALLDOOR].x>25)
+			if(p[RHALLDOOR].x>25)	// Enquanto não chegar ao limite, continua fechando
 				p[RHALLDOOR].x--;
 
 			if(p[LHALLDOOR].x<0)
 				p[LHALLDOOR].x++;
 		}
 
-	// Checar se está perto do elevador
-		if(cam.eye.x >= -120 && cam.eye.x <= -100 && cam.eye.z <= 795 && cam.eye.z >= 775 && cam.ground >=-5 && cam.ground <=5)
+	// Checar se está perto da porta do elevador
+		if(cam.eye.x >= -25 && cam.eye.x <= 25 && cam.eye.z <= 1145 && cam.eye.z >= 1025)
 		{
-			cam.display_text = "Pressione R para subir o elevador";
-			if(keyState['r'])
-			{
-				cam.ground=1341;
-				cam.apLimit();
-			}
-			cout << cam.display_text << endl;
+			if(p[APELEVATOR].y>-150) // Mesmo o elevador estando lá em cima, dentro do obj, seu centro está no (0,0)
+				p[APELEVATOR].y-=2;
 		}
 		else
-			cam.display_text = "";
+		{
+			if(p[APELEVATOR].y<0)
+				p[APELEVATOR].y+=2;	
+		}
+
+	// Checar se está perto do elevador
+		if(cam.ground >=-5 && cam.ground <=5) // Se está no terra
+		{
+			if(cam.eye.x >= -120 && cam.eye.x <= -100 && cam.eye.z <= 795 && cam.eye.z >= 775 )
+			{
+				cam.display_text = "Pressione R para subir o elevador";
+				cam.canWarp=1;
+				cout << cam.display_text << endl;
+			}
+			else
+			{
+				cam.canWarp=0;
+				cam.display_text = "";
+			}
+		}
+		else if(cam.ground >= 1345 && cam.ground <= 1360) // Se está no apartamento
+		{
+			if(cam.eye.x >= -25 && cam.eye.x <= 25 && cam.eye.z <= 1145 && cam.eye.z >= 1125 && cam.ground >=-5)
+			{
+				cam.display_text = "Pressione R para descer o elevador";
+				cam.canWarp=2;
+				cout << cam.display_text << endl;
+			}
+			else
+			{
+				cam.canWarp=0;
+				cam.display_text = "";
+			}
+		}
 
 	// Gravidade
 		cam.eye.y+=cam.vspd;
@@ -79,7 +107,7 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 			cam.bob+=5;
 		}
 		else
-			cam.spd=1;
+			cam.spd=10;
 	
 	// Movimentação
 		// Checar se não atingiu os limites delimitados pela área em que estou (chão ou apartamento)
@@ -152,11 +180,12 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 	}
 
 	// Movimento avião
-	p[PLANE].z-=20;
-	if(p[PLANE].z<=-20000)
-	{
-		minstd_rand0 generator;
-		p[PLANE].z=15000;
-		p[PLANE].x=-500+generator()%1001;
-	}
+		p[AIRPLANE].z-=50;
+		p[AIRPLANE].y+=2*sin(10*increment*M_PI/180);
+		p[AIRPLANE].x+=2*cos(10*increment*M_PI/180);
+		if(p[AIRPLANE].z<=-20000)
+		{
+			p[AIRPLANE].z=15000;
+			p[AIRPLANE].x=-500+rand()%1001;
+		}
 }

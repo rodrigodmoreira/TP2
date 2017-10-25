@@ -142,67 +142,13 @@ void drawPlane(double x,double y, double z, double size)
 	glPopMatrix();
 }
 
-void drawSkybox(double x, double y, double z, double size, GLuint texture)
+void drawSolidCube(double x,double y,double z,double vdegree,double hdegree,double size)
 {
-        size/=2;
+        glPushMatrix();
+                glTranslated(x,y,z);
+                glRotated(1,0,0,vdegree);
+                glRotated(0,1,0,hdegree);
 
-                glPushMatrix();
-                        glTranslated(x,y,z);
-
-                        glEnable(GL_COLOR_MATERIAL);
-                        glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-
-                        glEnable(GL_TEXTURE_2D);
-                        glBindTexture(GL_TEXTURE_2D, texture);
-
-                        /*// Remover interpolação entre pixels
-                                glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-                                glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);*/
-
-                        glBegin(GL_TRIANGLE_FAN);     //Frente
-                                glTexCoord2d(0, 0); glVertex3d(size,-size,size);
-                                glTexCoord2d(1, 0); glVertex3d(-size,-size,size);
-                                glTexCoord2d(1, 1); glVertex3d(-size,size,size);
-                                glTexCoord2d(0, 1); glVertex3d(size,size,size);
-                        glEnd();
-                        glBegin(GL_TRIANGLE_FAN);     //Trás
-                                glTexCoord2d(0, 0); glVertex3d(size,-size,-size);
-                                glTexCoord2d(1, 0); glVertex3d(-size,-size,-size);
-                                glTexCoord2d(1, 1); glVertex3d(-size,size,-size);
-                                glTexCoord2d(0, 1); glVertex3d(size,size,-size);
-                        glEnd();
-                        glBegin(GL_TRIANGLE_FAN);     //Lateral esquerda
-                                glTexCoord2d(0, 0); glVertex3d(size,-size,size);
-                                glTexCoord2d(1, 0); glVertex3d(size,-size,-size);
-                                glTexCoord2d(1, 1); glVertex3d(size,size,-size);
-                                glTexCoord2d(0, 1); glVertex3d(size,size,size);
-                        glEnd();
-                        glBegin(GL_TRIANGLE_FAN);     //Lateral direita
-                                glTexCoord2d(0, 0); glVertex3d(-size,-size,size);
-                                glTexCoord2d(1, 0); glVertex3d(-size,-size,-size);
-                                glTexCoord2d(1, 1); glVertex3d(-size,size,-size);
-                                glTexCoord2d(0, 1); glVertex3d(-size,size,size);
-                        glEnd();
-                        glBegin(GL_TRIANGLE_FAN);     //Topo
-                                glTexCoord2d(0, 0); glVertex3d(-size,-size,size);
-                                glTexCoord2d(1, 0); glVertex3d(size,-size,size);
-                                glTexCoord2d(1, 1); glVertex3d(size,-size,-size);
-                                glTexCoord2d(0, 1); glVertex3d(-size,-size,-size);
-                        glEnd();
-                        glBegin(GL_TRIANGLE_FAN);     //Fundo
-                                glTexCoord2d(0, 0); glVertex3d(-size,size,size);
-                                glTexCoord2d(1, 0); glVertex3d(size,size,size);
-                                glTexCoord2d(1, 1); glVertex3d(size,size,-size);
-                                glTexCoord2d(0, 1); glVertex3d(-size,size,-size);
-                        glEnd();
-                        glBegin(GL_TRIANGLE_FAN);
-                                glTexCoord2d(0, 0); glVertex3d(-size,-size,size);
-                                glTexCoord2d(1, 0); glVertex3d(size,-size,size);
-                                glTexCoord2d(1, 1); glVertex3d(-size,-size,-size);
-                                glTexCoord2d(0, 1); glVertex3d(-size,-size,-size);
-                        glEnd();
-
-                        glDisable(GL_TEXTURE_2D);
-                
-                glPopMatrix();
+                glutSolidCube(size);
+        glPopMatrix();
 }

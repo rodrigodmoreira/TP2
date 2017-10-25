@@ -22,6 +22,7 @@ class Camera
 		double mousesense;	// constante para movimento linear do mouse
 		bool running;	// is running
 		int mode;	// camera mode
+		int canWarp;
 		Ponto eye;
 		Ponto maxlimit;
 		Ponto minlimit;
@@ -33,7 +34,7 @@ class Camera
 
 	Camera()
 	{
-		this->mode=0;
+		this->mode=1;
 		this->spd=1;
 		this->height=2;
 		this->ground=0;
@@ -45,8 +46,9 @@ class Camera
 		this->running=false;
 		this->eye={0,0,0,1}; // Posição no mundo
 		this->mlast={0,0,0,1};
-		this->mousesense=1.8;
+		this->mousesense=1;
 		this->display_text="";
+		this->canWarp=0;
 		this->groundLimit();
 	}
 

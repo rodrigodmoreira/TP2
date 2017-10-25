@@ -5,6 +5,7 @@
 #include <AL/alc.h>
 #include <AL/alut.h>
 #include <stdio.h>
+#include <cstdlib> 
 #include <iostream>
 #include <cmath>
 #include <string>
@@ -14,7 +15,8 @@
 #include "objloader.h"
 #include "audio.h"
 
-#define FPS 60
+#define FPS 120
+#define NUM_ESTRELAS 1000
 
 enum CAM_MODE {	C_KB=0,C_MOUSE};
 
@@ -22,7 +24,7 @@ using namespace std;
 
 // ALthings
 	enum AUDIO_BUFFER {AB_DOOR_OPEN=0, AB_ELEVATOR_RING, AB_8BITRAVE};
-	enum AUDIO_SOURCE {AS_DEFAULT=0};
+	enum AUDIO_SOURCE {AS_DEFAULT=0,AS_HALLDOOR};
 
 	// Buffers to hold sound data.
 	ALuint al_buffer[100];
@@ -74,19 +76,41 @@ using namespace std;
 	GLMmodel* main_tapete;
 	GLMmodel* main_sofa;
 	GLMmodel* main_hdoor;
+	GLMmodel* ap_bed;
+	GLMmodel* ap_bluebutton;
+	GLMmodel* ap_coffee;
+	GLMmodel* ap_elevator;
+	GLMmodel* ap_elevatorglass;
+	GLMmodel* ap_glass;
+	GLMmodel* ap_homeroom_monitor;
+	GLMmodel* ap_keyboard;
+	GLMmodel* ap_lamp;
+	GLMmodel* ap_pillow;
+	GLMmodel* ap_ps4;
+	GLMmodel* ap_redbutton;
+	GLMmodel* ap_serverglass;
+	GLMmodel* ap_serverside;
+	GLMmodel* ap_servertower;
+	GLMmodel* ap_superpc;
+	GLMmodel* ap_tapete;
+	GLMmodel* ap_tophouse;
+	GLMmodel* ap_wall;
 	GLMmodel* ap_white;
+	GLMmodel* ap_wire;
+	GLMmodel* ap_wood;
 	GLMmodel* ground;
 	GLMmodel* cloud;
 	GLMmodel* poste;
 	GLMmodel* sLamp;
-	GLMmodel* plane;
+	GLMmodel* airplane;
 
 // Variavel "parametrica" correspondente ao tempo passado (utilizado pra fazer algumas coisas se moverem com o passar do tempo)
 	double increment = 0;
 
 // Posições de alguns objetos que se movem
-	enum POSICOES{RHALLDOOR=0,LHALLDOOR,PLANE};
+	enum POSICOES{RHALLDOOR=0,LHALLDOOR,AIRPLANE,APELEVATOR};
 	Ponto p[100];
+	Ponto estrelas[NUM_ESTRELAS];
 
 // Extrator de sinal - Guardando aqui para futuras referencias(código lindão)
 	template <typename T> int sgn(T val) {
@@ -108,12 +132,30 @@ void initAL()
 			printf("buffer_fudeo\n");
 			exit(0);
 		}
+		if(loadALData(al_buffer[AB_DOOR_OPEN],"sounds/Mike McDonough - Space Ship Door Sounds.wav") == AL_FALSE)
+		{
+			printf("buffer_fudeo\n");
+			exit(0);
+		}
+
 
 	// Bind audio to a source
-		if(bindALData(al_buffer[AB_8BITRAVE],al_source[AS_DEFAULT], SourcePos, SourceVel, AL_TRUE) == AL_FALSE)
+		//FONTE SONORA: PORTA/HALL
 		{
-			printf("source_fudeo\n");
-			exit(0);
+			ALfloat pos[] = {0,0,450};
+			if(bindALData(al_buffer[AB_DOOR_OPEN],al_source[AS_HALLDOOR], pos, SourceVel, AL_TRUE) == AL_FALSE)
+			{
+				printf("source_fudeo\n");
+				exit(0);
+			}
+		}
+		// FONTE SONORA: SALA DE ESTAR
+		{
+			if(bindALData(al_buffer[AB_8BITRAVE],al_source[AS_DEFAULT], SourcePos, SourceVel, AL_TRUE) == AL_FALSE)
+			{
+				printf("source_fudeo\n");
+				exit(0);
+			}
 		}
 
 	// Configure Listener initial values
@@ -133,7 +175,8 @@ void initPos()
 {
 	p[RHALLDOOR].set(25,0,-1,1);
 	p[LHALLDOOR].set(0,0,0,1);
-	p[PLANE].set(-1000,5000,15000,1);
+	p[AIRPLANE].set(-1000,5000,15000,1);
+	p[APELEVATOR].set(0,0,0,1);
 }
 
 void init()
@@ -314,10 +357,115 @@ void init()
 		glmVertexNormals(main_hdoor, 90.0);
 		glmScale(main_hdoor, 10);
 
+		ap_bed = glmReadOBJ("models/predio/ap_bed.obj");
+		glmFacetNormals(ap_bed);
+		glmVertexNormals(ap_bed, 90.0);
+		glmScale(ap_bed, 10);
+
+		ap_bluebutton = glmReadOBJ("models/predio/ap_bluebutton.obj");
+		glmFacetNormals(ap_bluebutton);
+		glmVertexNormals(ap_bluebutton, 90.0);
+		glmScale(ap_bluebutton, 10);
+
+		ap_coffee = glmReadOBJ("models/predio/ap_coffee.obj");
+		glmFacetNormals(ap_coffee);
+		glmVertexNormals(ap_coffee, 90.0);
+		glmScale(ap_coffee, 10);
+
+		ap_elevator = glmReadOBJ("models/predio/ap_elevator.obj");
+		glmFacetNormals(ap_elevator);
+		glmVertexNormals(ap_elevator, 90.0);
+		glmScale(ap_elevator, 10);
+
+		ap_elevatorglass = glmReadOBJ("models/predio/ap_elevatorglass.obj");
+		glmFacetNormals(ap_elevatorglass);
+		glmVertexNormals(ap_elevatorglass, 90.0);
+		glmScale(ap_elevatorglass, 10);
+
+		ap_glass = glmReadOBJ("models/predio/ap_glass.obj");
+		glmFacetNormals(ap_glass);
+		glmVertexNormals(ap_glass, 90.0);
+		glmScale(ap_glass, 10);
+
+		ap_homeroom_monitor = glmReadOBJ("models/predio/ap_homeroom_monitor.obj");
+		glmFacetNormals(ap_homeroom_monitor);
+		glmVertexNormals(ap_homeroom_monitor, 90.0);
+		glmScale(ap_homeroom_monitor, 10);
+
+		ap_keyboard = glmReadOBJ("models/predio/ap_keyboard.obj");
+		glmFacetNormals(ap_keyboard);
+		glmVertexNormals(ap_keyboard, 90.0);
+		glmScale(ap_keyboard, 10);
+
+		ap_lamp = glmReadOBJ("models/predio/ap_lamp.obj");
+		glmFacetNormals(ap_lamp);
+		glmVertexNormals(ap_lamp, 90.0);
+		glmScale(ap_lamp, 10);
+
+		ap_pillow = glmReadOBJ("models/predio/ap_pillow.obj");
+		glmFacetNormals(ap_pillow);
+		glmVertexNormals(ap_pillow, 90.0);
+		glmScale(ap_pillow, 10);
+
+		ap_ps4 = glmReadOBJ("models/predio/ap_ps4.obj");
+		glmFacetNormals(ap_ps4);
+		glmVertexNormals(ap_ps4, 90.0);
+		glmScale(ap_ps4, 10);
+
+		ap_redbutton = glmReadOBJ("models/predio/ap_redbutton.obj");
+		glmFacetNormals(ap_redbutton);
+		glmVertexNormals(ap_redbutton, 90.0);
+		glmScale(ap_redbutton, 10);
+
+		ap_serverglass = glmReadOBJ("models/predio/ap_serverglass.obj");
+		glmFacetNormals(ap_serverglass);
+		glmVertexNormals(ap_serverglass, 90.0);
+		glmScale(ap_serverglass, 10);
+
+		ap_serverside = glmReadOBJ("models/predio/ap_serverside.obj");
+		glmFacetNormals(ap_serverside);
+		glmVertexNormals(ap_serverside, 90.0);
+		glmScale(ap_serverside, 10);
+
+		ap_servertower = glmReadOBJ("models/predio/ap_servertower.obj");
+		glmFacetNormals(ap_servertower);
+		glmVertexNormals(ap_servertower, 90.0);
+		glmScale(ap_servertower, 10);
+
+		ap_superpc = glmReadOBJ("models/predio/ap_superpc.obj");
+		glmFacetNormals(ap_superpc);
+		glmVertexNormals(ap_superpc, 90.0);
+		glmScale(ap_superpc, 10);
+
+		ap_tapete = glmReadOBJ("models/predio/ap_tapete.obj");
+		glmFacetNormals(ap_tapete);
+		glmVertexNormals(ap_tapete, 90.0);
+		glmScale(ap_tapete, 10);
+
+		ap_tophouse = glmReadOBJ("models/predio/ap_tophouse.obj");
+		glmFacetNormals(ap_tophouse);
+		glmVertexNormals(ap_tophouse, 90.0);
+		glmScale(ap_tophouse, 10);
+
+		ap_wall = glmReadOBJ("models/predio/ap_wall.obj");
+		glmFacetNormals(ap_wall);
+		glmVertexNormals(ap_wall, 90.0);
+		glmScale(ap_wall, 10);
+
 		ap_white = glmReadOBJ("models/predio/ap_white.obj");
 		glmFacetNormals(ap_white);
 		glmVertexNormals(ap_white, 90.0);
 		glmScale(ap_white, 10);
+
+		ap_wire = glmReadOBJ("models/predio/ap_wire.obj");
+		glmFacetNormals(ap_wire);
+		glmVertexNormals(ap_wire, 90.0);
+		glmScale(ap_wire, 10);
+
+		ap_wood = glmReadOBJ("models/predio/ap_wood.obj");
+		glmFacetNormals(ap_wood);
+		glmVertexNormals(ap_wood, 90.0);
+		glmScale(ap_wood, 10);
 
 		ground = glmReadOBJ("models/predio/ground.obj");
 		glmFacetNormals(ground);
@@ -339,12 +487,21 @@ void init()
 		glmVertexNormals(sLamp, 90.0);
 		glmScale(sLamp, 10);
 
-		plane = glmReadOBJ("models/city/plane.obj");
-		glmFacetNormals(plane);
-		glmVertexNormals(plane, 90.0);
-		glmScale(plane, 40);
+		airplane = glmReadOBJ("models/city/plane.obj");
+		glmFacetNormals(airplane);
+		glmVertexNormals(airplane, 90.0);
+		glmScale(airplane, 40);
 
 		initPos();
+
+	// Preencher vetor pos de estrelas
+		for(int x=0, area=128000; x<NUM_ESTRELAS ;x++)
+		{
+			int vx = rand()%area-area/2; // vy = vx (valor de y = valor de x)(expressão apenas)
+			int vz = rand()%area-area/2;
+			int vy = rand()%8000+40000-sqrt(vx*vx + vz*vz)/1.5; // quanto mais longe do centro, mais baixo (pra dar a impressão de globo)
+			estrelas[x].set(vx,vy,vz,1);
+		}
 
 }
 
@@ -366,6 +523,14 @@ void emissive(double alpha)
 {
 	GLfloat d[4] = {alpha,alpha,alpha,1};
 	glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,d);
+}
+
+double from0toX(double x,double defasamento,double spd)
+{
+	return ((sin((increment + defasamento)*spd*M_PI/180)+1)/2.0)/(1.0/x);
+
+	// ((sin(increment)+1)/20.0) retorna um valor entre 0 e 1
+	//	^^^^^^^^^^^^^^^^^^^^^^^ /(1.0/x) retorna um valor de 0 até X
 }
 
 void draw_callback()
@@ -396,6 +561,15 @@ void draw_callback()
 				emissive(0);
 			glPopMatrix();
 
+		// Estrelas
+			emissive(1);
+				for(int x=0; x<NUM_ESTRELAS; x++)
+				{
+					glColor4f(1,1,1,from0toX(1,x,1));	
+					drawSolidCube(estrelas[x].x,estrelas[x].y,estrelas[x].z,rand()%361,rand()%361,from0toX(100,x,1)+100);	
+				}
+			emissive(0);
+
 		// Cidade
 			glColor4f(1,1,1,1);
 			drawModel(0,-10,500,180,0,build01,GLM_FLAT | GLM_MATERIAL);
@@ -403,17 +577,58 @@ void draw_callback()
 			drawModel(0,-10,500,180,0,asphalt,GLM_FLAT | GLM_MATERIAL);
 			glColor4f(.4,.4,.4,1);
 			drawModel(0,-10,500,180,0,walkway,GLM_FLAT | GLM_MATERIAL);
-			glPushMatrix();
-				glScalef(1,2,1);
-				glColor4f(1,1,1,1);
-				drawModel(0,-10,500,180,0,poste,GLM_FLAT | GLM_MATERIAL);
-			glPopMatrix();
+			//	Poste
+				glPushMatrix();
+					glScalef(1,2,1);
+					glColor4f(1,1,1,1);
+					drawModel(0,-10,500,180,0,poste,GLM_FLAT | GLM_MATERIAL);
+				glPopMatrix();
 			glColor4f(1,1,1,1);
-			drawModel(0+p[PLANE].x,-10+p[PLANE].y,500+p[PLANE].z,180,0,plane,GLM_FLAT | GLM_MATERIAL);
+			drawModel(0+p[AIRPLANE].x,-10+p[AIRPLANE].y,500+p[AIRPLANE].z,180,0,airplane,GLM_FLAT | GLM_MATERIAL);
 
 		// Apartamento
-			glColor4f(1,1,1,.5);
-			drawModel(0,-10,500,180,0,ap_white,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(.63,.41,.84,1);
+			drawModel(0,-10,500,180,0,ap_bed,GLM_FLAT | GLM_MATERIAL);
+			emissive(from0toX(.5,0,1));
+				glColor4f(.1,.1,1,1);
+				drawModel(0,-20,500,180,0,ap_bluebutton,GLM_FLAT | GLM_MATERIAL);
+				glColor4f(1,.1,.1,1);
+				drawModel(0,-20,500,180,0,ap_redbutton,GLM_FLAT | GLM_MATERIAL);
+				glColor4f(.6,1,1,1);
+				drawModel(0,-10,500,180,0,ap_lamp,GLM_FLAT | GLM_MATERIAL);
+			emissive(0);
+			glColor4f(.7,.7,.8,1);
+			drawModel(0,-10,500,180,0,ap_coffee,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(.3,.3,.3,1);
+			drawModel(0,-10,500,180,0,ap_elevator,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(.5,.5,.5,1);
+			drawModel(0,-10,500,180,0,ap_keyboard,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(1,1,1,1);
+			drawModel(0,-10,500,180,0,ap_pillow,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(.4,.4,.4,1);
+			drawModel(0,-10,500,180,0,ap_ps4,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(.3,.3,.3,1);
+			drawModel(0,-20,500,180,0,ap_serverside,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(.6,.6,.6,1);
+			drawModel(0,-20,500,180,0,ap_servertower,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(.2,.1,.9,1);
+			drawModel(0,-10,500,180,0,ap_tapete,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(1,.98,.25,1);
+			drawModel(0,-10,500,180,0,ap_wall,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(1,.6,.14,1);
+			drawModel(0,-10,500,180,0,ap_wire,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(.96,.88,.64,1);
+			drawModel(0,-10,500,180,0,ap_wood,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(.1,.8,.8,.3);
+			drawModel(0,-10,500,180,0,ap_glass,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(.1,.1,.1,1);
+			drawModel(0,-10,500,180,0,ap_tophouse,GLM_FLAT | GLM_MATERIAL);
+			emissive(from0toX(.4,0,1));	
+				glColor4f(from0toX(.6,0,4),from0toX(1,30,4),from0toX(1,60,4),.9);
+				drawModel(0,-10,500,180,0,ap_superpc,GLM_FLAT | GLM_MATERIAL);
+				glColor4f(from0toX(.6,30,4),from0toX(1,60,4),from0toX(1,120,4),.9);
+				drawModel(0,-10,500,180,0,ap_homeroom_monitor,GLM_FLAT | GLM_MATERIAL);
+			emissive(0);
 
 		// Prédio
 			emissive(.2);
@@ -457,8 +672,14 @@ void draw_callback()
 			glColor4f(.2,.7,.1,1);
 			drawModel(0,-10,500,180,0,ground,GLM_FLAT | GLM_MATERIAL);
 
+		// Apartamento (ainda)
+			glColor4f(.1,.8,.8,.3);
+			drawModel(0,-10,500,180,0,ap_serverglass,GLM_FLAT | GLM_MATERIAL);
+			glColor4f(.1,.5,.5,.3);
+			drawModel(0,-10+p[APELEVATOR].y,500,180,0,ap_elevatorglass,GLM_FLAT | GLM_MATERIAL);
+
 		/*glColor4f(0,0,1,1);
-		drawPlane(0,-10,750,1000);*/
+		drawAIRPLANE(0,-10,750,1000);*/
 
 		/*glColor4f(1,1,0,1);//(1,0,0,1);
 		drawWireCube(0,0,-50,10);
@@ -474,10 +695,6 @@ void draw_callback()
 
 
 		// OBS: o que precisa ser desenhado com transparencia precisa ser desenhado por último
-		/*glColor4f(0,.5,1,.5);
-		drawModel(0,30,400,increment,10,torre,GLM_FLAT | GLM_MATERIAL);
-		glColor4f(0,.5,1,.1);
-		drawModel(0,30,400,increment,10,aura,GLM_FLAT | GLM_MATERIAL);*/// City
 		glPushMatrix();
 			glScalef(1,2,1);	
 			emissive(.4);
@@ -537,11 +754,12 @@ void update_callback(int)
 		increment+=20;
 
 	glutTimerFunc(((double)1000)/FPS,update_callback,0); 
+	glutPostRedisplay();
 }
 
-void idle_callback()	// MAX FPS BRO!!
-{
-	glutPostRedisplay();
+void idle_callback()	// MAX FPS BRO!! (NO MORE ;_; Idle n surte mais esse efeito - cena mt pesada)
+{										//(É necessario forçar a atualização no FPS)
+	// glutPostRedisplay();
 }
 
 void reshape_callback(int w, int h)
@@ -562,6 +780,28 @@ void reshape_callback(int w, int h)
 
 void keyPress_callback(unsigned char key, int x, int y)
 {
+	// Cam Warp / mudar de andar
+	if(keyState['r'] && cam.canWarp == 1)
+	{
+		cam.ground=1352;
+		cam.eye.y=0;
+		cam.eye.x=0;
+		cam.eye.z=1133.5;
+		cam.apLimit();
+	}
+	else if(keyState['r'] && cam.canWarp == 2)
+	{
+		if(keyState['r'])
+		{
+			cam.ground=0;
+			cam.eye.y=0;
+			cam.eye.x=-110;
+			cam.eye.z=780;
+			cam.groundLimit();
+		}
+	}
+
+
 	// ESC - Sair
 	if(key==27) exit(0);
 
@@ -610,14 +850,14 @@ void passivemouse_callback(int x, int y)
 	if(cam.mode==C_MOUSE)
 	{
 		if(x>cam.mlast.x)
-			cam.degree-=1.5*cam.mousesense;
+			cam.degree-=cam.mousesense;
 		else if(x<cam.mlast.x)
-			cam.degree+=1.5*cam.mousesense;
+			cam.degree+=cam.mousesense;
 
 		if(y>cam.mlast.y && cam.vdegree<90)
 			cam.vdegree+=cam.mousesense;
 		else if(y<cam.mlast.y && cam.vdegree>-90)
-			cam.vdegree-=cam.mousesense;	
+			cam.vdegree-=cam.mousesense;
 	}
 
 	cam.mlast.x=x;
@@ -633,7 +873,7 @@ int main(int argc, char** argv)
 	//glutInitContextVersion(1,1);
 	//glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
 	glutInitDisplayMode (GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize (1366, 768);
+	glutInitWindowSize (1024, 768);
 	glutInitWindowPosition (0, 0);
 	glutCreateWindow ("TP2");
 	// glutFullScreen();
