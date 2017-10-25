@@ -39,7 +39,7 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 			cam.display_text = "Pressione R para subir o elevador";
 			if(keyState['r'])
 			{
-				cam.ground=1350;
+				cam.ground=1341;
 				cam.apLimit();
 			}
 			cout << cam.display_text << endl;
@@ -48,6 +48,8 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 			cam.display_text = "";
 
 	// Gravidade
+		cam.eye.y+=cam.vspd;
+		
 		if(cam.eye.y+cam.vspd>cam.ground)
 		{
 			cam.vspd-=.2;
@@ -57,7 +59,6 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 			cam.vspd=0;
 			cam.eye.y=cam.ground;
 		}
-		cam.eye.y+=cam.vspd;
 
 	// Subir e descer a camera
 		if(keyState['+'])
@@ -74,7 +75,7 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 	// Setar velocidade -> correr/andar
 		if(keyState[' '])
 		{
-			cam.spd=20;
+			cam.spd=2;
 			cam.bob+=5;
 		}
 		else

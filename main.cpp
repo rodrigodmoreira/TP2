@@ -74,6 +74,7 @@ using namespace std;
 	GLMmodel* main_tapete;
 	GLMmodel* main_sofa;
 	GLMmodel* main_hdoor;
+	GLMmodel* ap_white;
 	GLMmodel* ground;
 	GLMmodel* cloud;
 	GLMmodel* poste;
@@ -97,9 +98,11 @@ void initAL()
 	// Initialize OpenAL and clear the error bit. 
 		alutInit(NULL, 0);
 		alGetError();
+
+	// Definir atenuação do som	
 		alDistanceModel(AL_LINEAR_DISTANCE_CLAMPED);
 
-	// Load .wav (16 bit-only)
+	// Load .wav (16 bit-only && mono)
 		if(loadALData(al_buffer[AB_8BITRAVE],"sounds/Panda Eyes - Fake Princess.wav") == AL_FALSE)
 		{
 			printf("buffer_fudeo\n");
@@ -182,7 +185,7 @@ void init()
 			GLfloat d[] = {0.5,1,0.866,0};
 			glLightfv(GL_LIGHT0,GL_POSITION,d);
 
-			GLfloat e[] = {3,3,3,1};
+			GLfloat e[] = {0,0,0,1};
 			glLightfv(GL_LIGHT0,GL_CONSTANT_ATTENUATION,e);
 		} // Isso pq n encontrei uma forma bacana de reaproveitar o mesmo vetor atribuindo valores direto igual a {x1,x2,x3,x4}
 
@@ -311,6 +314,11 @@ void init()
 		glmVertexNormals(main_hdoor, 90.0);
 		glmScale(main_hdoor, 10);
 
+		ap_white = glmReadOBJ("models/predio/ap_white.obj");
+		glmFacetNormals(ap_white);
+		glmVertexNormals(ap_white, 90.0);
+		glmScale(ap_white, 10);
+
 		ground = glmReadOBJ("models/predio/ground.obj");
 		glmFacetNormals(ground);
 		glmVertexNormals(ground, 90.0);
@@ -395,12 +403,19 @@ void draw_callback()
 			drawModel(0,-10,500,180,0,asphalt,GLM_FLAT | GLM_MATERIAL);
 			glColor4f(.4,.4,.4,1);
 			drawModel(0,-10,500,180,0,walkway,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(1,1,1,1);
-			drawModel(0,-10,500,180,0,poste,GLM_FLAT | GLM_MATERIAL);
+			glPushMatrix();
+				glScalef(1,2,1);
+				glColor4f(1,1,1,1);
+				drawModel(0,-10,500,180,0,poste,GLM_FLAT | GLM_MATERIAL);
+			glPopMatrix();
 			glColor4f(1,1,1,1);
 			drawModel(0+p[PLANE].x,-10+p[PLANE].y,500+p[PLANE].z,180,0,plane,GLM_FLAT | GLM_MATERIAL);
 
-		// Desenhar prédio
+		// Apartamento
+			glColor4f(1,1,1,.5);
+			drawModel(0,-10,500,180,0,ap_white,GLM_FLAT | GLM_MATERIAL);
+
+		// Prédio
 			emissive(.2);
 				glColor4f(.4,1,1,.5);
 				drawModel(0,-10,500,180,0,main_insidewindow,GLM_FLAT | GLM_MATERIAL);
@@ -463,9 +478,12 @@ void draw_callback()
 		drawModel(0,30,400,increment,10,torre,GLM_FLAT | GLM_MATERIAL);
 		glColor4f(0,.5,1,.1);
 		drawModel(0,30,400,increment,10,aura,GLM_FLAT | GLM_MATERIAL);*/// City
-		emissive(.4);
-			glColor4f(.95,.8,.4,.3);
-			drawModel(0,-10,500,180,0,sLamp,GLM_FLAT | GLM_MATERIAL);
+		glPushMatrix();
+			glScalef(1,2,1);	
+			emissive(.4);
+				glColor4f(.7,.6,.5,.3);
+				drawModel(0,-10,500,180,0,sLamp,GLM_FLAT | GLM_MATERIAL);
+		glPopMatrix();
 
 	glPopMatrix();
 
@@ -564,7 +582,7 @@ void keyPress_callback(unsigned char key, int x, int y)
 	{
 		cout << "X(" << cam.eye.x << ") | Z(" << cam.eye.z << ")" << endl;
 		cout << "Y(" << cam.eye.y << ")" << endl;
-		printf("Y(%lf) | ground(%lf) | som(%lf)\n",cam.eye.y,(double)cam.ground,(double)(cam.ground+cam.eye.y+cam.vspd));
+		printf("Y(%lf) | ground(%lf) | som(%lf)\n",cam.eye.y,(double)cam.ground,(double)(cam.ground+cam.vspd));
 	}
 
 	// Modo da camera (MOUSE+KB || KB_ONLY->DOOOOM)
@@ -606,7 +624,7 @@ void passivemouse_callback(int x, int y)
 	cam.mlast.y=y;
 
 	if(x>=width-100 || x<=100 || y>=height-100 || y<=100)
-		glutWarpPointer(1366.0/2,768/2);
+		glutWarpPointer(width/2,height/2);
 }
 
 int main(int argc, char** argv)

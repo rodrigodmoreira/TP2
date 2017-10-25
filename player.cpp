@@ -11,8 +11,8 @@ void Camera::groundLimit()
 
 void Camera::apLimit()
 {
-	this->maxlimit={140,0,1160,1};
-	this->minlimit={-140,0,465,1};
+	this->maxlimit={160,0,1165,1};
+	this->minlimit={-160,0,460,1};
 }
 
 void Camera::walkFoward()

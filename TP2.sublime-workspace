@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"h",
+				"height"
+			],
+			[
 				"DEF",
 				"AS_DEFAULT"
 			],
@@ -510,10 +514,6 @@
 			[
 				"texturePl",
 				"texturePlayerAnim"
-			],
-			[
-				"texturePla",
-				"texturePlayerAnim"
 			]
 		]
 	},
@@ -523,16 +523,16 @@
 			"file": "main.cpp",
 			"settings":
 			{
-				"buffer_size": 17105,
+				"buffer_size": 17519,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/rodrigo/Área de Trabalho/teste/al.cpp",
+			"file": "Makefile",
 			"settings":
 			{
-				"buffer_size": 4930,
+				"buffer_size": 248,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -548,10 +548,10 @@
 			}
 		},
 		{
-			"file": "audio.cpp",
+			"file": "physics.h",
 			"settings":
 			{
-				"buffer_size": 3142,
+				"buffer_size": 312,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -560,16 +560,7 @@
 			"file": "physics.cpp",
 			"settings":
 			{
-				"buffer_size": 3532,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "physics.h",
-			"settings":
-			{
-				"buffer_size": 312,
+				"buffer_size": 3534,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -584,10 +575,35 @@
 			}
 		},
 		{
+			"file": "objloader.h",
+			"settings":
+			{
+				"buffer_size": 8738,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "player.cpp",
 			"settings":
 			{
 				"buffer_size": 1653,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "draw.h",
+			"settings":
+			{
+				"buffer_size": 563,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "draw.cpp",
+			"settings":
+			{
+				"buffer_size": 8190,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -609,7 +625,7 @@
 				"Preferences: Key Bindings"
 			]
 		],
-		"width": 392.0
+		"width": 416.0
 	},
 	"console":
 	{
@@ -633,6 +649,18 @@
 	],
 	"file_history":
 	[
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/audio.cpp",
+		"/home/rodrigo/Área de Trabalho/coutinho.txt",
+		"/home/rodrigo/Área de Trabalho/pet",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/objloader.h",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/Makefile",
+		"/home/rodrigo/Área de Trabalho/CG/cefet-cg-exemplos-opengl-master/animacao-segue-mouse/Makefile/Makefile.com.comentarios",
+		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/objloader.cpp",
+		"/home/rodrigo/Área de Trabalho/teste/al.cpp",
+		"/home/rodrigo/Área de Trabalho/javascript/convTipos.html",
+		"/home/rodrigo/Área de Trabalho/javascript/intro.html",
+		"/home/rodrigo/Área de Trabalho/javascript/intro.js",
+		"/home/rodrigo/Área de Trabalho/inova",
 		"/home/rodrigo/Área de Trabalho/CG/TP1/main.cpp",
 		"/home/rodrigo/Área de Trabalho/al.cpp",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/gaav.h",
@@ -640,8 +668,6 @@
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/physics.h",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/draw.h",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/draw.cpp",
-		"/home/rodrigo/Área de Trabalho/pet",
-		"/home/rodrigo/Área de Trabalho/coutinho.txt",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/city/predioTESTE.mtl",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/city/predioTESTE.obj",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/city/walkway.mtl",
@@ -678,8 +704,6 @@
 		"/media/rodrigo/Dados/V Escola de Inverno/class1/vector.cpp",
 		"/media/rodrigo/Dados/V Escola de Inverno/class1/set.cpp",
 		"/media/rodrigo/Dados/V Escola de Inverno/class1/map.cpp",
-		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/objloader.cpp",
-		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/objloader.h",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/city/cloud.mtl",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/torre/torre.mtl",
 		"/home/rodrigo/Área de Trabalho/CG/TP2/TP2/models/predio/predio.mtl",
@@ -752,19 +776,11 @@
 		"/home/rodrigo/Área de Trabalho/CG/cefet-cg-exemplos-opengl-master/hello-modern/main.cpp",
 		"/media/rodrigo/94CECB88CECB60DA/Users/RoGu/Desktop/texto.txt",
 		"/home/rodrigo/Área de Trabalho/Lista_geometria.txt",
-		"/home/rodrigo/Área de Trabalho/ChatBot-Compet-Facebook-master/index.js",
-		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/mysite/settings.py",
-		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/polls/models.py",
-		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/polls/admin.py",
-		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/polls/views.py",
-		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/polls/templates/polls/index.html",
-		"/home/rodrigo/Documentos/djangoProject/meu1appDjango/mysite/polls/urls.py",
-		"/home/rodrigo/Área de Trabalho/ChatBot-Compet-Facebook-master/README.md",
-		"/home/rodrigo/Área de Trabalho/django"
+		"/home/rodrigo/Área de Trabalho/ChatBot-Compet-Facebook-master/index.js"
 	],
 	"find":
 	{
-		"height": 39.0
+		"height": 49.0
 	},
 	"find_in_files":
 	{
@@ -1005,15 +1021,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 17105,
+						"buffer_size": 17519,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10056,
-								10056
+								10816,
+								10816
 							]
 						],
 						"settings":
@@ -1022,7 +1038,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1626.0,
+						"translation.y": 5851.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1030,29 +1046,27 @@
 				},
 				{
 					"buffer": 1,
-					"file": "/home/rodrigo/Área de Trabalho/teste/al.cpp",
+					"file": "Makefile",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4930,
+						"buffer_size": 248,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2279,
-								2236
+								114,
+								114
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"tab_size": 6,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 604.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
@@ -1085,80 +1099,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "audio.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3142,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								283,
-								283
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 840.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "physics.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3532,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2770,
-								2770
-							],
-							[
-								2781,
-								2781
-							],
-							[
-								2936,
-								2936
-							],
-							[
-								2944,
-								2944
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1680.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
 					"file": "physics.h",
 					"semi_transient": false,
 					"settings":
@@ -1182,11 +1127,40 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 4,
+					"file": "physics.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3534,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1099,
+								1099
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
 					"file": "player.h",
 					"semi_transient": false,
 					"settings":
@@ -1208,10 +1182,40 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 252.0,
+						"translation.y": 234.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "objloader.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8738,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1748,
+								1748
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 900.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1227,8 +1231,8 @@
 						"selection":
 						[
 							[
-								205,
-								205
+								237,
+								237
 							]
 						],
 						"settings":
@@ -1239,7 +1243,65 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "draw.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 563,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								50,
+								50
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "draw.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8190,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1389,
+								1389
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 8,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
 					"type": "text"
 				}
 			]
@@ -1247,11 +1309,11 @@
 	],
 	"incremental_find":
 	{
-		"height": 22.0
+		"height": 34.0
 	},
 	"input":
 	{
-		"height": 30.0
+		"height": 34.0
 	},
 	"layout":
 	{
@@ -1284,7 +1346,7 @@
 	"project": "TP2.sublime-project",
 	"replace":
 	{
-		"height": 69.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
