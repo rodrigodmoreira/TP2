@@ -107,7 +107,7 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 			cam.bob+=5;
 		}
 		else
-			cam.spd=10;
+			cam.spd=1;
 	
 	// Movimentação
 		// Checar se não atingiu os limites delimitados pela área em que estou (chão ou apartamento)

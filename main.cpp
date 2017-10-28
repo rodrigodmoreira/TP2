@@ -19,6 +19,10 @@
 #define NUM_ESTRELAS 1000
 
 enum CAM_MODE {	C_KB=0,C_MOUSE};
+enum LISTAS {BUILD01=0,ASPHALT,WALKWAY,POSTE,AP_BED,AP_BLUEBUTTON,AP_REDBUTTON,AP_LAMP,AP_COFFEE,AP_ELEVATOR,
+                AP_KEYBOARD,AP_PILLOW,AP_PS4,AP_SERVERSIDE,AP_SERVERTOWER,AP_TAPETE,AP_WALL,AP_WIRE,AP_WOOD,AP_GLASS,AP_TOPHOUSE,
+                MAIN_WINDOWS,MAIN_BODY,MAIN_LATERAL,MAIN_RING,MAIN_ELEVATOR,MAIN_GROUNDLIGHT,MAIN_LEAF,MAIN_WOOD,MAIN_VASE,MAIN_MESA,
+                MAIN_TAPETE,MAIN_SOFA,MAIN_HALL_GENERIC,GROUND,AP_SERVERGLASS,SLAMP};
 
 using namespace std;
 
@@ -53,56 +57,10 @@ using namespace std;
 	Camera cam;
 	bool light = true;
 	int width,height;
+	GLuint inicio_lista; // Index do início da lista de visualização
 
 // GLMmodels
-	GLMmodel* build01;
-	GLMmodel* asphalt;
-	GLMmodel* walkway;
-	GLMmodel* torre;
-	GLMmodel* aura;
-	GLMmodel* main_body;
-	GLMmodel* main_window;
-	GLMmodel* main_insidewindow;
-	GLMmodel* main_ring;
-	GLMmodel* main_lateral;
-	GLMmodel* main_hall_generic;
-	GLMmodel* main_bot;
-	GLMmodel* main_elevator;
-	GLMmodel* main_groundlight;
-	GLMmodel* main_leaf;
-	GLMmodel* main_wood;
-	GLMmodel* main_vase;
-	GLMmodel* main_mesa;
-	GLMmodel* main_tapete;
-	GLMmodel* main_sofa;
-	GLMmodel* main_hdoor;
-	GLMmodel* ap_bed;
-	GLMmodel* ap_bluebutton;
-	GLMmodel* ap_coffee;
-	GLMmodel* ap_elevator;
-	GLMmodel* ap_elevatorglass;
-	GLMmodel* ap_glass;
-	GLMmodel* ap_homeroom_monitor;
-	GLMmodel* ap_keyboard;
-	GLMmodel* ap_lamp;
-	GLMmodel* ap_pillow;
-	GLMmodel* ap_ps4;
-	GLMmodel* ap_redbutton;
-	GLMmodel* ap_serverglass;
-	GLMmodel* ap_serverside;
-	GLMmodel* ap_servertower;
-	GLMmodel* ap_superpc;
-	GLMmodel* ap_tapete;
-	GLMmodel* ap_tophouse;
-	GLMmodel* ap_wall;
-	GLMmodel* ap_white;
-	GLMmodel* ap_wire;
-	GLMmodel* ap_wood;
-	GLMmodel* ground;
-	GLMmodel* cloud;
-	GLMmodel* poste;
-	GLMmodel* sLamp;
-	GLMmodel* airplane;
+ModelList modelList;
 
 // Variavel "parametrica" correspondente ao tempo passado (utilizado pra fazer algumas coisas se moverem com o passar do tempo)
 	double increment = 0;
@@ -252,245 +210,245 @@ void init()
 
 
 	// Carregar obj
-		build01 = glmReadOBJ("models/city/build01.obj");
-		glmFacetNormals(build01);
-		glmVertexNormals(build01, 90.0);
-		glmScale(build01, 10);
+		modelList.build01 = glmReadOBJ("models/city/build01.obj");
+		glmFacetNormals(modelList.build01);
+		glmVertexNormals(modelList.build01, 90.0);
+		glmScale(modelList.build01, 10);
 
-		walkway = glmReadOBJ("models/city/walkway.obj");
-		glmFacetNormals(walkway);
-		glmVertexNormals(walkway, 90.0);
-		glmScale(walkway, 10);
+		modelList.walkway = glmReadOBJ("models/city/walkway.obj");
+		glmFacetNormals(modelList.walkway);
+		glmVertexNormals(modelList.walkway, 90.0);
+		glmScale(modelList.walkway, 10);
 
-		asphalt = glmReadOBJ("models/city/asphalt.obj");
-		glmFacetNormals(asphalt);
-		glmVertexNormals(asphalt, 90.0);
-		glmScale(asphalt, 10);
+		modelList.asphalt = glmReadOBJ("models/city/asphalt.obj");
+		glmFacetNormals(modelList.asphalt);
+		glmVertexNormals(modelList.asphalt, 90.0);
+		glmScale(modelList.asphalt, 10);
 
-		torre = glmReadOBJ("models/torre/torre.obj");
-		glmFacetNormals(torre);
-		glmVertexNormals(torre, 90.0);
-		glmScale(torre, 20);
+		modelList.torre = glmReadOBJ("models/torre/torre.obj");
+		glmFacetNormals(modelList.torre);
+		glmVertexNormals(modelList.torre, 90.0);
+		glmScale(modelList.torre, 20);
 
-		aura = glmReadOBJ("models/torre/3daura.obj");
-		glmFacetNormals(aura);
-		glmVertexNormals(aura, 90.0);
-		glmScale(aura, 15);
+		modelList.aura = glmReadOBJ("models/torre/3daura.obj");
+		glmFacetNormals(modelList.aura);
+		glmVertexNormals(modelList.aura, 90.0);
+		glmScale(modelList.aura, 15);
 
-		main_body = glmReadOBJ("models/predio/main_body.obj");
-		glmFacetNormals(main_body);
-		glmVertexNormals(main_body, 90.0);
-		glmScale(main_body, 10);
+		modelList.main_body = glmReadOBJ("models/predio/main_body.obj");
+		glmFacetNormals(modelList.main_body);
+		glmVertexNormals(modelList.main_body, 90.0);
+		glmScale(modelList.main_body, 10);
 
-		main_window = glmReadOBJ("models/predio/main_window.obj");
-		glmFacetNormals(main_window);
-		glmVertexNormals(main_window, 90.0);
-		glmScale(main_window, 10);
+		modelList.main_window = glmReadOBJ("models/predio/main_window.obj");
+		glmFacetNormals(modelList.main_window);
+		glmVertexNormals(modelList.main_window, 90.0);
+		glmScale(modelList.main_window, 10);
 
-		main_insidewindow = glmReadOBJ("models/predio/main_insidewindow.obj");
-		glmFacetNormals(main_insidewindow);
-		glmVertexNormals(main_insidewindow, 90.0);
-		glmScale(main_insidewindow, 10);
+		modelList.main_insidewindow = glmReadOBJ("models/predio/main_insidewindow.obj");
+		glmFacetNormals(modelList.main_insidewindow);
+		glmVertexNormals(modelList.main_insidewindow, 90.0);
+		glmScale(modelList.main_insidewindow, 10);
 
-		main_ring = glmReadOBJ("models/predio/main_ring.obj");
-		glmFacetNormals(main_ring);
-		glmVertexNormals(main_ring, 90.0);
-		glmScale(main_ring, 10);
+		modelList.main_ring = glmReadOBJ("models/predio/main_ring.obj");
+		glmFacetNormals(modelList.main_ring);
+		glmVertexNormals(modelList.main_ring, 90.0);
+		glmScale(modelList.main_ring, 10);
 
-		main_elevator = glmReadOBJ("models/predio/main_elevator.obj");
-		glmFacetNormals(main_elevator);
-		glmVertexNormals(main_elevator, 90.0);
-		glmScale(main_elevator, 10);
+		modelList.main_elevator = glmReadOBJ("models/predio/main_elevator.obj");
+		glmFacetNormals(modelList.main_elevator);
+		glmVertexNormals(modelList.main_elevator, 90.0);
+		glmScale(modelList.main_elevator, 10);
 
-		main_lateral = glmReadOBJ("models/predio/main_lateral.obj");
-		glmFacetNormals(main_lateral);
-		glmVertexNormals(main_lateral, 90.0);
-		glmScale(main_lateral, 10);
+		modelList.main_lateral = glmReadOBJ("models/predio/main_lateral.obj");
+		glmFacetNormals(modelList.main_lateral);
+		glmVertexNormals(modelList.main_lateral, 90.0);
+		glmScale(modelList.main_lateral, 10);
 
-		main_hall_generic = glmReadOBJ("models/predio/main_hall_generic.obj");
-		glmFacetNormals(main_hall_generic);
-		glmVertexNormals(main_hall_generic, 90.0);
-		glmScale(main_hall_generic, 10);
+		modelList.main_hall_generic = glmReadOBJ("models/predio/main_hall_generic.obj");
+		glmFacetNormals(modelList.main_hall_generic);
+		glmVertexNormals(modelList.main_hall_generic, 90.0);
+		glmScale(modelList.main_hall_generic, 10);
 
-		main_bot = glmReadOBJ("models/predio/main_bot.obj");
-		glmFacetNormals(main_bot);
-		glmVertexNormals(main_bot, 90.0);
-		glmScale(main_bot, 10);
+		modelList.main_bot = glmReadOBJ("models/predio/main_bot.obj");
+		glmFacetNormals(modelList.main_bot);
+		glmVertexNormals(modelList.main_bot, 90.0);
+		glmScale(modelList.main_bot, 10);
 
-		main_groundlight = glmReadOBJ("models/predio/main_groundlight.obj");
-		glmFacetNormals(main_groundlight);
-		glmVertexNormals(main_groundlight, 90.0);
-		glmScale(main_groundlight, 10);
+		modelList.main_groundlight = glmReadOBJ("models/predio/main_groundlight.obj");
+		glmFacetNormals(modelList.main_groundlight);
+		glmVertexNormals(modelList.main_groundlight, 90.0);
+		glmScale(modelList.main_groundlight, 10);
 
-		main_leaf = glmReadOBJ("models/predio/main_leaf.obj");
-		glmFacetNormals(main_leaf);
-		glmVertexNormals(main_leaf, 90.0);
-		glmScale(main_leaf, 10);
+		modelList.main_leaf = glmReadOBJ("models/predio/main_leaf.obj");
+		glmFacetNormals(modelList.main_leaf);
+		glmVertexNormals(modelList.main_leaf, 90.0);
+		glmScale(modelList.main_leaf, 10);
 
-		main_wood = glmReadOBJ("models/predio/main_wood.obj");
-		glmFacetNormals(main_wood);
-		glmVertexNormals(main_wood, 90.0);
-		glmScale(main_wood, 10);
+		modelList.main_wood = glmReadOBJ("models/predio/main_wood.obj");
+		glmFacetNormals(modelList.main_wood);
+		glmVertexNormals(modelList.main_wood, 90.0);
+		glmScale(modelList.main_wood, 10);
 
-		main_vase = glmReadOBJ("models/predio/main_vase.obj");
-		glmFacetNormals(main_vase);
-		glmVertexNormals(main_vase, 90.0);
-		glmScale(main_vase, 10);
+		modelList.main_vase = glmReadOBJ("models/predio/main_vase.obj");
+		glmFacetNormals(modelList.main_vase);
+		glmVertexNormals(modelList.main_vase, 90.0);
+		glmScale(modelList.main_vase, 10);
 
-		main_mesa = glmReadOBJ("models/predio/main_mesa.obj");
-		glmFacetNormals(main_mesa);
-		glmVertexNormals(main_mesa, 90.0);
-		glmScale(main_mesa, 10);
+		modelList.main_mesa = glmReadOBJ("models/predio/main_mesa.obj");
+		glmFacetNormals(modelList.main_mesa);
+		glmVertexNormals(modelList.main_mesa, 90.0);
+		glmScale(modelList.main_mesa, 10);
 
-		main_tapete = glmReadOBJ("models/predio/main_tapete.obj");
-		glmFacetNormals(main_tapete);
-		glmVertexNormals(main_tapete, 90.0);
-		glmScale(main_tapete, 10);
+		modelList.main_tapete = glmReadOBJ("models/predio/main_tapete.obj");
+		glmFacetNormals(modelList.main_tapete);
+		glmVertexNormals(modelList.main_tapete, 90.0);
+		glmScale(modelList.main_tapete, 10);
 
-		main_sofa = glmReadOBJ("models/predio/main_sofa.obj");
-		glmFacetNormals(main_sofa);
-		glmVertexNormals(main_sofa, 90.0);
-		glmScale(main_sofa, 10);
+		modelList.main_sofa = glmReadOBJ("models/predio/main_sofa.obj");
+		glmFacetNormals(modelList.main_sofa);
+		glmVertexNormals(modelList.main_sofa, 90.0);
+		glmScale(modelList.main_sofa, 10);
 
-		main_hdoor = glmReadOBJ("models/predio/main_rhdoor.obj");
-		glmFacetNormals(main_hdoor);
-		glmVertexNormals(main_hdoor, 90.0);
-		glmScale(main_hdoor, 10);
+		modelList.main_hdoor = glmReadOBJ("models/predio/main_rhdoor.obj");
+		glmFacetNormals(modelList.main_hdoor);
+		glmVertexNormals(modelList.main_hdoor, 90.0);
+		glmScale(modelList.main_hdoor, 10);
 
-		ap_bed = glmReadOBJ("models/predio/ap_bed.obj");
-		glmFacetNormals(ap_bed);
-		glmVertexNormals(ap_bed, 90.0);
-		glmScale(ap_bed, 10);
+		modelList.ap_bed = glmReadOBJ("models/predio/ap_bed.obj");
+		glmFacetNormals(modelList.ap_bed);
+		glmVertexNormals(modelList.ap_bed, 90.0);
+		glmScale(modelList.ap_bed, 10);
 
-		ap_bluebutton = glmReadOBJ("models/predio/ap_bluebutton.obj");
-		glmFacetNormals(ap_bluebutton);
-		glmVertexNormals(ap_bluebutton, 90.0);
-		glmScale(ap_bluebutton, 10);
+		modelList.ap_bluebutton = glmReadOBJ("models/predio/ap_bluebutton.obj");
+		glmFacetNormals(modelList.ap_bluebutton);
+		glmVertexNormals(modelList.ap_bluebutton, 90.0);
+		glmScale(modelList.ap_bluebutton, 10);
 
-		ap_coffee = glmReadOBJ("models/predio/ap_coffee.obj");
-		glmFacetNormals(ap_coffee);
-		glmVertexNormals(ap_coffee, 90.0);
-		glmScale(ap_coffee, 10);
+		modelList.ap_coffee = glmReadOBJ("models/predio/ap_coffee.obj");
+		glmFacetNormals(modelList.ap_coffee);
+		glmVertexNormals(modelList.ap_coffee, 90.0);
+		glmScale(modelList.ap_coffee, 10);
 
-		ap_elevator = glmReadOBJ("models/predio/ap_elevator.obj");
-		glmFacetNormals(ap_elevator);
-		glmVertexNormals(ap_elevator, 90.0);
-		glmScale(ap_elevator, 10);
+		modelList.ap_elevator = glmReadOBJ("models/predio/ap_elevator.obj");
+		glmFacetNormals(modelList.ap_elevator);
+		glmVertexNormals(modelList.ap_elevator, 90.0);
+		glmScale(modelList.ap_elevator, 10);
 
-		ap_elevatorglass = glmReadOBJ("models/predio/ap_elevatorglass.obj");
-		glmFacetNormals(ap_elevatorglass);
-		glmVertexNormals(ap_elevatorglass, 90.0);
-		glmScale(ap_elevatorglass, 10);
+		modelList.ap_elevatorglass = glmReadOBJ("models/predio/ap_elevatorglass.obj");
+		glmFacetNormals(modelList.ap_elevatorglass);
+		glmVertexNormals(modelList.ap_elevatorglass, 90.0);
+		glmScale(modelList.ap_elevatorglass, 10);
 
-		ap_glass = glmReadOBJ("models/predio/ap_glass.obj");
-		glmFacetNormals(ap_glass);
-		glmVertexNormals(ap_glass, 90.0);
-		glmScale(ap_glass, 10);
+		modelList.ap_glass = glmReadOBJ("models/predio/ap_glass.obj");
+		glmFacetNormals(modelList.ap_glass);
+		glmVertexNormals(modelList.ap_glass, 90.0);
+		glmScale(modelList.ap_glass, 10);
 
-		ap_homeroom_monitor = glmReadOBJ("models/predio/ap_homeroom_monitor.obj");
-		glmFacetNormals(ap_homeroom_monitor);
-		glmVertexNormals(ap_homeroom_monitor, 90.0);
-		glmScale(ap_homeroom_monitor, 10);
+		modelList.ap_homeroom_monitor = glmReadOBJ("models/predio/ap_homeroom_monitor.obj");
+		glmFacetNormals(modelList.ap_homeroom_monitor);
+		glmVertexNormals(modelList.ap_homeroom_monitor, 90.0);
+		glmScale(modelList.ap_homeroom_monitor, 10);
 
-		ap_keyboard = glmReadOBJ("models/predio/ap_keyboard.obj");
-		glmFacetNormals(ap_keyboard);
-		glmVertexNormals(ap_keyboard, 90.0);
-		glmScale(ap_keyboard, 10);
+		modelList.ap_keyboard = glmReadOBJ("models/predio/ap_keyboard.obj");
+		glmFacetNormals(modelList.ap_keyboard);
+		glmVertexNormals(modelList.ap_keyboard, 90.0);
+		glmScale(modelList.ap_keyboard, 10);
 
-		ap_lamp = glmReadOBJ("models/predio/ap_lamp.obj");
-		glmFacetNormals(ap_lamp);
-		glmVertexNormals(ap_lamp, 90.0);
-		glmScale(ap_lamp, 10);
+		modelList.ap_lamp = glmReadOBJ("models/predio/ap_lamp.obj");
+		glmFacetNormals(modelList.ap_lamp);
+		glmVertexNormals(modelList.ap_lamp, 90.0);
+		glmScale(modelList.ap_lamp, 10);
 
-		ap_pillow = glmReadOBJ("models/predio/ap_pillow.obj");
-		glmFacetNormals(ap_pillow);
-		glmVertexNormals(ap_pillow, 90.0);
-		glmScale(ap_pillow, 10);
+		modelList.ap_pillow = glmReadOBJ("models/predio/ap_pillow.obj");
+		glmFacetNormals(modelList.ap_pillow);
+		glmVertexNormals(modelList.ap_pillow, 90.0);
+		glmScale(modelList.ap_pillow, 10);
 
-		ap_ps4 = glmReadOBJ("models/predio/ap_ps4.obj");
-		glmFacetNormals(ap_ps4);
-		glmVertexNormals(ap_ps4, 90.0);
-		glmScale(ap_ps4, 10);
+		modelList.ap_ps4 = glmReadOBJ("models/predio/ap_ps4.obj");
+		glmFacetNormals(modelList.ap_ps4);
+		glmVertexNormals(modelList.ap_ps4, 90.0);
+		glmScale(modelList.ap_ps4, 10);
 
-		ap_redbutton = glmReadOBJ("models/predio/ap_redbutton.obj");
-		glmFacetNormals(ap_redbutton);
-		glmVertexNormals(ap_redbutton, 90.0);
-		glmScale(ap_redbutton, 10);
+		modelList.ap_redbutton = glmReadOBJ("models/predio/ap_redbutton.obj");
+		glmFacetNormals(modelList.ap_redbutton);
+		glmVertexNormals(modelList.ap_redbutton, 90.0);
+		glmScale(modelList.ap_redbutton, 10);
 
-		ap_serverglass = glmReadOBJ("models/predio/ap_serverglass.obj");
-		glmFacetNormals(ap_serverglass);
-		glmVertexNormals(ap_serverglass, 90.0);
-		glmScale(ap_serverglass, 10);
+		modelList.ap_serverglass = glmReadOBJ("models/predio/ap_serverglass.obj");
+		glmFacetNormals(modelList.ap_serverglass);
+		glmVertexNormals(modelList.ap_serverglass, 90.0);
+		glmScale(modelList.ap_serverglass, 10);
 
-		ap_serverside = glmReadOBJ("models/predio/ap_serverside.obj");
-		glmFacetNormals(ap_serverside);
-		glmVertexNormals(ap_serverside, 90.0);
-		glmScale(ap_serverside, 10);
+		modelList.ap_serverside = glmReadOBJ("models/predio/ap_serverside.obj");
+		glmFacetNormals(modelList.ap_serverside);
+		glmVertexNormals(modelList.ap_serverside, 90.0);
+		glmScale(modelList.ap_serverside, 10);
 
-		ap_servertower = glmReadOBJ("models/predio/ap_servertower.obj");
-		glmFacetNormals(ap_servertower);
-		glmVertexNormals(ap_servertower, 90.0);
-		glmScale(ap_servertower, 10);
+		modelList.ap_servertower = glmReadOBJ("models/predio/ap_servertower.obj");
+		glmFacetNormals(modelList.ap_servertower);
+		glmVertexNormals(modelList.ap_servertower, 90.0);
+		glmScale(modelList.ap_servertower, 10);
 
-		ap_superpc = glmReadOBJ("models/predio/ap_superpc.obj");
-		glmFacetNormals(ap_superpc);
-		glmVertexNormals(ap_superpc, 90.0);
-		glmScale(ap_superpc, 10);
+		modelList.ap_superpc = glmReadOBJ("models/predio/ap_superpc.obj");
+		glmFacetNormals(modelList.ap_superpc);
+		glmVertexNormals(modelList.ap_superpc, 90.0);
+		glmScale(modelList.ap_superpc, 10);
 
-		ap_tapete = glmReadOBJ("models/predio/ap_tapete.obj");
-		glmFacetNormals(ap_tapete);
-		glmVertexNormals(ap_tapete, 90.0);
-		glmScale(ap_tapete, 10);
+		modelList.ap_tapete = glmReadOBJ("models/predio/ap_tapete.obj");
+		glmFacetNormals(modelList.ap_tapete);
+		glmVertexNormals(modelList.ap_tapete, 90.0);
+		glmScale(modelList.ap_tapete, 10);
 
-		ap_tophouse = glmReadOBJ("models/predio/ap_tophouse.obj");
-		glmFacetNormals(ap_tophouse);
-		glmVertexNormals(ap_tophouse, 90.0);
-		glmScale(ap_tophouse, 10);
+		modelList.ap_tophouse = glmReadOBJ("models/predio/ap_tophouse.obj");
+		glmFacetNormals(modelList.ap_tophouse);
+		glmVertexNormals(modelList.ap_tophouse, 90.0);
+		glmScale(modelList.ap_tophouse, 10);
 
-		ap_wall = glmReadOBJ("models/predio/ap_wall.obj");
-		glmFacetNormals(ap_wall);
-		glmVertexNormals(ap_wall, 90.0);
-		glmScale(ap_wall, 10);
+		modelList.ap_wall = glmReadOBJ("models/predio/ap_wall.obj");
+		glmFacetNormals(modelList.ap_wall);
+		glmVertexNormals(modelList.ap_wall, 90.0);
+		glmScale(modelList.ap_wall, 10);
 
-		ap_white = glmReadOBJ("models/predio/ap_white.obj");
-		glmFacetNormals(ap_white);
-		glmVertexNormals(ap_white, 90.0);
-		glmScale(ap_white, 10);
+		modelList.ap_white = glmReadOBJ("models/predio/ap_white.obj");
+		glmFacetNormals(modelList.ap_white);
+		glmVertexNormals(modelList.ap_white, 90.0);
+		glmScale(modelList.ap_white, 10);
 
-		ap_wire = glmReadOBJ("models/predio/ap_wire.obj");
-		glmFacetNormals(ap_wire);
-		glmVertexNormals(ap_wire, 90.0);
-		glmScale(ap_wire, 10);
+		modelList.ap_wire = glmReadOBJ("models/predio/ap_wire.obj");
+		glmFacetNormals(modelList.ap_wire);
+		glmVertexNormals(modelList.ap_wire, 90.0);
+		glmScale(modelList.ap_wire, 10);
 
-		ap_wood = glmReadOBJ("models/predio/ap_wood.obj");
-		glmFacetNormals(ap_wood);
-		glmVertexNormals(ap_wood, 90.0);
-		glmScale(ap_wood, 10);
+		modelList.ap_wood = glmReadOBJ("models/predio/ap_wood.obj");
+		glmFacetNormals(modelList.ap_wood);
+		glmVertexNormals(modelList.ap_wood, 90.0);
+		glmScale(modelList.ap_wood, 10);
 
-		ground = glmReadOBJ("models/predio/ground.obj");
-		glmFacetNormals(ground);
-		glmVertexNormals(ground, 90.0);
-		glmScale(ground, 10);
+		modelList.ground = glmReadOBJ("models/predio/ground.obj");
+		glmFacetNormals(modelList.ground);
+		glmVertexNormals(modelList.ground, 90.0);
+		glmScale(modelList.ground, 10);
 
-		cloud = glmReadOBJ("models/city/cloud.obj");
-		glmFacetNormals(cloud);
-		glmVertexNormals(cloud, 90.0);
-		glmScale(cloud, 10);
+		modelList.cloud = glmReadOBJ("models/city/cloud.obj");
+		glmFacetNormals(modelList.cloud);
+		glmVertexNormals(modelList.cloud, 90.0);
+		glmScale(modelList.cloud, 10);
 
-		poste = glmReadOBJ("models/city/poste.obj");
-		glmFacetNormals(poste);
-		glmVertexNormals(poste, 90.0);
-		glmScale(poste, 10);
+		modelList.poste = glmReadOBJ("models/city/poste.obj");
+		glmFacetNormals(modelList.poste);
+		glmVertexNormals(modelList.poste, 90.0);
+		glmScale(modelList.poste, 10);
 
-		sLamp = glmReadOBJ("models/city/streetLamp.obj");
-		glmFacetNormals(sLamp);
-		glmVertexNormals(sLamp, 90.0);
-		glmScale(sLamp, 10);
+		modelList.sLamp = glmReadOBJ("models/city/streetLamp.obj");
+		glmFacetNormals(modelList.sLamp);
+		glmVertexNormals(modelList.sLamp, 90.0);
+		glmScale(modelList.sLamp, 10);
 
-		airplane = glmReadOBJ("models/city/plane.obj");
-		glmFacetNormals(airplane);
-		glmVertexNormals(airplane, 90.0);
-		glmScale(airplane, 40);
+		modelList.airplane = glmReadOBJ("models/city/plane.obj");
+		glmFacetNormals(modelList.airplane);
+		glmVertexNormals(modelList.airplane, 90.0);
+		glmScale(modelList.airplane, 40);
 
 		initPos();
 
@@ -503,26 +461,23 @@ void init()
 			estrelas[x].set(vx,vy,vz,1);
 		}
 
+	// Carregar listas de visualização
+		inicio_lista = generateDisplayLists(modelList);
+
 }
 
 void drawText(void* font, string str, double x, double y)
 {
-	glPushMatrix();
+	// glPushMatrix();
 
-		glTranslatef(0,0,10);
-		glScalef(100,100,100);
+		// glTranslatef(0,0,10);
+		// glScalef(100,100,100);
 		glRasterPos2d(x,y);
 
 		for(int i=0;i<str.size();i++)
 		glutBitmapCharacter(font,str[i]);
 
-	glPopMatrix();
-}
-
-void emissive(double alpha)
-{
-	GLfloat d[4] = {alpha,alpha,alpha,1};
-	glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,d);
+	// glPopMatrix();
 }
 
 double from0toX(double x,double defasamento,double spd)
@@ -536,11 +491,13 @@ double from0toX(double x,double defasamento,double spd)
 void draw_callback()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// if(cam.display_text!="")
+	// 	glutWireCube(10);
 
 	//	Criar lista para guardar desenho
 	//	Resolve problema de objetos piscando na tela
-	GLuint lista = glGenLists(1);
-	glNewList(lista, GL_COMPILE);	// Abre nova lista para compilar (guardar)
+	// GLuint lista = glGenLists(41); // 41 objetos estáticos até o momento
+	// glNewList(lista, GL_COMPILE);	// Abre nova lista para compilar (guardar)
 	
 	glPushMatrix();
 		gluLookAt(cam.eye.x+(cos((cam.bob/2)*M_PI/180)/50),cam.ground+cam.height+cam.eye.y+(sin(cam.bob*M_PI/180)/80),cam.eye.z,
@@ -557,7 +514,7 @@ void draw_callback()
 					glTranslatef(0,50000,0);
 					glColor4f(1,1,1,.7);
 					glScalef(1000,1000,1000);
-					glmDraw(cloud,GLM_SMOOTH);
+					glmDraw(modelList.cloud,GLM_SMOOTH);
 				emissive(0);
 			glPopMatrix();
 
@@ -571,112 +528,149 @@ void draw_callback()
 			emissive(0);
 
 		// Cidade
-			glColor4f(1,1,1,1);
-			drawModel(0,-10,500,180,0,build01,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.3,.3,.3,1);
-			drawModel(0,-10,500,180,0,asphalt,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.4,.4,.4,1);
-			drawModel(0,-10,500,180,0,walkway,GLM_FLAT | GLM_MATERIAL);
+			// glColor4f(1,1,1,1);
+			// drawModel(0,-10,500,180,0,modelList.build01,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+BUILD01);
+			// glColor4f(.3,.3,.3,1);
+			// drawModel(0,-10,500,180,0,modelList.asphalt,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+ASPHALT);
+			// glColor4f(.4,.4,.4,1);
+			// drawModel(0,-10,500,180,0,modelList.walkway,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+WALKWAY);
 			//	Poste
-				glPushMatrix();
-					glScalef(1,2,1);
-					glColor4f(1,1,1,1);
-					drawModel(0,-10,500,180,0,poste,GLM_FLAT | GLM_MATERIAL);
-				glPopMatrix();
+				// glPushMatrix();
+				// 	glScalef(1,2,1);
+				// 	glColor4f(1,1,1,1);
+				// 	drawModel(0,-10,500,180,0,modelList.poste,GLM_FLAT | GLM_MATERIAL);
+				// glPopMatrix();
+				glCallList(inicio_lista+POSTE);
+
 			glColor4f(1,1,1,1);
-			drawModel(0+p[AIRPLANE].x,-10+p[AIRPLANE].y,500+p[AIRPLANE].z,180,0,airplane,GLM_FLAT | GLM_MATERIAL);
+			drawModel(0+p[AIRPLANE].x,-10+p[AIRPLANE].y,500+p[AIRPLANE].z,180,0,modelList.airplane,GLM_FLAT | GLM_MATERIAL);
 
 		// Apartamento
-			glColor4f(.63,.41,.84,1);
-			drawModel(0,-10,500,180,0,ap_bed,GLM_FLAT | GLM_MATERIAL);
+			// glColor4f(.63,.41,.84,1);
+			// drawModel(0,-10,500,180,0,modelList.ap_bed,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_BED);
 			emissive(from0toX(.5,0,1));
-				glColor4f(.1,.1,1,1);
-				drawModel(0,-20,500,180,0,ap_bluebutton,GLM_FLAT | GLM_MATERIAL);
-				glColor4f(1,.1,.1,1);
-				drawModel(0,-20,500,180,0,ap_redbutton,GLM_FLAT | GLM_MATERIAL);
-				glColor4f(.6,1,1,1);
-				drawModel(0,-10,500,180,0,ap_lamp,GLM_FLAT | GLM_MATERIAL);
+				// glColor4f(.1,.1,1,1);
+				// drawModel(0,-20,500,180,0,modelList.ap_bluebutton,GLM_FLAT | GLM_MATERIAL);
+				glCallList(inicio_lista+AP_BLUEBUTTON);
+				// glColor4f(1,.1,.1,1);
+				// drawModel(0,-20,500,180,0,modelList.ap_redbutton,GLM_FLAT | GLM_MATERIAL);
+				glCallList(inicio_lista+AP_REDBUTTON);
+				// glColor4f(.6,1,1,1);
+				// drawModel(0,-10,500,180,0,modelList.ap_lamp,GLM_FLAT | GLM_MATERIAL);
+				glCallList(inicio_lista+AP_LAMP);
 			emissive(0);
-			glColor4f(.7,.7,.8,1);
-			drawModel(0,-10,500,180,0,ap_coffee,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.3,.3,.3,1);
-			drawModel(0,-10,500,180,0,ap_elevator,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.5,.5,.5,1);
-			drawModel(0,-10,500,180,0,ap_keyboard,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(1,1,1,1);
-			drawModel(0,-10,500,180,0,ap_pillow,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.4,.4,.4,1);
-			drawModel(0,-10,500,180,0,ap_ps4,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.3,.3,.3,1);
-			drawModel(0,-20,500,180,0,ap_serverside,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.6,.6,.6,1);
-			drawModel(0,-20,500,180,0,ap_servertower,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.2,.1,.9,1);
-			drawModel(0,-10,500,180,0,ap_tapete,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(1,.98,.25,1);
-			drawModel(0,-10,500,180,0,ap_wall,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(1,.6,.14,1);
-			drawModel(0,-10,500,180,0,ap_wire,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.96,.88,.64,1);
-			drawModel(0,-10,500,180,0,ap_wood,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.1,.8,.8,.3);
-			drawModel(0,-10,500,180,0,ap_glass,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.1,.1,.1,1);
-			drawModel(0,-10,500,180,0,ap_tophouse,GLM_FLAT | GLM_MATERIAL);
+			// glColor4f(.7,.7,.8,1);
+			// drawModel(0,-10,500,180,0,modelList.ap_coffee,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_COFFEE);
+			// glColor4f(.3,.3,.3,1);
+			// drawModel(0,-10,500,180,0,modelList.ap_elevator,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_ELEVATOR);
+			// glColor4f(.5,.5,.5,1);
+			// drawModel(0,-10,500,180,0,modelList.ap_keyboard,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_KEYBOARD);
+			// glColor4f(1,1,1,1);
+			// drawModel(0,-10,500,180,0,modelList.ap_pillow,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_PILLOW);
+			// glColor4f(.4,.4,.4,1);
+			// drawModel(0,-10,500,180,0,modelList.ap_ps4,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_PS4);
+			// glColor4f(.3,.3,.3,1);
+			// drawModel(0,-20,500,180,0,modelList.ap_serverside,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_SERVERSIDE);
+			// glColor4f(.6,.6,.6,1);
+			// drawModel(0,-20,500,180,0,modelList.ap_servertower,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_SERVERTOWER);
+			// glColor4f(.2,.1,.9,1);
+			// drawModel(0,-10,500,180,0,modelList.ap_tapete,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_TAPETE);
+			// glColor4f(1,.98,.25,1);
+			// drawModel(0,-10,500,180,0,modelList.ap_wall,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_WALL);
+			// glColor4f(1,.6,.14,1);
+			// drawModel(0,-10,500,180,0,modelList.ap_wire,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_WIRE);
+			// glColor4f(.96,.88,.64,1);
+			// drawModel(0,-10,500,180,0,modelList.ap_wood,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_WOOD);
+			// glColor4f(.1,.8,.8,.3);
+			// drawModel(0,-10,500,180,0,modelList.ap_glass,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_GLASS);
+			// glColor4f(.1,.1,.1,1);
+			// drawModel(0,-10,500,180,0,modelList.ap_tophouse,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_TOPHOUSE);
 			emissive(from0toX(.4,0,1));	
 				glColor4f(from0toX(.6,0,4),from0toX(1,30,4),from0toX(1,60,4),.9);
-				drawModel(0,-10,500,180,0,ap_superpc,GLM_FLAT | GLM_MATERIAL);
+				drawModel(0,-10,500,180,0,modelList.ap_superpc,GLM_FLAT | GLM_MATERIAL);
 				glColor4f(from0toX(.6,30,4),from0toX(1,60,4),from0toX(1,120,4),.9);
-				drawModel(0,-10,500,180,0,ap_homeroom_monitor,GLM_FLAT | GLM_MATERIAL);
+				drawModel(0,-10,500,180,0,modelList.ap_homeroom_monitor,GLM_FLAT | GLM_MATERIAL);
 			emissive(0);
 
 		// Prédio
 			emissive(.2);
-				glColor4f(.4,1,1,.5);
-				drawModel(0,-10,500,180,0,main_insidewindow,GLM_FLAT | GLM_MATERIAL);
-				drawModel(0,-10,500,180,0,main_window,GLM_FLAT | GLM_MATERIAL);
+				// glColor4f(.4,1,1,.5);
+				// drawModel(0,-10,500,180,0,modelList.main_insidewindow,GLM_FLAT | GLM_MATERIAL);
+				// drawModel(0,-10,500,180,0,modelList.main_window,GLM_FLAT | GLM_MATERIAL);
+				glCallList(inicio_lista+MAIN_WINDOWS);
 			emissive(0);
-			glColor4f(.2,.2,.2,1);
-			drawModel(0,-10,500,180,0,main_body,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.2,.2,.2,1);
-			drawModel(0,-10,500,180,0,main_lateral,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.3,.3,.3,1);
-			drawModel(0,-10,500,180,0,main_ring,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.5,.5,.5,1);
-			drawModel(0,-10,500,180,0,main_elevator,GLM_FLAT | GLM_MATERIAL);
+			// glColor4f(.2,.2,.2,1);
+			// drawModel(0,-10,500,180,0,modelList.main_body,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+MAIN_BODY);
+			// glColor4f(.2,.2,.2,1);
+			// drawModel(0,-10,500,180,0,modelList.main_lateral,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+MAIN_LATERAL);
+			// glColor4f(.3,.3,.3,1);
+			// drawModel(0,-10,500,180,0,modelList.main_ring,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+MAIN_RING);
+			// glColor4f(.5,.5,.5,1);
+			// drawModel(0,-10,500,180,0,modelList.main_elevator,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+MAIN_ELEVATOR);
 			glColor4f(.2,.7,.8,1);
-			drawModel(0,-10+sin(increment*M_PI/180),500,180,0,main_bot,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(1,1,1,1);
-			drawModel(0,-10,500,180,0,main_groundlight,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.1,.7,.3,1);
-			drawModel(0,-10,500,180,0,main_leaf,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.8,.4,.2,1);
-			drawModel(0,-10,500,180,0,main_wood,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.6,.2,.1,1);
-			drawModel(0,-10,500,180,0,main_vase,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.8,.7,.6,1);
-			drawModel(0,-10,500,180,0,main_mesa,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.5,.5,.5,1);
-			drawModel(0,-10,500,180,0,main_tapete,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(1,1,1,1);
-			drawModel(0,-10,500,180,0,main_sofa,GLM_FLAT | GLM_MATERIAL);
-			glColor4f(.95,.13,.19,1);
-			drawModel(0,-10,500,180,0,main_hall_generic,GLM_FLAT | GLM_MATERIAL);
+			drawModel(0,-10+sin(increment*M_PI/180),500,180,0,modelList.main_bot,GLM_FLAT | GLM_MATERIAL);
+			// glColor4f(1,1,1,1);
+			// drawModel(0,-10,500,180,0,modelList.main_groundlight,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+MAIN_GROUNDLIGHT);
+			// glColor4f(.1,.7,.3,1);
+			// drawModel(0,-10,500,180,0,modelList.main_leaf,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+MAIN_LEAF);
+			// glColor4f(.8,.4,.2,1);
+			// drawModel(0,-10,500,180,0,modelList.main_wood,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+MAIN_WOOD);
+			// glColor4f(.6,.2,.1,1);
+			// drawModel(0,-10,500,180,0,modelList.main_vase,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+MAIN_VASE);
+			// glColor4f(.8,.7,.6,1);
+			// drawModel(0,-10,500,180,0,modelList.main_mesa,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+MAIN_MESA);
+			// glColor4f(.5,.5,.5,1);
+			// drawModel(0,-10,500,180,0,modelList.main_tapete,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+MAIN_TAPETE);
+			// glColor4f(1,1,1,1);
+			// drawModel(0,-10,500,180,0,modelList.main_sofa,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+MAIN_SOFA);
+			// glColor4f(.95,.13,.19,1);
+			// drawModel(0,-10,500,180,0,modelList.main_hall_generic,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+MAIN_HALL_GENERIC);
 			emissive(.2);
 				glColor4f(.4,1,1,.5);
-				drawModel(0+(p[LHALLDOOR]).x,-10+(p[LHALLDOOR]).y,500+(p[LHALLDOOR]).z,180,0,main_hdoor,GLM_FLAT | GLM_MATERIAL);
-				drawModel(0+(p[RHALLDOOR]).x,-10+(p[RHALLDOOR]).y,500+(p[RHALLDOOR]).z,180,0,main_hdoor,GLM_FLAT | GLM_MATERIAL);
+				drawModel(0+(p[LHALLDOOR]).x,-10+(p[LHALLDOOR]).y,500+(p[LHALLDOOR]).z,180,0,modelList.main_hdoor,GLM_FLAT | GLM_MATERIAL);
+				drawModel(0+(p[RHALLDOOR]).x,-10+(p[RHALLDOOR]).y,500+(p[RHALLDOOR]).z,180,0,modelList.main_hdoor,GLM_FLAT | GLM_MATERIAL);
 			emissive(0);
 
 		// Montanhas
-			glColor4f(.2,.7,.1,1);
-			drawModel(0,-10,500,180,0,ground,GLM_FLAT | GLM_MATERIAL);
+			// glColor4f(.2,.7,.1,1);
+			// drawModel(0,-10,500,180,0,modelList.ground,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+GROUND);
 
 		// Apartamento (ainda)
-			glColor4f(.1,.8,.8,.3);
-			drawModel(0,-10,500,180,0,ap_serverglass,GLM_FLAT | GLM_MATERIAL);
+			// glColor4f(.1,.8,.8,.3);
+			// drawModel(0,-10,500,180,0,modelList.ap_serverglass,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_SERVERGLASS);
 			glColor4f(.1,.5,.5,.3);
-			drawModel(0,-10+p[APELEVATOR].y,500,180,0,ap_elevatorglass,GLM_FLAT | GLM_MATERIAL);
+			drawModel(0,-10+p[APELEVATOR].y,500,180,0,modelList.ap_elevatorglass,GLM_FLAT | GLM_MATERIAL);
 
 		/*glColor4f(0,0,1,1);
 		drawAIRPLANE(0,-10,750,1000);*/
@@ -695,41 +689,46 @@ void draw_callback()
 
 
 		// OBS: o que precisa ser desenhado com transparencia precisa ser desenhado por último
-		glPushMatrix();
-			glScalef(1,2,1);	
-			emissive(.4);
-				glColor4f(.7,.6,.5,.3);
-				drawModel(0,-10,500,180,0,sLamp,GLM_FLAT | GLM_MATERIAL);
-		glPopMatrix();
+		// glPushMatrix();
+		// 	glScalef(1,2,1);	
+		// 	emissive(.4);
+		// 		glColor4f(.7,.6,.5,.3);
+		// 		drawModel(0,-10,500,180,0,modelList.sLamp,GLM_FLAT | GLM_MATERIAL);
+		// glPopMatrix();
+		glCallList(inicio_lista+SLAMP);
 
 	glPopMatrix();
 
 
-	// Mudar Projeção
-		glMatrixMode (GL_PROJECTION);
-		glLoadIdentity ();
+	// // Mudar Projeção
+	// 	glMatrixMode (GL_PROJECTION);
+	// 	glLoadIdentity ();
 
-		//gluPerspective(65.0, (GLfloat) w/(GLfloat) h, 1.0, 10000000.0);
-		glOrtho(0, width, 0, height, -1.0, 1.0);
+	// 	//gluPerspective(65.0, (GLfloat) w/(GLfloat) h, 1.0, 10000000.0);
+	// 	glOrtho(0, width, 0, height, -1.0, 1.0);
 
-		glMatrixMode(GL_MODELVIEW);
+	// 	glMatrixMode(GL_MODELVIEW);
 
-	drawText(GLUT_BITMAP_HELVETICA_18,"ELEVADOR (E)",0,0);
-	if(cam.display_text!="")
-		glutWireCube(10);
+	glPushMatrix();
+	    glTranslatef(0,0,-10);
+	    glColor4f(1,1,1,1);
+		glDisable(GL_DEPTH_TEST);
+	    drawText(GLUT_BITMAP_HELVETICA_18,cam.display_text.c_str(),0,0);
+	    glEnable(GL_DEPTH_TEST);
+	glPopMatrix();
 
-	// Retornar
-		glMatrixMode (GL_PROJECTION);
-		glLoadIdentity ();
+	// // Retornar
+	// 	glMatrixMode (GL_PROJECTION);
+	// 	glLoadIdentity ();
 
-		gluPerspective(65.0, (GLfloat) width/(GLfloat) height, 1.0, 10000000.0);
-		//glOrtho(0, w, 0, h, -1.0, 1.0);
+	// 	gluPerspective(65.0, (GLfloat) width/(GLfloat) height, 1.0, 10000000.0);
+	// 	//glOrtho(0, w, 0, h, -1.0, 1.0);
 
-		glMatrixMode(GL_MODELVIEW);
+	// 	glMatrixMode(GL_MODELVIEW);
 
-	glEndList();	// Fecha lista de desenho
-	glCallList(lista);	// Envia a lista pronta para ser desenhada
-	glDeleteLists(lista, 1);	// Deleta a lista usada
+	// glEndList();	// Fecha lista de desenho
+	// glCallList(lista);	// Envia a lista pronta para ser desenhada
+	// glDeleteLists(lista, 1);	// Deleta a lista usada
 	
 	glutSwapBuffers();
 }
@@ -754,12 +753,12 @@ void update_callback(int)
 		increment+=20;
 
 	glutTimerFunc(((double)1000)/FPS,update_callback,0); 
-	glutPostRedisplay();
+	// glutPostRedisplay();
 }
 
 void idle_callback()	// MAX FPS BRO!! (NO MORE ;_; Idle n surte mais esse efeito - cena mt pesada)
 {										//(É necessario forçar a atualização no FPS)
-	// glutPostRedisplay();
+	glutPostRedisplay();
 }
 
 void reshape_callback(int w, int h)
