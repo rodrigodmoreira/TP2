@@ -13,6 +13,14 @@ enum POSICOES{RHALLDOOR=0,LHALLDOOR,AIRPLANE,APELEVATOR};
 
 using namespace std;
 
+double from0toX(double x,double defasamento,double spd,double increment)
+{
+	return ((sin((increment + defasamento)*spd*M_PI/180)+1)/2.0)/(1.0/x);
+
+	// ((sin(increment)+1)/20.0) retorna um valor entre 0 e 1
+	//	^^^^^^^^^^^^^^^^^^^^^^^ /(1.0/x) retorna um valor de 0 até X
+}
+
 void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 {
 	// Checar se está perto da porta de entrada
@@ -48,11 +56,11 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 	// Checar se está perto do elevador
 		if(cam.ground >=-5 && cam.ground <=5) // Se está no terra
 		{
-			if(cam.eye.x >= -120 && cam.eye.x <= -100 && cam.eye.z <= 795 && cam.eye.z >= 775 )
+			if((cam.eye.x >= -120 && cam.eye.x <= -100 && cam.eye.z <= 795 && cam.eye.z >= 765) ||
+				(cam.eye.x <= 120 && cam.eye.x >= 100 && cam.eye.z <= 795 && cam.eye.z >= 765) )
 			{
 				cam.display_text = "Pressione R para subir o elevador";
 				cam.canWarp=1;
-				cout << cam.display_text << endl;
 			}
 			else
 			{
@@ -66,7 +74,6 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 			{
 				cam.display_text = "Pressione R para descer o elevador";
 				cam.canWarp=2;
-				cout << cam.display_text << endl;
 			}
 			else
 			{
@@ -159,17 +166,17 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 	// Ciclo dia e noite
 	{
 		// Configura a luminosidade da fonte de luz
-			GLfloat a[] = {cos(.011*increment*M_PI/180)/10,cos(.011*increment*M_PI/180)/10,cos(.011*increment*M_PI/180)/10,1};
+			GLfloat a[] = {from0toX(.1,0,.01,increment),from0toX(.1,0,.01,increment),from0toX(.1,0,.01,increment),1};
 			glLightfv(GL_LIGHT0,GL_AMBIENT,a);
 
-			GLfloat b[] = {.1+cos(.011*increment*M_PI/180)/5,.1+cos(.011*increment*M_PI/180)/5,.1+cos(.011*increment*M_PI/180)/5,1};
+			GLfloat b[] = {.1+from0toX(.1,0,.01,increment),.1+from0toX(.1,0,.01,increment),.1+from0toX(.1,0,.01,increment),1};
 			glLightfv(GL_LIGHT0,GL_DIFFUSE,b);
 
 		// Fazer a cor do ceu diminuir com o passar do tempo e, quando atingir um nivel mínimo, ao invés de ficar preto, fica azul escuro
-			// 0.4, 0.8, 1.0, 1.0
-			double colorR = 0.2*cos(.01*increment*M_PI/180);
-			double colorG = 0.8*cos(.01*increment*M_PI/180);
-			double colorB = 1*cos(.01*increment*M_PI/180);
+			// 0.4, 0.8, 1.0, 1.0 //0.2 0.8 1
+			double colorR = from0toX(.2,0,.01,increment);
+			double colorG = from0toX(.8,0,.01,increment);
+			double colorB = from0toX(1,0,.01,increment);
 			if(colorB <= .1)
 			{
 				colorR=0;
@@ -186,6 +193,6 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 		if(p[AIRPLANE].z<=-20000)
 		{
 			p[AIRPLANE].z=15000;
-			p[AIRPLANE].x=-500+rand()%1001;
+			p[AIRPLANE].x=-2000+rand()%4001;
 		}
 }

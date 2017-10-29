@@ -20,14 +20,14 @@
 
 enum CAM_MODE {	C_KB=0,C_MOUSE};
 enum LISTAS {BUILD01=0,ASPHALT,WALKWAY,POSTE,AP_BED,AP_BLUEBUTTON,AP_REDBUTTON,AP_LAMP,AP_COFFEE,AP_ELEVATOR,
-                AP_KEYBOARD,AP_PILLOW,AP_PS4,AP_SERVERSIDE,AP_SERVERTOWER,AP_TAPETE,AP_WALL,AP_WIRE,AP_WOOD,AP_GLASS,AP_TOPHOUSE,
+                AP_KEYBOARD,AP_PILLOW,AP_SOFA,AP_PS4,AP_SERVERSIDE,AP_SERVERTOWER,AP_TAPETE,AP_WALL,AP_WIRE,AP_WOOD,AP_GLASS,AP_TOPHOUSE,
                 MAIN_WINDOWS,MAIN_BODY,MAIN_LATERAL,MAIN_RING,MAIN_ELEVATOR,MAIN_GROUNDLIGHT,MAIN_LEAF,MAIN_WOOD,MAIN_VASE,MAIN_MESA,
-                MAIN_TAPETE,MAIN_SOFA,MAIN_HALL_GENERIC,GROUND,AP_SERVERGLASS,SLAMP};
+                MAIN_TAPETE,MAIN_SOFA,MAIN_HALL_GENERIC,GROUND,AP_SERVERGLASS,SLAMP,CITY_LEAVES,CITY_TREES,CITY_GLASS};
 
 using namespace std;
 
 // ALthings
-	enum AUDIO_BUFFER {AB_DOOR_OPEN=0, AB_ELEVATOR_RING, AB_8BITRAVE};
+	enum AUDIO_BUFFER {AB_DOOR_OPEN=0, AB_ELEVATOR_RING, AB_M0};
 	enum AUDIO_SOURCE {AS_DEFAULT=0,AS_HALLDOOR};
 
 	// Buffers to hold sound data.
@@ -36,11 +36,8 @@ using namespace std;
 	// Sources are points of emitting sound.
 	ALuint al_source[100];
 
-	// Position of the source sound.
-	ALfloat SourcePos[] = { 0.0, 0.0, 0.0 };
-	 
+	// Position of the source sound. -> arrays com 3 posições apenas	 
 	// Velocity of the source sound.
-	ALfloat SourceVel[] = { 0.0, 0.0, 0.0 };
 	 
 	// Position of the Listener.
 	ALfloat ListenerPos[] = { 0.0, 0.0, 0.0 };
@@ -58,9 +55,10 @@ using namespace std;
 	bool light = true;
 	int width,height;
 	GLuint inicio_lista; // Index do início da lista de visualização
+	GLuint frame;
 
 // GLMmodels
-ModelList modelList;
+	ModelList modelList;
 
 // Variavel "parametrica" correspondente ao tempo passado (utilizado pra fazer algumas coisas se moverem com o passar do tempo)
 	double increment = 0;
@@ -85,39 +83,42 @@ void initAL()
 		alDistanceModel(AL_LINEAR_DISTANCE_CLAMPED);
 
 	// Load .wav (16 bit-only && mono)
-		if(loadALData(al_buffer[AB_8BITRAVE],"sounds/Panda Eyes - Fake Princess.wav") == AL_FALSE)
+		if(loadALData(al_buffer[AB_M0],"sounds/Vance Joy - Lay It On Me (Said The Sky Remix).wav") == AL_FALSE)
 		{
-			printf("buffer_fudeo\n");
+			printf("buffer_deuruim\n");
 			exit(0);
 		}
-		if(loadALData(al_buffer[AB_DOOR_OPEN],"sounds/Mike McDonough - Space Ship Door Sounds.wav") == AL_FALSE)
-		{
-			printf("buffer_fudeo\n");
-			exit(0);
-		}
+		// if(loadALData(al_buffer[AB_DOOR_OPEN],"sounds/Mike McDonough - Space Ship Door Sounds.wav") == AL_FALSE)
+		// {
+		// 	printf("buffer_deuruim\n");
+		// 	exit(0);
+		// }
 
 
 	// Bind audio to a source
 		//FONTE SONORA: PORTA/HALL
+		// {
+		// 	ALfloat pos[] = {0,0,450};
+		// 	ALfloat vel[] = {0,0,0};
+		// 	if(bindALData(al_buffer[AB_DOOR_OPEN],al_source[AS_HALLDOOR], pos, vel, AL_TRUE) == AL_FALSE)
+		// 	{
+		// 		printf("source_deuruim\n");
+		// 		exit(0);
+		// 	}
+		// }
+		// FONTE SONORA: SALA DE ESTAR {100,1354,830}
 		{
-			ALfloat pos[] = {0,0,450};
-			if(bindALData(al_buffer[AB_DOOR_OPEN],al_source[AS_HALLDOOR], pos, SourceVel, AL_TRUE) == AL_FALSE)
+			ALfloat pos[] = {100,100,100};
+			ALfloat vel[] = {0,0,0};
+			if(bindALData(al_buffer[AB_M0],al_source[AS_DEFAULT], pos, vel, AL_TRUE) == AL_FALSE)
 			{
-				printf("source_fudeo\n");
-				exit(0);
-			}
-		}
-		// FONTE SONORA: SALA DE ESTAR
-		{
-			if(bindALData(al_buffer[AB_8BITRAVE],al_source[AS_DEFAULT], SourcePos, SourceVel, AL_TRUE) == AL_FALSE)
-			{
-				printf("source_fudeo\n");
+				printf("source_deuruim\n");
 				exit(0);
 			}
 		}
 
-	// Configure Listener initial values
-		setListenerValues(ListenerPos,ListenerVel,ListenerOri);
+	// Configure Listener initial values (estou configurando/ atualizando no update_callback)
+		setListenerValues(ListenerPos,ListenerVel,ListenerOri); 
 
 	// Play audio on source
 		alSourcePlay(al_source[AS_DEFAULT]);
@@ -173,16 +174,17 @@ void init()
 	// Sun
 		glEnable(GL_LIGHTING);
 		glEnable(GL_LIGHT0);
-		{ // apenas para criar/limitar escopo de a/b/c/d/e (SIM, È POSSÍVEL, TBM N TO ACREDITANDO Q CHUTEI CERTO)
-			GLfloat a[] = {.1,.1,.1,1};
+		{ // apenas para criar/limitar escopo de a/b/c/d/e (SIM, È POSSÍVEL, TBM N TO ACREDITANDO Q CHUTEI E DEU CERTO)
+			GLfloat a[] = {.25,.02,.2,1};
 			glLightfv(GL_LIGHT0,GL_AMBIENT,a);
 
-			GLfloat b[] = {.5,.5,.5,1};
+			GLfloat b[] = {.7,.6,.8,1};
 			glLightfv(GL_LIGHT0,GL_DIFFUSE,b);
 
 			GLfloat c[] = {0,0,0,1};
 			glLightfv(GL_LIGHT0,GL_SPECULAR,c);
 
+			// GLfloat d[] = {0.5,1,0.866,0};
 			GLfloat d[] = {0.5,1,0.866,0};
 			glLightfv(GL_LIGHT0,GL_POSITION,d);
 
@@ -190,23 +192,23 @@ void init()
 			glLightfv(GL_LIGHT0,GL_CONSTANT_ATTENUATION,e);
 		} // Isso pq n encontrei uma forma bacana de reaproveitar o mesmo vetor atribuindo valores direto igual a {x1,x2,x3,x4}
 
-	/*	glEnable(GL_LIGHT1);
-		{ // apenas para criar/limitar escopo de a/b/c/d/e
-			GLfloat a[] = {10/255,10/255,10/255,1};
-			glLightfv(GL_LIGHT0,GL_AMBIENT,a);
+		// glEnable(GL_LIGHT1);
+		// { // apenas para criar/limitar escopo de a/b/c/d/e
+		// 	GLfloat a[] = {.1,.1,.1,1};
+		// 	glLightfv(GL_LIGHT1,GL_AMBIENT,a);
 
-			GLfloat b[] = {255/255,255/255,255/255,1};
-			glLightfv(GL_LIGHT0,GL_DIFFUSE,b);
+		// 	GLfloat b[] = {1,1,1,1};
+		// 	glLightfv(GL_LIGHT1,GL_DIFFUSE,b);
 
-			GLfloat c[] = {125/255,125/255,125/255,1};
-			glLightfv(GL_LIGHT0,GL_SPECULAR,c);
+		// 	GLfloat c[] = {.05,.1,.1,1};
+		// 	glLightfv(GL_LIGHT1,GL_SPECULAR,c);
 
-			GLfloat d[] = {-300,-300,-300,0};
-			glLightfv(GL_LIGHT0,GL_POSITION,d);
+		// 	GLfloat d[] = {100,1352,800,1};
+		// 	glLightfv(GL_LIGHT1,GL_POSITION,d);
 
-			GLfloat e[] = {1,1,1,1};
-			//glLightfv(GL_LIGHT0,GL_CONSTANT_ATTENUATION,e);
-		}*/
+		// 	GLfloat e[] = {.1,.1,.1,1};
+		// 	glLightfv(GL_LIGHT1,GL_LINEAR_ATTENUATION,e);
+		// }
 
 
 	// Carregar obj
@@ -214,6 +216,11 @@ void init()
 		glmFacetNormals(modelList.build01);
 		glmVertexNormals(modelList.build01, 90.0);
 		glmScale(modelList.build01, 10);
+
+		modelList.city_glass = glmReadOBJ("models/city/city_glass.obj");
+		glmFacetNormals(modelList.city_glass);
+		glmVertexNormals(modelList.city_glass, 90.0);
+		glmScale(modelList.city_glass, 10);
 
 		modelList.walkway = glmReadOBJ("models/city/walkway.obj");
 		glmFacetNormals(modelList.walkway);
@@ -224,6 +231,16 @@ void init()
 		glmFacetNormals(modelList.asphalt);
 		glmVertexNormals(modelList.asphalt, 90.0);
 		glmScale(modelList.asphalt, 10);
+
+		modelList.city_trees = glmReadOBJ("models/city/wood.obj");
+		glmFacetNormals(modelList.city_trees);
+		glmVertexNormals(modelList.city_trees, 90.0);
+		glmScale(modelList.city_trees, 10);
+
+		modelList.city_leaves = glmReadOBJ("models/city/leaves.obj");
+		glmFacetNormals(modelList.city_leaves);
+		glmVertexNormals(modelList.city_leaves, 90.0);
+		glmScale(modelList.city_leaves, 10);
 
 		modelList.torre = glmReadOBJ("models/torre/torre.obj");
 		glmFacetNormals(modelList.torre);
@@ -365,6 +382,11 @@ void init()
 		glmVertexNormals(modelList.ap_pillow, 90.0);
 		glmScale(modelList.ap_pillow, 10);
 
+		modelList.ap_sofa = glmReadOBJ("models/predio/ap_sofa.obj");
+		glmFacetNormals(modelList.ap_sofa);
+		glmVertexNormals(modelList.ap_sofa, 90.0);
+		glmScale(modelList.ap_sofa, 10);
+
 		modelList.ap_ps4 = glmReadOBJ("models/predio/ap_ps4.obj");
 		glmFacetNormals(modelList.ap_ps4);
 		glmVertexNormals(modelList.ap_ps4, 90.0);
@@ -464,6 +486,8 @@ void init()
 	// Carregar listas de visualização
 		inicio_lista = generateDisplayLists(modelList);
 
+	// Gerar lista do frame (para poder ser reutilizado na draw_callback a fim de evitar "flickering")
+		frame = glGenLists(1);
 }
 
 void drawText(void* font, string str, double x, double y)
@@ -494,10 +518,9 @@ void draw_callback()
 	// if(cam.display_text!="")
 	// 	glutWireCube(10);
 
-	//	Criar lista para guardar desenho
-	//	Resolve problema de objetos piscando na tela
-	// GLuint lista = glGenLists(41); // 41 objetos estáticos até o momento
-	// glNewList(lista, GL_COMPILE);	// Abre nova lista para compilar (guardar)
+	//	Criar lista para guardar desenho todo 
+	//	Resolve problema de objetos piscando na tela (pode ser estranho a solução, mas resolveu)(parte...)
+	glNewList(frame, GL_COMPILE);
 	
 	glPushMatrix();
 		gluLookAt(cam.eye.x+(cos((cam.bob/2)*M_PI/180)/50),cam.ground+cam.height+cam.eye.y+(sin(cam.bob*M_PI/180)/80),cam.eye.z,
@@ -505,7 +528,9 @@ void draw_callback()
 					0,1,0);
 
 		// Sun
-			drawSun(1*increment);
+			drawSun(.01*(increment-7200));
+
+			drawMoon(.01*(increment+7200));
 
 		// Clouds
 			glPushMatrix();
@@ -528,81 +553,42 @@ void draw_callback()
 			emissive(0);
 
 		// Cidade
-			// glColor4f(1,1,1,1);
-			// drawModel(0,-10,500,180,0,modelList.build01,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+CITY_GLASS);
+			glCallList(inicio_lista+CITY_TREES);
+			glCallList(inicio_lista+CITY_LEAVES);
 			glCallList(inicio_lista+BUILD01);
-			// glColor4f(.3,.3,.3,1);
-			// drawModel(0,-10,500,180,0,modelList.asphalt,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+ASPHALT);
-			// glColor4f(.4,.4,.4,1);
-			// drawModel(0,-10,500,180,0,modelList.walkway,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+WALKWAY);
-			//	Poste
-				// glPushMatrix();
-				// 	glScalef(1,2,1);
-				// 	glColor4f(1,1,1,1);
-				// 	drawModel(0,-10,500,180,0,modelList.poste,GLM_FLAT | GLM_MATERIAL);
-				// glPopMatrix();
-				glCallList(inicio_lista+POSTE);
+			glCallList(inicio_lista+POSTE);
 
 			glColor4f(1,1,1,1);
 			drawModel(0+p[AIRPLANE].x,-10+p[AIRPLANE].y,500+p[AIRPLANE].z,180,0,modelList.airplane,GLM_FLAT | GLM_MATERIAL);
 
+		// Predio
+				glCallList(inicio_lista+MAIN_WINDOWS);
+
 		// Apartamento
-			// glColor4f(.63,.41,.84,1);
-			// drawModel(0,-10,500,180,0,modelList.ap_bed,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+AP_BED);
 			emissive(from0toX(.5,0,1));
-				// glColor4f(.1,.1,1,1);
-				// drawModel(0,-20,500,180,0,modelList.ap_bluebutton,GLM_FLAT | GLM_MATERIAL);
 				glCallList(inicio_lista+AP_BLUEBUTTON);
-				// glColor4f(1,.1,.1,1);
-				// drawModel(0,-20,500,180,0,modelList.ap_redbutton,GLM_FLAT | GLM_MATERIAL);
 				glCallList(inicio_lista+AP_REDBUTTON);
-				// glColor4f(.6,1,1,1);
-				// drawModel(0,-10,500,180,0,modelList.ap_lamp,GLM_FLAT | GLM_MATERIAL);
 				glCallList(inicio_lista+AP_LAMP);
 			emissive(0);
-			// glColor4f(.7,.7,.8,1);
-			// drawModel(0,-10,500,180,0,modelList.ap_coffee,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+AP_COFFEE);
-			// glColor4f(.3,.3,.3,1);
-			// drawModel(0,-10,500,180,0,modelList.ap_elevator,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+AP_ELEVATOR);
-			// glColor4f(.5,.5,.5,1);
-			// drawModel(0,-10,500,180,0,modelList.ap_keyboard,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+AP_KEYBOARD);
-			// glColor4f(1,1,1,1);
-			// drawModel(0,-10,500,180,0,modelList.ap_pillow,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+AP_PILLOW);
-			// glColor4f(.4,.4,.4,1);
-			// drawModel(0,-10,500,180,0,modelList.ap_ps4,GLM_FLAT | GLM_MATERIAL);
+			glCallList(inicio_lista+AP_SOFA);
 			glCallList(inicio_lista+AP_PS4);
-			// glColor4f(.3,.3,.3,1);
-			// drawModel(0,-20,500,180,0,modelList.ap_serverside,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+AP_SERVERSIDE);
-			// glColor4f(.6,.6,.6,1);
-			// drawModel(0,-20,500,180,0,modelList.ap_servertower,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+AP_SERVERTOWER);
-			// glColor4f(.2,.1,.9,1);
-			// drawModel(0,-10,500,180,0,modelList.ap_tapete,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+AP_TAPETE);
-			// glColor4f(1,.98,.25,1);
-			// drawModel(0,-10,500,180,0,modelList.ap_wall,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+AP_WALL);
-			// glColor4f(1,.6,.14,1);
-			// drawModel(0,-10,500,180,0,modelList.ap_wire,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+AP_WIRE);
-			// glColor4f(.96,.88,.64,1);
-			// drawModel(0,-10,500,180,0,modelList.ap_wood,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+AP_WOOD);
-			// glColor4f(.1,.8,.8,.3);
-			// drawModel(0,-10,500,180,0,modelList.ap_glass,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+AP_GLASS);
-			// glColor4f(.1,.1,.1,1);
-			// drawModel(0,-10,500,180,0,modelList.ap_tophouse,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+AP_TOPHOUSE);
-			emissive(from0toX(.4,0,1));	
+			emissive(from0toX(.4,60,1));	
 				glColor4f(from0toX(.6,0,4),from0toX(1,30,4),from0toX(1,60,4),.9);
 				drawModel(0,-10,500,180,0,modelList.ap_superpc,GLM_FLAT | GLM_MATERIAL);
 				glColor4f(from0toX(.6,30,4),from0toX(1,60,4),from0toX(1,120,4),.9);
@@ -610,49 +596,19 @@ void draw_callback()
 			emissive(0);
 
 		// Prédio
-			emissive(.2);
-				// glColor4f(.4,1,1,.5);
-				// drawModel(0,-10,500,180,0,modelList.main_insidewindow,GLM_FLAT | GLM_MATERIAL);
-				// drawModel(0,-10,500,180,0,modelList.main_window,GLM_FLAT | GLM_MATERIAL);
-				glCallList(inicio_lista+MAIN_WINDOWS);
-			emissive(0);
-			// glColor4f(.2,.2,.2,1);
-			// drawModel(0,-10,500,180,0,modelList.main_body,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+MAIN_BODY);
-			// glColor4f(.2,.2,.2,1);
-			// drawModel(0,-10,500,180,0,modelList.main_lateral,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+MAIN_LATERAL);
-			// glColor4f(.3,.3,.3,1);
-			// drawModel(0,-10,500,180,0,modelList.main_ring,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+MAIN_RING);
-			// glColor4f(.5,.5,.5,1);
-			// drawModel(0,-10,500,180,0,modelList.main_elevator,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+MAIN_ELEVATOR);
-			glColor4f(.2,.7,.8,1);
+			glColor4f(.2,.7,.45,1);
 			drawModel(0,-10+sin(increment*M_PI/180),500,180,0,modelList.main_bot,GLM_FLAT | GLM_MATERIAL);
-			// glColor4f(1,1,1,1);
-			// drawModel(0,-10,500,180,0,modelList.main_groundlight,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+MAIN_GROUNDLIGHT);
-			// glColor4f(.1,.7,.3,1);
-			// drawModel(0,-10,500,180,0,modelList.main_leaf,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+MAIN_LEAF);
-			// glColor4f(.8,.4,.2,1);
-			// drawModel(0,-10,500,180,0,modelList.main_wood,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+MAIN_WOOD);
-			// glColor4f(.6,.2,.1,1);
-			// drawModel(0,-10,500,180,0,modelList.main_vase,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+MAIN_VASE);
-			// glColor4f(.8,.7,.6,1);
-			// drawModel(0,-10,500,180,0,modelList.main_mesa,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+MAIN_MESA);
-			// glColor4f(.5,.5,.5,1);
-			// drawModel(0,-10,500,180,0,modelList.main_tapete,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+MAIN_TAPETE);
-			// glColor4f(1,1,1,1);
-			// drawModel(0,-10,500,180,0,modelList.main_sofa,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+MAIN_SOFA);
-			// glColor4f(.95,.13,.19,1);
-			// drawModel(0,-10,500,180,0,modelList.main_hall_generic,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+MAIN_HALL_GENERIC);
 			emissive(.2);
 				glColor4f(.4,1,1,.5);
@@ -661,74 +617,30 @@ void draw_callback()
 			emissive(0);
 
 		// Montanhas
-			// glColor4f(.2,.7,.1,1);
-			// drawModel(0,-10,500,180,0,modelList.ground,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+GROUND);
 
 		// Apartamento (ainda)
-			// glColor4f(.1,.8,.8,.3);
-			// drawModel(0,-10,500,180,0,modelList.ap_serverglass,GLM_FLAT | GLM_MATERIAL);
 			glCallList(inicio_lista+AP_SERVERGLASS);
 			glColor4f(.1,.5,.5,.3);
 			drawModel(0,-10+p[APELEVATOR].y,500,180,0,modelList.ap_elevatorglass,GLM_FLAT | GLM_MATERIAL);
 
-		/*glColor4f(0,0,1,1);
-		drawAIRPLANE(0,-10,750,1000);*/
-
-		/*glColor4f(1,1,0,1);//(1,0,0,1);
-		drawWireCube(0,0,-50,10);
-
-		glColor4f(1,0.5,0.5,1);
-		drawWireCube(50,0,0,10);
-
-		glColor4f(1,1,0,1);
-		drawWireCube(-50,0,0,10);
-
-		glColor4f(1,0,1,1);
-		drawWireCube(0,0,50,10);*/
-
 
 		// OBS: o que precisa ser desenhado com transparencia precisa ser desenhado por último
-		// glPushMatrix();
-		// 	glScalef(1,2,1);	
-		// 	emissive(.4);
-		// 		glColor4f(.7,.6,.5,.3);
-		// 		drawModel(0,-10,500,180,0,modelList.sLamp,GLM_FLAT | GLM_MATERIAL);
-		// glPopMatrix();
-		glCallList(inicio_lista+SLAMP);
+			glCallList(inicio_lista+SLAMP);
 
 	glPopMatrix();
-
-
-	// // Mudar Projeção
-	// 	glMatrixMode (GL_PROJECTION);
-	// 	glLoadIdentity ();
-
-	// 	//gluPerspective(65.0, (GLfloat) w/(GLfloat) h, 1.0, 10000000.0);
-	// 	glOrtho(0, width, 0, height, -1.0, 1.0);
-
-	// 	glMatrixMode(GL_MODELVIEW);
 
 	glPushMatrix();
 	    glTranslatef(0,0,-10);
 	    glColor4f(1,1,1,1);
-		glDisable(GL_DEPTH_TEST);
-	    drawText(GLUT_BITMAP_HELVETICA_18,cam.display_text.c_str(),0,0);
+		glDisable(GL_DEPTH_TEST);	// Evita que, eventualmente, algo venha a ficar entre a camera e o texto (não o mostrando)
+	    // drawText(GLUT_BITMAP_HELVETICA_18,cam.display_text.c_str(),0,0);		// Muito lag ainda, não sei pq
 	    glEnable(GL_DEPTH_TEST);
 	glPopMatrix();
 
-	// // Retornar
-	// 	glMatrixMode (GL_PROJECTION);
-	// 	glLoadIdentity ();
-
-	// 	gluPerspective(65.0, (GLfloat) width/(GLfloat) height, 1.0, 10000000.0);
-	// 	//glOrtho(0, w, 0, h, -1.0, 1.0);
-
-	// 	glMatrixMode(GL_MODELVIEW);
-
-	// glEndList();	// Fecha lista de desenho
-	// glCallList(lista);	// Envia a lista pronta para ser desenhada
-	// glDeleteLists(lista, 1);	// Deleta a lista usada
+	glEndList();	// Fecha lista de desenho
+	glCallList(frame);	// Envia a lista pronta para ser desenhada
+	glDeleteLists(frame, 1);	// Deleta a lista usada
 	
 	glutSwapBuffers();
 }
@@ -751,6 +663,8 @@ void update_callback(int)
 
 	if(keyState['i'])
 		increment+=20;
+	if(keyState['I'])
+		increment+=200;
 
 	glutTimerFunc(((double)1000)/FPS,update_callback,0); 
 	// glutPostRedisplay();
@@ -786,6 +700,7 @@ void keyPress_callback(unsigned char key, int x, int y)
 		cam.eye.y=0;
 		cam.eye.x=0;
 		cam.eye.z=1133.5;
+		cam.degree=180;
 		cam.apLimit();
 	}
 	else if(keyState['r'] && cam.canWarp == 2)
@@ -796,6 +711,7 @@ void keyPress_callback(unsigned char key, int x, int y)
 			cam.eye.y=0;
 			cam.eye.x=-110;
 			cam.eye.z=780;
+			cam.degree=180;
 			cam.groundLimit();
 		}
 	}
@@ -872,10 +788,10 @@ int main(int argc, char** argv)
 	//glutInitContextVersion(1,1);
 	//glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
 	glutInitDisplayMode (GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize (1024, 768);
+	glutInitWindowSize (1366, 768);
 	glutInitWindowPosition (0, 0);
 	glutCreateWindow ("TP2");
-	// glutFullScreen();
+	glutFullScreen();
 
 	init();
 	initAL();

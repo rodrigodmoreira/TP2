@@ -35,7 +35,7 @@ class Camera
 	Camera()
 	{
 		this->mode=1;
-		this->spd=1;
+		this->spd=0;
 		this->height=2;
 		this->ground=0;
 		this->vspd=0;

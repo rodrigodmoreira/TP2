@@ -59,8 +59,8 @@ ALboolean bindALData(ALuint &Buffer, ALuint &Source, ALfloat *SourcePos, ALfloat
         alSourcef (Source, AL_PITCH,    1.0      );	// Tom do som
         alSourcef (Source, AL_GAIN,     1.0      ); // Ganho/volume
 		alSourcef (Source, AL_ROLLOFF_FACTOR, 1 );
-		alSourcef (Source, AL_REFERENCE_DISTANCE, 50.0 );
-		alSourcef (Source, AL_MAX_DISTANCE, 400.0 );
+		alSourcef (Source, AL_REFERENCE_DISTANCE, 5000.0 );
+		alSourcef (Source, AL_MAX_DISTANCE, 4000.0 );
         alSourcefv(Source, AL_POSITION, SourcePos);	// Posição da fonte no mundo
         alSourcefv(Source, AL_VELOCITY, SourceVel);	// Velocidade da fonte - Doppler manda abraços
         alSourcei (Source, AL_LOOPING,  loop 	 );	// Definir se realiza loop ou não

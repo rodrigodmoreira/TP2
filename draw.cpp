@@ -8,9 +8,9 @@
 using namespace std;
 
 enum LISTAS {BUILD01=0,ASPHALT,WALKWAY,POSTE,AP_BED,AP_BLUEBUTTON,AP_REDBUTTON,AP_LAMP,AP_COFFEE,AP_ELEVATOR,
-                AP_KEYBOARD,AP_PILLOW,AP_PS4,AP_SERVERSIDE,AP_SERVERTOWER,AP_TAPETE,AP_WALL,AP_WIRE,AP_WOOD,AP_GLASS,AP_TOPHOUSE,
+                AP_KEYBOARD,AP_PILLOW,AP_SOFA,AP_PS4,AP_SERVERSIDE,AP_SERVERTOWER,AP_TAPETE,AP_WALL,AP_WIRE,AP_WOOD,AP_GLASS,AP_TOPHOUSE,
                 MAIN_WINDOWS,MAIN_BODY,MAIN_LATERAL,MAIN_RING,MAIN_ELEVATOR,MAIN_GROUNDLIGHT,MAIN_LEAF,MAIN_WOOD,MAIN_VASE,MAIN_MESA,
-                MAIN_TAPETE,MAIN_SOFA,MAIN_HALL_GENERIC,GROUND,AP_SERVERGLASS,SLAMP};
+                MAIN_TAPETE,MAIN_SOFA,MAIN_HALL_GENERIC,GROUND,AP_SERVERGLASS,SLAMP,CITY_LEAVES,CITY_TREES,CITY_GLASS};
 
 void emissive(double alpha)
 {
@@ -20,20 +20,20 @@ void emissive(double alpha)
 
 GLuint generateDisplayLists(ModelList modelList)
 {
-        GLuint inicio_lista = glGenLists(41); // 41 objetos estáticos até o momento
+        GLuint inicio_lista = glGenLists(50); // numero objetos estáticos (um pouco maior na realidade)
 
         glNewList(inicio_lista+BUILD01, GL_COMPILE);   // Abre nova lista para compilar (guardar)
-                glColor4f(1,1,1,1);
+                glColor4f(.53,.73,.78,1);
                 drawModel(0,-10,500,180,0,modelList.build01,GLM_FLAT | GLM_MATERIAL);
         glEndList();
 
         glNewList(inicio_lista+ASPHALT, GL_COMPILE);
-                glColor4f(.3,.3,.3,1);
+                glColor4f(.21,.24,.31,1);
                 drawModel(0,-10,500,180,0,modelList.asphalt,GLM_FLAT | GLM_MATERIAL);
         glEndList();
 
         glNewList(inicio_lista+WALKWAY, GL_COMPILE);
-                glColor4f(.4,.4,.4,1);
+                glColor4f(.33,.39,.41,1);
                 drawModel(0,-10,500,180,0,modelList.walkway,GLM_FLAT | GLM_MATERIAL);
         glEndList();
 
@@ -46,7 +46,7 @@ GLuint generateDisplayLists(ModelList modelList)
         glEndList();
 
         glNewList(inicio_lista+AP_BED, GL_COMPILE);
-                glColor4f(.63,.41,.84,1);
+                glColor4f(.17,.28,.29,1);
                 drawModel(0,-10,500,180,0,modelList.ap_bed,GLM_FLAT | GLM_MATERIAL);
         glEndList();
 
@@ -81,12 +81,17 @@ GLuint generateDisplayLists(ModelList modelList)
         glEndList();
         
         glNewList(inicio_lista+AP_PILLOW, GL_COMPILE);
-                glColor4f(1,1,1,1);
+                glColor4f(.26,.42,.41,1);
                 drawModel(0,-10,500,180,0,modelList.ap_pillow,GLM_FLAT | GLM_MATERIAL);
+        glEndList();
+
+        glNewList(inicio_lista+AP_SOFA, GL_COMPILE);
+                glColor4f(.84,.89,.75,1);
+                drawModel(0,-10,500,180,0,modelList.ap_sofa,GLM_FLAT | GLM_MATERIAL);
         glEndList();
         
         glNewList(inicio_lista+AP_PS4, GL_COMPILE);
-                glColor4f(.4,.4,.4,1);
+                glColor4f(.2,.2,.3,1);
                 drawModel(0,-10,500,180,0,modelList.ap_ps4,GLM_FLAT | GLM_MATERIAL);
         glEndList();
         
@@ -101,22 +106,22 @@ GLuint generateDisplayLists(ModelList modelList)
         glEndList();
         
         glNewList(inicio_lista+AP_TAPETE, GL_COMPILE);
-                glColor4f(.2,.1,.9,1);
+                glColor4f(.50,.63,.42,1);
                 drawModel(0,-10,500,180,0,modelList.ap_tapete,GLM_FLAT | GLM_MATERIAL);
         glEndList();
         
         glNewList(inicio_lista+AP_WALL, GL_COMPILE);
-                glColor4f(1,.98,.25,1);
+                glColor4f(.73,.81,.59,1);
                 drawModel(0,-10,500,180,0,modelList.ap_wall,GLM_FLAT | GLM_MATERIAL);
         glEndList();
         
         glNewList(inicio_lista+AP_WIRE, GL_COMPILE);
-                glColor4f(1,.6,.14,1);
+                glColor4f(.43,.55,.35,1);
                 drawModel(0,-9,500,180,0,modelList.ap_wire,GLM_FLAT | GLM_MATERIAL);
         glEndList();
         
         glNewList(inicio_lista+AP_WOOD, GL_COMPILE);
-                glColor4f(.96,.88,.64,1);
+                glColor4f(.13,.18,.31,1);
                 drawModel(0,-10,500,180,0,modelList.ap_wood,GLM_FLAT | GLM_MATERIAL);
         glEndList();
         
@@ -131,9 +136,11 @@ GLuint generateDisplayLists(ModelList modelList)
         glEndList();
         
         glNewList(inicio_lista+MAIN_WINDOWS, GL_COMPILE);
-                glColor4f(.4,1,1,.5);
-                drawModel(0,-10,500,180,0,modelList.main_insidewindow,GLM_FLAT | GLM_MATERIAL);
-                drawModel(0,-10,500,180,0,modelList.main_window,GLM_FLAT | GLM_MATERIAL);
+                emissive(.2);
+                        glColor4f(.4,1,1,.3);
+                        drawModel(0,-10,500,180,0,modelList.main_insidewindow,GLM_FLAT | GLM_MATERIAL);
+                        drawModel(0,-10,500,180,0,modelList.main_window,GLM_FLAT | GLM_MATERIAL);
+                emissive(0);
         glEndList();
         
         glNewList(inicio_lista+MAIN_BODY, GL_COMPILE);
@@ -197,8 +204,25 @@ GLuint generateDisplayLists(ModelList modelList)
         glEndList();
         
         glNewList(inicio_lista+GROUND, GL_COMPILE);
-                glColor4f(.2,.7,.1,1);
-                drawModel(0,-10,500,180,0,modelList.ground,GLM_FLAT | GLM_MATERIAL);
+                glColor4f(.2,.7,.35,1);
+                drawModel(0,-30,500,180,0,modelList.ground,GLM_FLAT | GLM_MATERIAL);
+        glEndList();
+
+        glNewList(inicio_lista+CITY_LEAVES, GL_COMPILE);
+                glPushMatrix();
+                        glScalef(1,.8,1);
+                        glColor4f(.2,.7,.35,1);
+                        drawModel(0,-10,500,180,0,modelList.city_leaves,GLM_FLAT | GLM_MATERIAL);
+                glPopMatrix();
+        glEndList();
+
+        glNewList(inicio_lista+CITY_TREES, GL_COMPILE);
+                glPushMatrix();
+                        glScalef(1,.8,1);
+                        glTranslatef(0,-5,0);
+                        glColor4f(.6,.5,.45,1);
+                        drawModel(0,-10,500,180,0,modelList.city_trees,GLM_FLAT | GLM_MATERIAL);
+                glPopMatrix();
         glEndList();
         
         glNewList(inicio_lista+AP_SERVERGLASS, GL_COMPILE);
@@ -209,23 +233,19 @@ GLuint generateDisplayLists(ModelList modelList)
         glNewList(inicio_lista+SLAMP, GL_COMPILE);
                 glPushMatrix();
                         glScalef(1,2,1);        
-                        emissive(.4);
-                                glColor4f(.7,.6,.5,.3);
+                        emissive(.7);
+                                glColor4f(.7,.6,64,.2);
                                 drawModel(0,-10,500,180,0,modelList.sLamp,GLM_FLAT | GLM_MATERIAL);
+                        emissive(0);
                 glPopMatrix();
         glEndList();
-        
-        // glNewList(inicio_lista, GL_COMPILE);
-        // glEndList();
-        
-        // glNewList(inicio_lista, GL_COMPILE);
-        // glEndList();
-        
-        // glNewList(inicio_lista, GL_COMPILE);
-        // glEndList();
-        
-        // glNewList(inicio_lista, GL_COMPILE);
-        // glEndList();        
+
+        glNewList(inicio_lista+CITY_GLASS, GL_COMPILE);
+                emissive(.2);
+                        glColor4f(.4,1,1,.3);
+                        drawModel(0,-10,500,180,0,modelList.city_glass,GLM_FLAT | GLM_MATERIAL);
+                emissive(0);
+        glEndList();
 
         return inicio_lista;
 }
@@ -248,17 +268,31 @@ void drawSun(double increment)
 {
         glPushMatrix();
 
-                glRotatef(increment/60,0,0,1);
+                glRotatef(increment,0,0,1);
                 glRotatef(25,1,0,0);
                 glTranslatef(0,1000000,0);
-                glColor4f(1,1,0,1);
-                solMaterial();
-                glutSolidSphere(200000,10,10);
                 
-                {
-                        GLfloat d[4] = {0,0,0,1};
-                        glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,d);
-                }
+                emissive(.5);
+                        glColor4f(1,1,0,1);
+                        solMaterial();
+                        glutSolidSphere(200000,10,10);
+                emissive(.0);
+        glPopMatrix();
+}
+
+void drawMoon(double increment)
+{
+        glPushMatrix();
+
+                glRotatef(increment,0,0,1);
+                glRotatef(25,1,0,0);
+                glTranslatef(0,500000,0);
+                
+                emissive(.8);
+                        glColor4f(.5,1,1,1);
+                        solMaterial();
+                        glutSolidSphere(50000,10,10);
+                emissive(0);
         glPopMatrix();
 }
 
@@ -269,10 +303,7 @@ void drawModel(double x,double y, double z, double degree, double sdegree, GLMmo
                 glRotated(sdegree,0,0,1);
                 glRotated(degree,0,1,0);
                 glmDraw(model,shading);
-                // GLuint list = glmList(model,shading);
         glPopMatrix();
-
-        // glCallLists(1, GL_UNSIGNED_BYTE, &list);
 }
 
 void drawWireCube(double x,double y,double z,double size)
@@ -280,68 +311,8 @@ void drawWireCube(double x,double y,double z,double size)
 	size/=2;
 	glPushMatrix();
 	
-	    glTranslatef (x, y+size, z);
-        //glutWireCube (size);
-	    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-
-        glBegin(GL_TRIANGLE_FAN);
-
-                glColor3f(  0,  0, 1.0 );
-                glVertex3d(-size/2,-size/2,-size/2);
-                glVertex3d(-size/2,size/2,-size/2);
-                glVertex3d(size/2,size/2,-size/2);
-                glVertex3d(size/2,-size/2,-size/2);
-                //glVertex3d(-size/2,-size/2,-size/2);
-
-                glColor3f(   0,  0, 1.0 );
-                glVertex3d(-size/2,-size/2,size/2);
-                glVertex3d(-size/2,size/2,size/2);
-                glVertex3d(size/2,size/2,size/2);
-                glVertex3d(size/2,-size/2,size/2);
-                //glVertex3d(-size/2,-size/2,size/2);
-
-                glColor3f(   0,  1.0, 0 );
-                glVertex3d(-size/2,-size/2,-size/2);
-                glVertex3d(-size/2,-size/2,+size/2);
-                glVertex3d(-size/2,size/2,size/2);
-                glVertex3d(-size/2,size/2,-size/2);
-                //glVertex3d(-size/2,-size/2,-size/2);
-
-                glColor3f(   0,  1.0, 0 );
-                glVertex3d(size/2,-size/2,-size/2);
-                glVertex3d(size/2,-size/2,+size/2);
-                glVertex3d(size/2,size/2,size/2);
-                glVertex3d(size/2,size/2,-size/2);
-                //glVertex3d(size/2,-size/2,-size/2);
-
-                glColor3f(   1.0,  0, 0 );
-                glVertex3d(-size/2,-size/2,-size/2);
-                glVertex3d(-size/2,-size/2,size/2);
-                glVertex3d(size/2,-size/2,size/2);
-                glVertex3d(size/2,-size/2,-size/2);
-                //glVertex3d(-size/2,-size/2,-size/2);
-
-                glColor3f(   1.0,  0, 0 );
-                glVertex3d(-size/2,size/2,-size/2);
-                glVertex3d(-size/2,size/2,size/2);
-                glVertex3d(size/2,size/2,size/2);
-                glVertex3d(size/2,size/2,-size/2);
-                //glVertex3d(-size/2,size/2,-size/2);
-                
-
-                /*
-        	glVertex3d(-size,0,size);
-        	glVertex3d(size,0,size);
-        	glVertex3d(size,0,-size);
-        	glVertex3d(-size,0,-size);
-        	glVertex3d(-size,size*2,-size);
-        	glVertex3d(size,size*2,-size);
-        	glVertex3d(size,size*2,size);
-        	glVertex3d(-size,size*2,size);
-                */
-        glEnd();
-
-	    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+                glTranslatef (x, y+size, z);
+                glutWireCube (size);
 	
 	glPopMatrix();
 }

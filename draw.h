@@ -37,6 +37,7 @@ typedef struct ModelList{
 	GLMmodel* ap_keyboard;
 	GLMmodel* ap_lamp;
 	GLMmodel* ap_pillow;
+	GLMmodel* ap_sofa;
 	GLMmodel* ap_ps4;
 	GLMmodel* ap_redbutton;
 	GLMmodel* ap_serverglass;
@@ -54,9 +55,13 @@ typedef struct ModelList{
 	GLMmodel* poste;
 	GLMmodel* sLamp;
 	GLMmodel* airplane;
+	GLMmodel* city_trees;
+	GLMmodel* city_leaves;
+	GLMmodel* city_glass;
 } ModelList;
 // function prototypes, etc.
 void drawSun(double increment);
+void drawMoon(double increment);
 void drawModel(double x,double y, double z,double degree, double sdegree, GLMmodel* model, GLuint shading);
 void drawWireCube(double x,double y,double z,double size);
 void drawSolidCube(double x,double y,double z,double vdegree,double hdegree,double size);
