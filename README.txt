@@ -83,3 +83,4 @@
 							e não havia tempo disponível para explorar o openAL)
 						(na realidade, por algum motivo, dá certo para sons na origem do mundo, mas ainda é necessário
 							uma pesquisa para compreender o comportamento da biblioteca )
+			@ Música: Vance Joy - Lay It On Me (Said The Sky Remix)
