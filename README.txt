@@ -8,18 +8,32 @@
 
 /****************************************************************************************************************/
 
-										Bibliotecas: 	-lglut
-														-lGLU
-														-lGL
-														-lGLEW
-														-lSOIL
-														-lm
-														-lopenal
-														-lalut
+										Bibliotecas:
+										 	
+													-lglut
+													-lGLU
+													-lGL
+													-lGLEW
+													-lSOIL
+													-lm
+													-lopenal
+													-lalut
 
 /****************************************************************************************************************/
 
-					Compilação: desta vez, basta um "make run" na pasta principal =D
+				Compilação:
+
+							desta vez, basta um "make run" na pasta principal =D
+
+/****************************************************************************************************************/
+
+				Controles:
+
+					- WASD para movimentar personagem
+					- Barra de espaço (segurar) para correr
+					- M para mudar modo de controle da camera (mouse+kb default)
+					- I para se tornar Cronos e acelerar o tempo
+					- J para pular (em alguns momentos)(totalmente proposital essa limitação o.o' )
 
 /****************************************************************************************************************/
 
@@ -70,6 +84,7 @@
 
 	# .obj
 		- Carregamento de tudo realizado por um carregador de obj (vlw Nate =P)
+			@ Autor: Nate Robins
 
 	# Colisão
 		- Meio roubado, mas há uma colisão mais externa com o mapa e, caso esteja no apartamento,
