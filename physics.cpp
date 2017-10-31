@@ -110,11 +110,44 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 	// Setar velocidade -> correr/andar
 		if(keyState[' '])
 		{
+			if(!(keyState['w']||keyState['s']||keyState['a']||keyState['d']||keyState['q']||keyState['e'])) // Caso esteja parado
+			{
+				// Fov
+					if(cam.fov>65)
+						cam.fov-=1;
+					else
+						cam.fov=65;
+			}
+			else
+			{
+				// fov
+				if(cam.fov<80)
+					cam.fov+=.4;
+			}
+
 			cam.spd=2;
 			cam.bob+=5;
 		}
 		else
+		{
+
+			if(!(keyState['w']||keyState['s']||keyState['a']||keyState['d']||keyState['q']||keyState['e'])) // Caso esteja parado
+			{
+				// Fov
+					if(cam.fov>65)
+						cam.fov-=1;
+					else
+						cam.fov=65;
+			}
+			else
+			{
+				// fov
+				if(cam.fov<70)
+					cam.fov+=.1;
+			}
+
 			cam.spd=1;
+		}
 	
 	// Movimentação
 		// Checar se não atingiu os limites delimitados pela área em que estou (chão ou apartamento)
@@ -145,13 +178,13 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 	// Realiza movimentação da cabeça
 		if(!(keyState['w']||keyState['s']||keyState['a']||keyState['d']||keyState['q']||keyState['e'])) // Caso esteja parado
 		{
-			cam.bob+=2;	// Sacudir levemente a camera
+				cam.bob+=2;	// Sacudir levemente a camera
 
-			cam.hspd=0;
-			/*if(cam.hspd>0)
-				cam.hspd-=.01;
-			else
-				cam.hspd=0;*/ //Para fricção, será necessário manter atualizando sempre o "walkFoward", algo que não acontece na lógica atual
+				cam.hspd=0;
+				/*if(cam.hspd>0)
+					cam.hspd-=.01;
+				else
+					cam.hspd=0;*/ //Para fricção, será necessário manter atualizando sempre o "walkFoward", algo que não acontece na lógica atual
 		}
 		else	// Caso esteja andando
 		{

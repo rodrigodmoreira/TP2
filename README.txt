@@ -74,6 +74,7 @@
 		- gluPerspective
 		- HEAD BOBBING =D / Respiração (se intensifica durante a corrida)
 		- Utilização de mouse para guiar a câmera
+		- FOV dinâmico (andar/correr aumenta o fov)
 
 	# Gráficos
 		- Modelo de iluminação configurado (Gourad)

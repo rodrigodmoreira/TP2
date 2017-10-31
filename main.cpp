@@ -514,7 +514,17 @@ double from0toX(double x,double defasamento,double spd)
 
 void draw_callback()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// Fov dinamico
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		glMatrixMode (GL_PROJECTION);
+		glLoadIdentity ();
+
+		gluPerspective(cam.fov, (GLfloat) width/(GLfloat) height, 1.0, 10000000.0);
+		//glOrtho(0, w, 0, h, -1.0, 1.0);
+
+		glMatrixMode(GL_MODELVIEW);
+
 	// if(cam.display_text!="")
 	// 	glutWireCube(10);
 

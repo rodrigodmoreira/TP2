@@ -20,6 +20,7 @@ class Camera
 		double vdegree;	// angulo vertical de movimentação da cabeça
 		double bob;	// angulo correspondente ao sacudir da cabeça
 		double mousesense;	// constante para movimento linear do mouse
+		double fov;
 		bool running;	// is running
 		int mode;	// camera mode
 		int canWarp;
@@ -34,6 +35,7 @@ class Camera
 
 	Camera()
 	{
+		this->fov=65.0;
 		this->mode=1;
 		this->spd=0;
 		this->height=2;
