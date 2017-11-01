@@ -140,6 +140,7 @@ void initPos()
 
 void init()
 {
+	glClearAccum (0.4, 0.8, 1.0, 1.0);
 	glClearColor (0.4, 0.8, 1.0, 1.0);
 
 	// Show/hide mouse
@@ -149,6 +150,7 @@ void init()
 		// Enable Depth Test
 			glEnable(GL_DEPTH_TEST);
 			glDepthFunc(GL_LESS);
+			glDepthRange(0,1000);
 
 		// Enable Color Material
 			glEnable(GL_COLOR_MATERIAL);
@@ -191,24 +193,6 @@ void init()
 			GLfloat e[] = {0,0,0,1};
 			glLightfv(GL_LIGHT0,GL_CONSTANT_ATTENUATION,e);
 		} // Isso pq n encontrei uma forma bacana de reaproveitar o mesmo vetor atribuindo valores direto igual a {x1,x2,x3,x4}
-
-		// glEnable(GL_LIGHT1);
-		// { // apenas para criar/limitar escopo de a/b/c/d/e
-		// 	GLfloat a[] = {.1,.1,.1,1};
-		// 	glLightfv(GL_LIGHT1,GL_AMBIENT,a);
-
-		// 	GLfloat b[] = {1,1,1,1};
-		// 	glLightfv(GL_LIGHT1,GL_DIFFUSE,b);
-
-		// 	GLfloat c[] = {.05,.1,.1,1};
-		// 	glLightfv(GL_LIGHT1,GL_SPECULAR,c);
-
-		// 	GLfloat d[] = {100,1352,800,1};
-		// 	glLightfv(GL_LIGHT1,GL_POSITION,d);
-
-		// 	GLfloat e[] = {.1,.1,.1,1};
-		// 	glLightfv(GL_LIGHT1,GL_LINEAR_ATTENUATION,e);
-		// }
 
 
 	// Carregar obj
@@ -490,7 +474,7 @@ void init()
 		frame = glGenLists(1);
 }
 
-void drawText(void* font, string str, double x, double y)
+void drawText(void* font, char* str, double x, double y)
 {
 	// glPushMatrix();
 
@@ -498,8 +482,11 @@ void drawText(void* font, string str, double x, double y)
 		// glScalef(100,100,100);
 		glRasterPos2d(x,y);
 
-		for(int i=0;i<str.size();i++)
-		glutBitmapCharacter(font,str[i]);
+		// const unsigned char* t = reinterpret_cast<const unsigned char *>(str); // NEM INVOCANDO SATÃ ISSO FUNCIONA
+		// glutBitmapString(font,t);
+
+		for(int i=0;str[i]!='\0';i++)
+			glutBitmapCharacter(font,str[i]);
 
 	// glPopMatrix();
 }
@@ -514,9 +501,9 @@ double from0toX(double x,double defasamento,double spd)
 
 void draw_callback()
 {
-	// Fov dinamico
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	// Fov dinamico
 		glMatrixMode (GL_PROJECTION);
 		glLoadIdentity ();
 
@@ -524,9 +511,6 @@ void draw_callback()
 		//glOrtho(0, w, 0, h, -1.0, 1.0);
 
 		glMatrixMode(GL_MODELVIEW);
-
-	// if(cam.display_text!="")
-	// 	glutWireCube(10);
 
 	//	Criar lista para guardar desenho todo 
 	//	Resolve problema de objetos piscando na tela (pode ser estranho a solução, mas resolveu)(parte...)
@@ -640,18 +624,38 @@ void draw_callback()
 
 	glPopMatrix();
 
-	glPushMatrix();
-	    glTranslatef(0,0,-10);
-	    glColor4f(1,1,1,1);
-		glDisable(GL_DEPTH_TEST);	// Evita que, eventualmente, algo venha a ficar entre a camera e o texto (não o mostrando)
-	    // drawText(GLUT_BITMAP_HELVETICA_18,cam.display_text.c_str(),0,0);		// Muito lag ainda, não sei pq
-	    glEnable(GL_DEPTH_TEST);
-	glPopMatrix();
+
+	// Infelizmente, continua dando lag mesmo sem atribuir nada
+
+	// if(cam.display_text!=0)
+	// {
+	// 	glPushMatrix();
+	// 	    glTranslatef(0,0,-10);
+	// 	    glColor4f(1,1,1,1);
+			
+	// 		glDisable(GL_DEPTH_TEST);	// Evita que, eventualmente, algo venha a ficar entre a camera e o texto (não o mostrando)
+		    	
+	// 	    	if(cam.display_text==1)
+	// 	    		drawText(GLUT_BITMAP_HELVETICA_18,"Pressione R para subir",0,0);
+	// 	    	else if(cam.display_text==2)
+	// 	    		drawText(GLUT_BITMAP_HELVETICA_18,"Pressione R para descer",0,0);
+
+	// 	    glEnable(GL_DEPTH_TEST);
+	// 	glPopMatrix();	
+	// }
 
 	glEndList();	// Fecha lista de desenho
 	glCallList(frame);	// Envia a lista pronta para ser desenhada
 	glDeleteLists(frame, 1);	// Deleta a lista usada
 	
+	if(cam.accum)
+	{
+		float q = 0.15f;
+		glAccum(GL_MULT, q);
+		glAccum(GL_ACCUM, 1-q);
+		glAccum(GL_RETURN, 1.0);
+	}
+
 	glutSwapBuffers();
 }
 
@@ -704,7 +708,7 @@ void reshape_callback(int w, int h)
 void keyPress_callback(unsigned char key, int x, int y)
 {
 	// Cam Warp / mudar de andar
-	if(keyState['r'] && cam.canWarp == 1)
+	if(keyState['r'] && cam.display_text == 1)
 	{
 		cam.ground=1352;
 		cam.eye.y=0;
@@ -713,7 +717,7 @@ void keyPress_callback(unsigned char key, int x, int y)
 		cam.degree=180;
 		cam.apLimit();
 	}
-	else if(keyState['r'] && cam.canWarp == 2)
+	else if(keyState['r'] && cam.display_text == 2)
 	{
 		if(keyState['r'])
 		{
@@ -724,6 +728,17 @@ void keyPress_callback(unsigned char key, int x, int y)
 			cam.degree=180;
 			cam.groundLimit();
 		}
+	}
+
+	if(cam.accum)
+	{
+		if(key=='k')
+			cam.accum=false;
+	}
+	else
+	{
+		if(key=='k')
+			cam.accum=true;
 	}
 
 
@@ -797,10 +812,10 @@ int main(int argc, char** argv)
 	glutInit(&argc, argv);
 	//glutInitContextVersion(1,1);
 	//glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
-	glutInitDisplayMode (GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
+	glutInitDisplayMode (GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB | GLUT_ACCUM);
 	glutInitWindowSize (1366, 768);
 	glutInitWindowPosition (0, 0);
-	glutCreateWindow ("TP2");
+	glutCreateWindow ("TP2 - thePerfectAP (whithout bathroom and ktchen, but who needs it anyway)");
 	glutFullScreen();
 
 	init();

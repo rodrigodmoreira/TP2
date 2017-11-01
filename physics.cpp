@@ -59,26 +59,22 @@ void calculatePhysics(int* keyState,Camera &cam,Ponto *p,double increment)
 			if((cam.eye.x >= -120 && cam.eye.x <= -100 && cam.eye.z <= 795 && cam.eye.z >= 765) ||
 				(cam.eye.x <= 120 && cam.eye.x >= 100 && cam.eye.z <= 795 && cam.eye.z >= 765) )
 			{
-				cam.display_text = "Pressione R para subir o elevador";
-				cam.canWarp=1;
+				cam.display_text=1;
 			}
 			else
 			{
-				cam.canWarp=0;
-				cam.display_text = "";
+				cam.display_text=0;
 			}
 		}
 		else if(cam.ground >= 1345 && cam.ground <= 1360) // Se está no apartamento
 		{
 			if(cam.eye.x >= -25 && cam.eye.x <= 25 && cam.eye.z <= 1145 && cam.eye.z >= 1125 && cam.ground >=-5)
 			{
-				cam.display_text = "Pressione R para descer o elevador";
-				cam.canWarp=2;
+				cam.display_text=2;
 			}
 			else
 			{
-				cam.canWarp=0;
-				cam.display_text = "";
+				cam.display_text=0;
 			}
 		}
 

@@ -32,8 +32,9 @@
 					- WASD para movimentar personagem
 					- Barra de espaço (segurar) para correr
 					- M para mudar modo de controle da camera (mouse+kb default)
-					- I para se tornar Cronos e acelerar o tempo
-					- J para pular (em alguns momentos)(totalmente proposital essa limitação o.o' )
+					- I/i para se tornar Cronos e acelerar o tempo
+					- J para pular (em alguns momentos...)(totalmente proposital essa limitação o.o' )
+					- K para ativar motion blur (caso você possua uma batata mais potente que a minha xD )
 
 /****************************************************************************************************************/
 
@@ -82,6 +83,7 @@
 		- Skybox - feito 3D, com sol, lua e nuvens modelados 3d, além de estrelas procedurais animadas (piscam e aumentam tamanho)
 		- Ciclo dia e noite
 		- Fog
+		- Motion Blur
 
 	# .obj
 		- Carregamento de tudo realizado por um carregador de obj (vlw Nate =P)

@@ -22,19 +22,20 @@ class Camera
 		double mousesense;	// constante para movimento linear do mouse
 		double fov;
 		bool running;	// is running
+		int display_text;
 		int mode;	// camera mode
-		int canWarp;
+		bool accum;
 		Ponto eye;
 		Ponto maxlimit;
 		Ponto minlimit;
 		Ponto mlast; // mouse last position
-		std::string display_text;
 
 	void groundLimit(); // Configura borda no chão
 	void apLimit();	// configura borda no apartamento
 
 	Camera()
 	{
+		this->accum=false;
 		this->fov=65.0;
 		this->mode=1;
 		this->spd=0;
@@ -49,8 +50,7 @@ class Camera
 		this->eye={0,0,0,1}; // Posição no mundo
 		this->mlast={0,0,0,1};
 		this->mousesense=1;
-		this->display_text="";
-		this->canWarp=0;
+		this->display_text=0;
 		this->groundLimit();
 	}
 
